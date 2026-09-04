@@ -1,0 +1,46 @@
+{
+  "name": "Orbital Coffee Co.",
+  "tagline": "Fresh roasted beans, shipped before your alarm goes off.",
+  "docs": [
+    {
+      "id": "welcome",
+      "title": "Welcome to Orbital",
+      "body": "Orbital Coffee Co. roasts and ships coffee subscriptions to 40,000 homes. We are remote-first across 6 time zones. Our three values: Ship small, Say it in writing, Leave the campsite cleaner. New hires spend week one on the Quest. Every stop was written by someone who was new once too."
+    },
+    {
+      "id": "teams",
+      "title": "Teams and who owns what",
+      "body": "Grind team owns the roasting scheduler and the mobile app. Lead: Marcus Oyelaran. Channel: #grind.\nLedger team owns the billing service, invoices, and refunds. Lead: Priya Nair. Channel: #ledger.\nCompass team owns the website and the onboarding flow. Lead: Sofia Reyes. Channel: #compass.\nNova team is IT and internal tools. Lead: Dev Patel. Channel: #help-it.\nPeople team runs hiring, onboarding, and the buddy program. Lead: Amara Okafor. Channel: #people.\nIf you do not know who owns something, ask in #where-does-this-live. Nobody minds."
+    },
+    {
+      "id": "tools",
+      "title": "Laptops, access, and IT",
+      "body": "For any laptop, VPN, or access problem post in #help-it. Nova team watches it 9am to 6pm Pacific. Include three things: your laptop asset tag (a sticker on the bottom, starts with ORB-), what you tried, and the exact error text. Urgent and blocking? Add the word BLOCKED at the start of your message. Nova opens a ticket for you. You do not need to file one yourself."
+    },
+    {
+      "id": "glossary",
+      "title": "Glossary",
+      "body": "Bean count: the number of orders placed today. We watch it every morning.\nRoast window: 6am to 10am Pacific. All orders placed before 6am must ship in this window or they miss the truck.\nGrind: the roasting scheduler service, and also the team that owns it.\nBeacon: our paging system. If Beacon calls you, you are on call.\nCampsite rule: leave any code or doc you touch a little cleaner than you found it."
+    },
+    {
+      "id": "how-we-ship",
+      "title": "How we ship code",
+      "body": "1. Make a branch from main. Name it your-name/short-description.\n2. Keep the PR small. Under 200 lines is the goal. Split it if it grows.\n3. Open the PR with a one paragraph description that says why, not just what.\n4. Ask one reviewer. Not two. One. Post the link in your team channel.\n5. CI must be green. No exceptions, even for typos.\n6. Squash merge. The reviewer merges, not the author.\nYour first PR should be tiny on purpose. A typo fix counts. It teaches you the flow."
+    },
+    {
+      "id": "on-call",
+      "title": "On call and Beacon",
+      "body": "Each team runs a weekly on call rotation through Beacon. Severity levels: SEV1 means customers cannot order. SEV2 means orders are delayed or a team is blocked. SEV3 means it can wait until morning.\nWhen Beacon pages you: acknowledge the page within 10 minutes so it does not escalate. Open the runbook linked in the page. If you have not fixed it or found the cause in 30 minutes, escalate to the on call lead. Never sit alone with a SEV1 or SEV2. Asking for help is the rule, not a weakness.\nNew hires shadow on call for the first month and are never paged alone."
+    },
+    {
+      "id": "meetings",
+      "title": "Meetings and remote norms",
+      "body": "We are remote-first. Every meeting has a written agenda before it starts, or it gets cancelled. Default length is 25 minutes. Wednesdays have no meetings.\nOn calls: cameras are optional. If you want to speak and cannot find a gap, type 'hand' in the meeting's Slack thread. The host reads the thread queue in order before taking new speakers. This is so remote people in noisy or laggy connections get the same air time.\nDecisions made in a meeting are written in the thread within the hour. If it is not written, it did not happen."
+    },
+    {
+      "id": "coffee-chats",
+      "title": "Coffee chats and the buddy program",
+      "body": "Every new hire gets a buddy from a different team. Your buddy is not your manager. Ask them the questions you feel silly asking.\nIn week one, book at least one coffee chat with someone outside your own team. Use the #coffee-roulette channel or just DM them. People say yes. It is a 20 minute call, no agenda.\nRemote inclusion norm: when the office folks grab coffee, someone posts in #brew-chat so remote people can join by video. Nobody should learn about a decision because they missed the kitchen."
+    }
+  ]
+}

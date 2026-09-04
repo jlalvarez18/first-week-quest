@@ -1,13 +1,13 @@
 ---
 title: First Week Quest — Duolingo-style multiplayer onboarding (milestone 1)
-status: in-progress
+status: implemented
 created: 2026-09-04
 updated: 2026-09-04
 branch: main
 base_branch: null
 base_commit: null
 implementation_commits: null
-verification: pending
+verification: manual browser pass, build + lint green
 supersedes: []
 ---
 
@@ -92,7 +92,7 @@ Units 1 to 4 are sequential. 5 and 6 can run in parallel after 4. 7 last.
 
 ## Implementation outcome
 
-- Actual changes: pending
-- Plan deviations: pending
-- Verification evidence: pending
-- Deferred work: pending
+- Actual changes: all 7 units built. Next.js 16 app, 3 data files, grading route with Claude structured output + keyword fallback, path/lesson/finish UI, XP/streak/cheers, team board with 30s scripted demo, README, docs/rationale.md.
+- Plan deviations: connector lines between nodes were dropped (misaligned; Duolingo has none). "Show me" reveal awards half XP. Vercel deploy not run: CLI is logged out on this machine; user deploys.
+- Verification evidence: `npm run build` and `npm run lint` green. Browser pass: wrong answer -> hint; right answer -> pass, +10 XP, streak 1, two cheers; two misses -> "Show me" reveal; finish screen with confetti and share card; team board demo advances hires and bumps stuck bars; mobile viewport renders. No ANTHROPIC_API_KEY on this machine, so the Claude grading path is untested live; fallback path fully tested.
+- Deferred work: live Claude grading check with a key; Vercel deploy; grader eval set (3 right/3 wrong per stop).

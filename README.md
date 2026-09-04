@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# First Week Quest
 
-## Getting Started
+Onboarding is a list of links you read alone. First Week Quest turns week one into a
+Duolingo-style path you play with your team.
 
-First, run the development server:
+- **8 stops**, each a real week-one task at a fictional company (Orbital Coffee Co.).
+- **Claude grades** your answer against a per-stop rubric and the relevant wiki page.
+  Wrong answers cost nothing and earn a hint. The answer is only revealed after two misses.
+- **Multiplayer feel**: every stop carries a note from a teammate who was new once.
+  Finish a stop and the team cheers. Most of them are remote.
+- **Team board**: where new hires get stuck, counted per stop (never per person),
+  as a live signal for which docs need work.
+
+## Run it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # optional: add ANTHROPIC_API_KEY for Claude grading
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without a key the app uses a keyword grader so the demo always runs. Each result
+panel says which grader was used.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Demo mode
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Play as a new hire** — `/quest`. Progress lives in your browser.
+- **Watch a team** — `/team?play=1`. A 30 second scripted day: hires advance, get stuck, get cheered.
+- "Reset progress" / "Reset demo" buttons clear local state.
 
-## Learn More
+## Layout
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/quest        path + lesson screens          components/Path, Lesson, Finish
+app/team         team board + scripted demo     components/CheerToast, Mascot (Bean)
+app/api/grade    Claude grading endpoint        lib/grade.ts (prompt + fallback grader)
+data/*.json      company wiki, stops, people    lib/progress.ts (localStorage, XP, streak)
+docs/rationale.md  design rationale             docs/plans/  the plan this was built from
+```
