@@ -115,6 +115,14 @@ body {
 ::view-transition-new(lesson-main),
 ::view-transition-new(notes-column) { animation: none; }
 
+/* Sign-in -> SSO: Clay morphs (default group animation); the form drops away; the rest fades. */
+@keyframes vt-drop { to { opacity: 0; transform: translateY(24px) scale(0.98); } }
+::view-transition-old(signin-form) { animation: vt-drop 260ms var(--ease-out-expo) forwards; }
+::view-transition-old(signin-rest) { animation: fade-out 200ms ease-out forwards; }
+@keyframes fade-out { to { opacity: 0; } }
+::view-transition-new(sso-panel) { animation: none; }
+::view-transition-old(sso-panel) { display: none; }
+
 /* Hero morph: path node -> lesson header, via the View Transitions API.
    Only the opened stop shares a name, so only it travels; the rest crossfades. */
 ::view-transition-old(root),
