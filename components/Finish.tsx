@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Mascot from "./Mascot";
+import Confetti from "./Confetti";
 import type { Progress } from "@/lib/progress";
 import { PERSONA, STOPS, stopById } from "@/lib/data";
 import { firstName } from "@/lib/user";
@@ -63,26 +64,6 @@ function Stat({ label, value }: { label: string; value: string }) {
     <div className="rounded-2xl border-2 border-slate-200 bg-white p-3">
       <div className="text-2xl font-extrabold text-slate-800">{value}</div>
       <div className="text-xs font-bold uppercase tracking-wider text-slate-400">{label}</div>
-    </div>
-  );
-}
-
-function Confetti() {
-  const colors = ["#f59e0b", "#10b981", "#0ea5e9", "#ec4899", "#8b5cf6"];
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
-      {Array.from({ length: 40 }).map((_, i) => (
-        <span
-          key={i}
-          className="confetti absolute block h-2 w-2 rounded-sm"
-          style={{
-            left: `${(i * 37) % 100}%`,
-            background: colors[i % colors.length],
-            animationDelay: `${(i % 10) * 0.15}s`,
-            animationDuration: `${2.5 + (i % 5) * 0.4}s`,
-          }}
-        />
-      ))}
     </div>
   );
 }

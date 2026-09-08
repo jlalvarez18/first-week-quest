@@ -81,12 +81,25 @@ body {
 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 .shake { animation: shake 320ms ease-in-out; }
 
-/* Result bar: slides up from below the fold when a grade lands. */
-@keyframes result-in {
-  from { transform: translateY(24px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+/* Feedback toast drops in from the top edge. */
+@keyframes feedback-in {
+  from { transform: translateY(-28px) scale(0.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
 }
-.result-in { animation: result-in 320ms var(--ease-out-expo) both; }
+.feedback-in { animation: feedback-in 360ms var(--ease-out-expo) both; }
+
+/* Celebration: XP badge pops and drifts up; confetti showers once from the top. */
+@keyframes xp-float {
+  0% { transform: translateY(6px) scale(0.6); opacity: 0; }
+  30% { transform: translateY(0) scale(1.2); opacity: 1; }
+  100% { transform: translateY(-2px) scale(1); opacity: 1; }
+}
+.xp-float { animation: xp-float 700ms var(--ease-out-expo) both; }
+@keyframes confetti-burst {
+  0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+.confetti-burst { top: 0; animation: confetti-burst ease-in 1 both; }
 
 /* "Helped me" acknowledgement. */
 @keyframes helped-pop {
@@ -132,7 +145,8 @@ body {
 ::view-transition-new(*) { animation-duration: 460ms; animation-timing-function: var(--ease-out-expo); }
 
 @media (prefers-reduced-motion: reduce) {
-  .note-in, .result-in, .sidebar-in, .sheet-in, .enter, .fact-pulse, .shake { animation: none; }
+  .note-in, .feedback-in, .sidebar-in, .sheet-in, .enter, .fact-pulse, .shake, .xp-float { animation: none; }
+  .confetti-burst { display: none; }
   .tick { animation: none; border-top-color: #bae6fd; }
   .tick-done { animation: none; }
   .helped-pop { animation: none; }

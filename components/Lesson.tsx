@@ -3,6 +3,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import Mascot from "./Mascot";
 import NotesSidebar from "./NotesSidebar";
+import Confetti from "./Confetti";
 import { docById, notesForStop, type Stop } from "@/lib/data";
 import type { Grade } from "@/lib/grade";
 import type { Progress } from "@/lib/progress";
@@ -89,7 +90,7 @@ export default function Lesson({
   const mood = grade ? (grade.pass ? "party" : "think") : "happy";
 
   return (
-    <div className={`mx-auto grid w-full gap-7 pb-32 lg:items-start ${notesOpen ? "max-w-5xl lg:grid-cols-[1fr_340px]" : "max-w-2xl"}`}>
+    <div className={`mx-auto grid w-full gap-7 pb-16 lg:items-start ${notesOpen ? "max-w-5xl lg:grid-cols-[1fr_340px]" : "max-w-2xl"}`}>
     <div style={{ viewTransitionName: "lesson-main" }} className="flex w-full flex-col gap-5">
       <div className="flex items-center justify-between">
         <button type="button" onClick={onBack} className="text-sm font-bold text-slate-400 hover:text-slate-600">
@@ -236,19 +237,29 @@ export default function Lesson({
         document.body,
       )}
 
-      {/* Feedback bar, Duolingo style. Only appears once there is something to say. */}
+      {/* Feedback drops in from the top. On a pass it brings confetti and a floating XP badge. */}
       {grade && (
-        <div className={`result-in fixed inset-x-0 bottom-0 border-t-2 p-4 ${grade.pass ? "border-emerald-200 bg-emerald-50" : "border-amber-200 bg-amber-50"}`}>
-          <div className="mx-auto w-full max-w-5xl text-sm">
-            <div className={`text-lg font-extrabold ${grade.pass ? "text-emerald-700" : "text-amber-700"}`}>
-              {grade.pass ? (revealed ? "Okay, here it is" : "Nice!") : "Not quite"}
+        <div key={attempt + (grade.pass ? "-pass" : "-miss")} className="pointer-events-none fixed inset-x-0 top-4 z-40 flex justify-center px-4">
+          <div
+            role="status"
+            className={`feedback-in flex w-full max-w-2xl items-start gap-3 rounded-2xl border-2 bg-white p-4 shadow-[0_10px_30px_-12px_rgba(15,23,42,0.25)] ${
+              grade.pass ? "border-emerald-300" : "border-amber-300"
+            }`}
+          >
+            <Mascot mood={grade.pass ? "party" : "think"} size={44} />
+            <div className="min-w-0 flex-1 text-sm">
+              <div className={`text-lg font-extrabold ${grade.pass ? "text-emerald-700" : "text-amber-700"}`}>
+                {grade.pass ? (revealed ? "Okay, here it is" : "Nice!") : "Not quite"}
+                {grade.pass && !revealed && !alreadyDone && <span className="xp-float ml-2 inline-block text-base text-emerald-600">+{stop.xp} XP</span>}
+              </div>
+              <div className="text-slate-700">{grade.feedback}</div>
+              {!grade.pass && grade.hint && <div className="mt-1 text-slate-600">💡 {grade.hint}</div>}
+              <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-400">graded by {grade.grader}</div>
             </div>
-            <div className="text-slate-700">{grade.feedback}</div>
-            {!grade.pass && grade.hint && <div className="mt-1 text-slate-600">💡 {grade.hint}</div>}
-            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-400">graded by {grade.grader}</div>
           </div>
         </div>
       )}
+      {grade?.pass && !revealed && <Confetti burst count={48} />}
     </div>
   );
 }
