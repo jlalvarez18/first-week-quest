@@ -90,7 +90,7 @@ export default function Lesson({
   const mood = grade ? (grade.pass ? "party" : "think") : "happy";
 
   return (
-    <div className={`mx-auto grid w-full gap-7 pb-40 lg:items-start ${notesOpen ? "max-w-5xl lg:grid-cols-[1fr_340px]" : "max-w-2xl"}`}>
+    <div className={`mx-auto grid w-full gap-7 pb-32 lg:items-start ${notesOpen ? "max-w-5xl lg:grid-cols-[1fr_340px]" : "max-w-2xl"}`}>
     <div style={{ viewTransitionName: "lesson-main" }} className="flex w-full flex-col gap-5">
       <div className="flex items-center justify-between">
         <button type="button" onClick={onBack} className="text-sm font-bold text-slate-400 hover:text-slate-600">
@@ -147,15 +147,38 @@ export default function Lesson({
         </div>
       )}
 
-      <textarea
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-        disabled={!!grade?.pass}
-        placeholder="Type your answer…"
-        rows={4}
-        style={{ "--i": 2 } as React.CSSProperties}
-        className="enter w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
-      />
+      <div className="enter relative" style={{ "--i": 2 } as React.CSSProperties}>
+        <textarea
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          disabled={!!grade?.pass}
+          placeholder="Type your answer…"
+          rows={5}
+          className="w-full rounded-2xl border-2 border-slate-200 bg-white p-4 pb-16 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
+        />
+        {/* Actions live in the field's corner, so the eye never leaves the answer. */}
+        <div className="absolute bottom-3 right-3 flex gap-2">
+          {grade && !grade.pass && attempt >= 2 && (
+            <button type="button" onClick={reveal} className="rounded-xl border-2 border-amber-300 bg-white px-4 py-2 text-sm font-extrabold text-amber-700 hover:bg-amber-50">
+              Show me
+            </button>
+          )}
+          {grade?.pass ? (
+            <button type="button" onClick={proceed} className="rounded-xl bg-emerald-500 px-5 py-2 text-sm font-extrabold text-white shadow-[0_3px_0_#059669] hover:translate-y-0.5 hover:shadow-[0_1px_0_#059669]">
+              Continue
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={check}
+              disabled={busy || !answer.trim()}
+              className="rounded-xl bg-sky-500 px-5 py-2 text-sm font-extrabold text-white shadow-[0_3px_0_#0284c7] hover:translate-y-0.5 hover:shadow-[0_1px_0_#0284c7] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
+            >
+              {busy ? "Checking…" : grade ? "Try again" : "Check"}
+            </button>
+          )}
+        </div>
+      </div>
 
       {!notesOpen && (
         <button
@@ -191,52 +214,19 @@ export default function Lesson({
         document.body,
       )}
 
-      {/* Bottom result bar, Duolingo style */}
-      <div
-        className={[
-          "fixed inset-x-0 bottom-0 border-t-2 p-4 transition-colors duration-300",
-          grade && "result-in",
-          grade ? (grade.pass ? "border-emerald-200 bg-emerald-50" : "border-amber-200 bg-amber-50") : "border-slate-200 bg-white",
-        ].join(" ")}
-      >
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex-1 text-sm">
-            {grade ? (
-              <>
-                <div className={`text-lg font-extrabold ${grade.pass ? "text-emerald-700" : "text-amber-700"}`}>
-                  {grade.pass ? (revealed ? "Okay, here it is" : "Nice!") : "Not quite"}
-                </div>
-                <div className="text-slate-700">{grade.feedback}</div>
-                {!grade.pass && grade.hint && <div className="mt-1 text-slate-600">💡 {grade.hint}</div>}
-                <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-400">graded by {grade.grader}</div>
-              </>
-            ) : (
-              <div className="text-slate-400">Answer in your own words. Bean checks it against the wiki.</div>
-            )}
-          </div>
-          <div className="flex gap-2">
-            {grade && !grade.pass && attempt >= 2 && (
-              <button type="button" onClick={reveal} className="rounded-2xl border-2 border-amber-300 bg-white px-4 py-3 font-extrabold text-amber-700 hover:bg-amber-100">
-                Show me
-              </button>
-            )}
-            {grade?.pass ? (
-              <button type="button" onClick={proceed} className="rounded-2xl bg-emerald-500 px-6 py-3 font-extrabold text-white shadow-[0_4px_0_#059669] hover:translate-y-0.5 hover:shadow-[0_2px_0_#059669]">
-                Continue
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={check}
-                disabled={busy || !answer.trim()}
-                className="rounded-2xl bg-sky-500 px-6 py-3 font-extrabold text-white shadow-[0_4px_0_#0284c7] hover:translate-y-0.5 hover:shadow-[0_2px_0_#0284c7] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none"
-              >
-                {busy ? "Checking…" : grade ? "Try again" : "Check"}
-              </button>
-            )}
+      {/* Feedback bar, Duolingo style. Only appears once there is something to say. */}
+      {grade && (
+        <div className={`result-in fixed inset-x-0 bottom-0 border-t-2 p-4 ${grade.pass ? "border-emerald-200 bg-emerald-50" : "border-amber-200 bg-amber-50"}`}>
+          <div className="mx-auto w-full max-w-5xl text-sm">
+            <div className={`text-lg font-extrabold ${grade.pass ? "text-emerald-700" : "text-amber-700"}`}>
+              {grade.pass ? (revealed ? "Okay, here it is" : "Nice!") : "Not quite"}
+            </div>
+            <div className="text-slate-700">{grade.feedback}</div>
+            {!grade.pass && grade.hint && <div className="mt-1 text-slate-600">💡 {grade.hint}</div>}
+            <div className="mt-1 text-[10px] uppercase tracking-wider text-slate-400">graded by {grade.grader}</div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
