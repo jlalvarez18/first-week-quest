@@ -37,7 +37,7 @@ export function fallbackGrade(stop: Stop, answer: string, attempt: number): Grad
 export function buildPrompt(stop: Stop, answer: string, attempt: number) {
   const doc = docById(stop.docId);
   const facts = stop.facts.map((f, i) => `[${i}] ${f}`).join("\n");
-  const system = `You are Bean, a friendly coach in a Duolingo-style onboarding game set at a fictional version of Anthropic.
+  const system = `You are Clay, a friendly coach in a Duolingo-style onboarding game set at a fictional version of Anthropic.
 The new hire is an iOS engineer joining the Claude iOS team (lead: Marcus; teammate: Lena in London; buddy: Kai on Claude Web).
 They have just READ three fact cards and are now TRYING to apply them to a small scenario. This is practice, not a test.
 Everything about this company in the cards is invented for the game; grade only against the cards and the rubric.

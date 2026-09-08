@@ -8,7 +8,7 @@ import { firstName } from "@/lib/user";
 
 export default function Finish({ progress, name, onReset }: { progress: Progress; name: string; onReset: () => void }) {
   const [copied, setCopied] = useState(false);
-  const share = `${firstName(name)} finished the ${PERSONA.team} First Week Quest! ⚡ ${progress.xp} XP · 🔥 ${progress.streak.count} day streak · ✅ ${STOPS.length}/${STOPS.length} stops. Bean says hi.`;
+  const share = `${firstName(name)} finished the ${PERSONA.team} First Week Quest! ⚡ ${progress.xp} XP · 🔥 ${progress.streak.count} day streak · ✅ ${STOPS.length}/${STOPS.length} stops. Clay says hi.`;
   async function copy() {
     try {
       await navigator.clipboard.writeText(share);

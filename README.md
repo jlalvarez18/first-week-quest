@@ -39,7 +39,7 @@ panel says which grader was used.
 
 ```
 app/quest        path + lesson screens          components/Path, Lesson, Finish
-app/team         team board + scripted demo     components/CheerToast, Mascot (Bean)
+app/team         team board + scripted demo     components/CheerToast, Mascot (Clay)
 app/api/grade    Claude grading endpoint        lib/grade.ts (prompt + fallback grader)
 data/*.json      company wiki, stops, people    lib/progress.ts (localStorage, XP, streak)
 docs/rationale.md  design rationale             docs/plans/  the plan this was built from

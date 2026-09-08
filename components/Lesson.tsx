@@ -70,7 +70,7 @@ export default function Lesson({
         onWrong(stop);
       }
     } catch {
-      setGrade({ pass: false, feedback: "Bean tripped over a cable. Try again.", hint: "", factIndex: null, grader: "fallback" });
+      setGrade({ pass: false, feedback: "Clay tripped over a cable. Try again.", hint: "", factIndex: null, grader: "fallback" });
     } finally {
       setBusy(false);
     }
@@ -114,7 +114,7 @@ export default function Lesson({
         </h1>
       </div>
 
-      {/* LEARN: Bean's why, then the three fact cards. The task needs nothing else. */}
+      {/* LEARN: Clay's why, then the three fact cards. The task needs nothing else. */}
       <div className="enter flex items-start gap-3" style={{ "--i": 0 } as React.CSSProperties}>
         <Mascot mood={mood} size={64} />
         <div className="flex-1 rounded-2xl rounded-tl-sm border-2 border-slate-200 bg-white p-4 text-base font-semibold text-slate-800">

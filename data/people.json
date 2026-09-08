@@ -8,7 +8,7 @@
   { "id": "priya", "name": "Priya Nair", "role": "Lead, Subscriptions", "team": "Subscriptions", "initials": "PN", "color": "#f59e0b", "remote": true, "location": "Dublin",
     "cheers": ["Nice! That one got me too on my first week.", "Receipts are scary. You did great.", "Come say hi in #subscriptions anytime."] },
   { "id": "jun", "name": "Jun Park", "role": "Designer, Claude Design (iOS)", "team": "Claude Design", "initials": "JP", "color": "#0ea5e9", "remote": false, "location": "San Francisco",
-    "cheers": ["Clean. Very clean.", "Welcome aboard! We'll ship pixels together.", "Bean is proud of you. So am I."] },
+    "cheers": ["Clean. Very clean.", "Welcome aboard! We'll ship pixels together.", "Clay is proud of you. So am I."] },
   { "id": "dev", "name": "Dev Patel", "role": "Lead, IT & Devices", "team": "IT & Devices", "initials": "DP", "color": "#6366f1", "remote": false, "location": "New York",
     "cheers": ["Perfect ticket. My team thanks you.", "Asset tag and error text. Chef's kiss.", "Nice one."] },
   { "id": "nadia", "name": "Nadia Haddad", "role": "Lead, Reliability", "team": "Reliability", "initials": "NH", "color": "#ef4444", "remote": true, "location": "Zurich",

@@ -78,7 +78,7 @@ export default function SignIn() {
             type="submit"
             className="mt-4 w-full rounded-2xl bg-sky-500 px-7 py-4 text-lg font-extrabold text-white shadow-[0_5px_0_#0284c7] transition hover:translate-y-0.5 hover:shadow-[0_3px_0_#0284c7]"
           >
-            Continue with SSO →
+            Login →
           </button>
           <p className="mt-3 text-xs text-slate-400">Demo sign-in. Nothing is sent anywhere. Your name stays in this browser.</p>
         </form>

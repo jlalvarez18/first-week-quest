@@ -12,7 +12,7 @@ export type Stop = {
   emoji: string;
   xp: number;
   docId: string;
-  /** One line from Bean on why this stop matters. */
+  /** One line from Clay on why this stop matters. */
   why: string;
   /** Exactly three facts from the wiki page. They are everything the task needs. */
   facts: string[];
