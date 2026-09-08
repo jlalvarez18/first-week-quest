@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { flushSync } from "react-dom";
 import Mascot from "./Mascot";
 import NotesSidebar from "./NotesSidebar";
 import { docById, notesForStop, type Stop } from "@/lib/data";
@@ -40,6 +41,14 @@ export default function Lesson({
   const noteCount = notesForStop(stop.id).length + progress.notes.filter((n) => n.stopId === stop.id).length;
   const sidebarProps = { stopId: stop.id, canPost, progress, onPost: (t: string) => onPostNote(stop.id, t), onHelp };
 
+  /** Reveal or hide the notes column. The column change is a layout shift, so let the browser morph it. */
+  function toggleNotes(next: boolean) {
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!doc.startViewTransition || reduce) return setNotesOpen(next);
+    doc.startViewTransition(() => flushSync(() => setNotesOpen(next)));
+  }
+
   async function check() {
     if (!answer.trim() || busy) return;
     setBusy(true);
@@ -75,8 +84,8 @@ export default function Lesson({
   const mood = grade ? (grade.pass ? "party" : "think") : "happy";
 
   return (
-    <div className="mx-auto grid w-full max-w-5xl gap-7 pb-40 lg:grid-cols-[1fr_340px] lg:items-start">
-    <div className="flex w-full flex-col gap-5">
+    <div className={`mx-auto grid w-full gap-7 pb-40 lg:items-start ${notesOpen ? "max-w-5xl lg:grid-cols-[1fr_340px]" : "max-w-2xl"}`}>
+    <div style={{ viewTransitionName: "lesson-main" }} className="flex w-full flex-col gap-5">
       <div className="flex items-center justify-between">
         <button type="button" onClick={onBack} className="text-sm font-bold text-slate-400 hover:text-slate-600">
           ✕ Back to path
@@ -141,23 +150,32 @@ export default function Lesson({
         className="w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
       />
 
+      {!notesOpen && (
+        <button
+          type="button"
+          onClick={() => toggleNotes(true)}
+          className="group flex items-center gap-2 self-start rounded-full border-2 border-dashed border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition-colors duration-150 hover:border-sky-400 hover:text-sky-700"
+        >
+          <span className="transition-transform duration-200 group-hover:-rotate-12">{canPost ? "💬" : "🪤"}</span>
+          {canPost ? "Leave a note for the next new hire" : "Are you stuck?"}
+          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500 group-hover:bg-sky-100 group-hover:text-sky-700">
+            {noteCount} {noteCount === 1 ? "note" : "notes"}
+          </span>
+        </button>
+      )}
+
     </div>
 
-    <div className="sticky top-4 hidden lg:block">
-      <NotesSidebar {...sidebarProps} />
-    </div>
-
-    {/* Mobile: floating button + bottom sheet */}
-    <button
-      type="button"
-      onClick={() => setNotesOpen(true)}
-      className="fixed bottom-28 right-4 z-40 rounded-full border-2 border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-700 shadow-[0_3px_0_#cbd5e1] lg:hidden"
-    >
-      💬 {noteCount}
-    </button>
     {notesOpen && (
-      <div className="fixed inset-0 z-50 flex items-end bg-slate-900/40 lg:hidden" onClick={() => setNotesOpen(false)}>
-        <div className="max-h-[85vh] w-full" onClick={(e) => e.stopPropagation()}>
+      <div style={{ viewTransitionName: "notes-column" }} className="sidebar-in sticky top-4 hidden lg:block">
+        <NotesSidebar {...sidebarProps} onClose={() => toggleNotes(false)} />
+      </div>
+    )}
+
+    {/* Mobile: bottom sheet */}
+    {notesOpen && (
+      <div className="sheet-backdrop fixed inset-0 z-50 flex items-end bg-slate-900/40 lg:hidden" onClick={() => setNotesOpen(false)}>
+        <div className="sheet-in max-h-[85vh] w-full" onClick={(e) => e.stopPropagation()}>
           <NotesSidebar {...sidebarProps} onClose={() => setNotesOpen(false)} />
         </div>
       </div>
