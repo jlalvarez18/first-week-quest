@@ -31,7 +31,7 @@ panel says which grader was used.
 ## Demo mode
 
 - **Sign in** — `/`. Type any name. `/welcome` plays the fake SSO. `/quest` is the path.
-  Progress and your name live in your browser, under separate keys.
+  Progress and your name live in your browser. Sign out clears both, so a new name starts fresh.
 - **Watch a team** — `/team?play=1`. A 30 second scripted day: hires advance, get stuck, get cheered.
 - "Reset progress" / "Reset demo" buttons clear local state.
 

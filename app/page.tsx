@@ -7,6 +7,7 @@ import SsoSequence from "@/components/SsoSequence";
 import { withViewTransition } from "@/lib/transition";
 import { COMPANY, PERSONA, STOPS } from "@/lib/data";
 import { clearName, firstName, getName, setName } from "@/lib/user";
+import { resetProgress } from "@/lib/progress";
 
 export default function SignIn() {
   const router = useRouter();
@@ -33,8 +34,10 @@ export default function SignIn() {
     withViewTransition(() => setSigningIn(name));
   }
 
+  /** Signing out is a fresh start: a new name should never inherit someone else's checkmarks. */
   function signOut() {
     clearName();
+    resetProgress();
     setExisting(null);
     setDraft("");
   }

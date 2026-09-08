@@ -1,9 +1,8 @@
 "use client";
 
 /**
- * The signed-in name from the demo sign-in screen. Kept under its own key, separate from
- * progress, so "Reset progress" keeps you signed in and "Sign out" keeps your progress.
- * Nothing is sent anywhere.
+ * The signed-in name from the demo sign-in screen. Kept under its own key so "Reset
+ * progress" keeps you signed in. Sign out clears both (see app/page.tsx). Nothing is sent anywhere.
  */
 const KEY = "first-week-quest:user";
 
