@@ -115,8 +115,8 @@ export default function Lesson({
         </h1>
       </div>
 
-      {/* Bean + teammate note */}
-      <div className="flex items-start gap-3">
+      {/* Bean + question. Content enters in order after the hero morph; header is the morph itself. */}
+      <div className="enter flex items-start gap-3" style={{ "--i": 0 } as React.CSSProperties}>
         <Mascot mood={mood} size={64} />
         <div className="flex flex-1 flex-col">
           <div className="rounded-2xl rounded-tl-sm border-2 border-slate-200 bg-white p-4 text-lg font-semibold text-slate-800">
@@ -125,7 +125,7 @@ export default function Lesson({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-2 text-sm font-bold">
+      <div className="enter flex flex-wrap gap-2 text-sm font-bold" style={{ "--i": 1 } as React.CSSProperties}>
         <button type="button" onClick={() => setShowDoc((v) => !v)} className="rounded-full border-2 border-slate-200 bg-white px-3 py-1 text-slate-600 hover:bg-slate-50">
           📖 {showDoc ? "Hide" : "Peek at"} the wiki page
         </button>
@@ -153,14 +153,16 @@ export default function Lesson({
         disabled={!!grade?.pass}
         placeholder="Type your answer…"
         rows={4}
-        className="w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
+        style={{ "--i": 2 } as React.CSSProperties}
+        className="enter w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
       />
 
       {!notesOpen && (
         <button
           type="button"
           onClick={() => toggleNotes(true)}
-          className="group flex items-center gap-2 self-start rounded-full border-2 border-dashed border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition-colors duration-150 hover:border-sky-400 hover:text-sky-700"
+          style={{ "--i": 3 } as React.CSSProperties}
+          className="enter group flex items-center gap-2 self-start rounded-full border-2 border-dashed border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition-colors duration-150 hover:border-sky-400 hover:text-sky-700"
         >
           <span className="transition-transform duration-200 group-hover:-rotate-12">{canPost ? "💬" : "🪤"}</span>
           {canPost ? "Leave a note for the next new hire" : "Are you stuck?"}
