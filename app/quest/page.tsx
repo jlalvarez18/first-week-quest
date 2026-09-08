@@ -82,6 +82,15 @@ export default function QuestPage() {
     update((p) => ({ ...p, wrong: { ...p.wrong, [stop.id]: (p.wrong[stop.id] ?? 0) + 1 } }));
   }
 
+  /** Opening the notes before passing is a stuck signal too. Once per stop, never per person on the board. */
+  function onPeek(stop: Stop) {
+    update((p) =>
+      p.peeked.includes(stop.id) || p.completed.includes(stop.id)
+        ? p
+        : { ...p, peeked: [...p.peeked, stop.id], wrong: { ...p.wrong, [stop.id]: (p.wrong[stop.id] ?? 0) + 1 } },
+    );
+  }
+
   function onPostNote(stopId: string, text: string) {
     update((p) => ({ ...p, notes: [...p.notes, { id: `u-${Date.now()}`, stopId, text, at: new Date().toISOString() }] }));
   }
@@ -120,6 +129,7 @@ export default function QuestPage() {
           onBack={() => transitionTo(null)}
           onComplete={onComplete}
           onWrong={onWrong}
+          onPeek={onPeek}
           progress={progress}
           onPostNote={onPostNote}
           onHelp={onHelp}

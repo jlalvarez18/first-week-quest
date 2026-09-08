@@ -15,6 +15,7 @@ export default function Lesson({
   onBack,
   onComplete,
   onWrong,
+  onPeek,
   progress,
   onPostNote,
   onHelp,
@@ -24,6 +25,7 @@ export default function Lesson({
   onBack: () => void;
   onComplete: (r: LessonResult) => void;
   onWrong: (stop: Stop) => void;
+  onPeek: (stop: Stop) => void;
   progress: Progress;
   onPostNote: (stopId: string, text: string) => void;
   onHelp: (noteId: string) => void;
@@ -43,6 +45,7 @@ export default function Lesson({
 
   /** Reveal or hide the notes column. The column change is a layout shift, so let the browser morph it. */
   function toggleNotes(next: boolean) {
+    if (next && !canPost) onPeek(stop);
     const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!doc.startViewTransition || reduce) return setNotesOpen(next);

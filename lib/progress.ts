@@ -5,7 +5,10 @@ export type Progress = {
   xp: number;
   streak: { count: number; lastDay: string | null };
   attempts: Record<string, number>;
+  /** Stuck signals per stop: wrong answers plus opening the notes before passing. */
   wrong: Record<string, number>;
+  /** Stops where the notes were opened before passing. Counted once per stop. */
+  peeked: string[];
   notes: { id: string; stopId: string; text: string; at: string }[];
   /** ids of trail notes (bundled or own) the user marked as helpful */
   helped: string[];
@@ -20,6 +23,7 @@ export const emptyProgress = (): Progress => ({
   streak: { count: 0, lastDay: null },
   attempts: {},
   wrong: {},
+  peeked: [],
   notes: [],
   helped: [],
   finishedAt: null,

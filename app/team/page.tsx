@@ -167,7 +167,7 @@ function TeamBoard() {
       <section className="mb-6 rounded-2xl border-2 border-slate-200 bg-white p-5">
         <h2 className="text-lg font-extrabold text-slate-800">Where people get stuck</h2>
         <p className="mb-4 text-sm text-slate-500">
-          Wrong answers per stop, last cohort plus this week. Counted per stop, never per person. A tall bar means the wiki page needs work, not the new hire.
+          Stuck signals per stop: wrong answers, plus opening the notes before passing. Last cohort plus this week. Counted per stop, never per person. A tall bar means the wiki page needs work, not the new hire.
         </p>
         <div className="flex flex-col gap-2">
           {STOPS.map((s) => {
