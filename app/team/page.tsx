@@ -5,26 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Avatar from "@/components/Avatar";
 import Mascot from "@/components/Mascot";
 import CheerToast, { type Cheer } from "@/components/CheerToast";
-import { PEOPLE, STOPS, personById, type Person } from "@/lib/data";
+import { NOTES, PEOPLE, STOPS, STUCK_BASELINE, personById, type Person } from "@/lib/data";
 import { loadProgress, resetProgress, type Progress, emptyProgress } from "@/lib/progress";
-
-/** Bundled "last cohort" stuck counts per stop. Per stop only, never per person. */
-const BASELINE: Record<string, number> = {
-  "find-your-people": 3,
-  "get-your-gear": 5,
-  "learn-the-lingo": 9,
-  "ship-something-tiny": 4,
-  "get-heard": 2,
-  "book-a-coffee": 1,
-  "beacon-goes-off": 11,
-  "pay-it-forward": 0,
-};
-
-const TRAIL_NOTES = [
-  { stopId: "beacon-goes-off", text: "Beacon scared me. Read the on call page twice, then it is fine.", by: "kai" },
-  { stopId: "learn-the-lingo", text: "Roast window is the one everyone gets wrong. It is a time, not a place.", by: "lena" },
-  { stopId: "get-your-gear", text: "Flip the laptop. The sticker is on the bottom.", by: "tomas" },
-];
 
 type Hire = { id: string; name: string; initials: string; color: string; location: string; remote: boolean; stop: number };
 const INITIAL_HIRES: Hire[] = [
@@ -121,11 +103,11 @@ function TeamBoard() {
     setCheers([]);
   }
 
-  const stuckFor = (id: string) => BASELINE[id] + (progress.wrong[id] ?? 0) + (bumps[id] ?? 0);
+  const stuckFor = (id: string) => STUCK_BASELINE[id] + (progress.wrong[id] ?? 0) + (bumps[id] ?? 0);
   const maxStuck = Math.max(1, ...STOPS.map((s) => stuckFor(s.id)));
   const notes = [
-    ...TRAIL_NOTES,
-    ...progress.notes.map((n) => ({ ...n, by: "you" })),
+    ...progress.notes.map((n) => ({ stopId: n.stopId, text: n.text, by: "you" })),
+    ...NOTES.slice().sort((a, b) => b.helped - a.helped).slice(0, 6),
   ];
 
   return (

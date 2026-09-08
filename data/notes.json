@@ -1,0 +1,33 @@
+[
+  { "id": "n1", "stopId": "find-your-people", "by": "kai", "tag": "buddy", "daysAgo": 7, "helped": 7, "text": "I asked in #grind by mistake on day one. Nobody minded. They just pointed me to #ledger." },
+  { "id": "n2", "stopId": "find-your-people", "by": "tomas", "daysAgo": 21, "helped": 4, "text": "Ledger also owns refunds. Same channel, same people. Saves you a second question." },
+  { "id": "n3", "stopId": "find-your-people", "by": "priya", "tag": "owner", "daysAgo": 60, "helped": 12, "text": "Hi, it's me, the team you're looking for. Say hi when you get here. 👋" },
+
+  { "id": "n4", "stopId": "get-your-gear", "by": "dev", "tag": "owner", "daysAgo": 45, "helped": 15, "text": "The asset tag sticker is on the bottom of the laptop. Yes, you have to flip it over. Everyone does." },
+  { "id": "n5", "stopId": "get-your-gear", "by": "lena", "daysAgo": 30, "helped": 6, "text": "Paste the exact error text. 'It doesn't work' costs a round trip from Berlin to Portland and back." },
+  { "id": "n6", "stopId": "get-your-gear", "by": "kai", "tag": "buddy", "daysAgo": 6, "helped": 3, "text": "Nova replied to me in 4 minutes. They are fast if you give them the three things." },
+
+  { "id": "n7", "stopId": "learn-the-lingo", "by": "lena", "daysAgo": 40, "helped": 11, "text": "I nodded along in a meeting for two weeks before I looked up 'roast window'. Don't be me. Ask." },
+  { "id": "n8", "stopId": "learn-the-lingo", "by": "jun", "daysAgo": 25, "helped": 5, "text": "Roast window is a time, not a place. That is the one everyone gets wrong." },
+  { "id": "n9", "stopId": "learn-the-lingo", "by": "amara", "daysAgo": 90, "helped": 9, "text": "We added the glossary because of new hire feedback. Keep telling us which words are confusing." },
+
+  { "id": "n10", "stopId": "ship-something-tiny", "by": "marcus", "tag": "owner", "daysAgo": 50, "helped": 14, "text": "Your first PR should be boring. Mine fixed one word. The point is learning the flow, not impressing anyone." },
+  { "id": "n11", "stopId": "ship-something-tiny", "by": "tomas", "daysAgo": 18, "helped": 6, "text": "One reviewer. Not two. I asked three people once and got three different opinions and zero merges." },
+  { "id": "n12", "stopId": "ship-something-tiny", "by": "kai", "tag": "buddy", "daysAgo": 5, "helped": 2, "text": "Post the PR link in your team channel. Someone always picks it up before lunch." },
+
+  { "id": "n13", "stopId": "get-heard", "by": "sofia", "tag": "owner", "daysAgo": 120, "helped": 21, "text": "This norm exists because of me. I got talked over for a month from Mexico City. Now nobody has to." },
+  { "id": "n14", "stopId": "get-heard", "by": "nadia", "daysAgo": 33, "helped": 8, "text": "Type 'hand' early. The host reads the thread in order, so the first hand goes first." },
+  { "id": "n15", "stopId": "get-heard", "by": "kai", "tag": "buddy", "daysAgo": 4, "helped": 3, "text": "I used it on my second day and the host said 'Kai, go ahead' and I nearly cried. It works." },
+
+  { "id": "n16", "stopId": "book-a-coffee", "by": "amara", "tag": "owner", "daysAgo": 80, "helped": 17, "text": "People say yes. Truly. The scariest DM you send this week will be the best 20 minutes of it." },
+  { "id": "n17", "stopId": "book-a-coffee", "by": "jun", "daysAgo": 22, "helped": 4, "text": "I book mine on Wednesdays. No meetings that day, so calendars are empty." },
+  { "id": "n18", "stopId": "book-a-coffee", "by": "kai", "tag": "buddy", "daysAgo": 3, "helped": 5, "text": "Pick me if you want. I still have questions too. We can be confused together." },
+
+  { "id": "n19", "stopId": "beacon-goes-off", "by": "nadia", "tag": "owner", "daysAgo": 70, "helped": 19, "text": "Asking for help at minute 31 is following the rule. Waiting until minute 90 is the only way to do this wrong." },
+  { "id": "n20", "stopId": "beacon-goes-off", "by": "marcus", "daysAgo": 28, "helped": 7, "text": "You will shadow for a month first. Nobody gets paged alone in week one. Breathe." },
+  { "id": "n21", "stopId": "beacon-goes-off", "by": "lena", "daysAgo": 15, "helped": 10, "text": "The runbook link is in the page itself. Do not go looking for it in the wiki at 2am like I did." },
+  { "id": "n22", "stopId": "beacon-goes-off", "by": "kai", "tag": "buddy", "daysAgo": 2, "helped": 4, "text": "This stop scared me most. Read the on call page twice, then it is fine." },
+
+  { "id": "n23", "stopId": "pay-it-forward", "by": "priya", "daysAgo": 400, "helped": 30, "text": "Your note goes on the map for the next person. Mine from 2023 is still on stop 1. That is the whole point." },
+  { "id": "n24", "stopId": "pay-it-forward", "by": "kai", "tag": "buddy", "daysAgo": 1, "helped": 6, "text": "Made it! See you on the other side. Ping me any time, seriously." }
+]

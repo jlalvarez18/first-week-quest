@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import Mascot from "./Mascot";
-import Avatar from "./Avatar";
-import { docById, personById, type Stop } from "@/lib/data";
+import NotesSidebar from "./NotesSidebar";
+import { docById, notesForStop, type Stop } from "@/lib/data";
 import type { Grade } from "@/lib/grade";
+import type { Progress } from "@/lib/progress";
 
 export type LessonResult = { stop: Stop; xp: number; wrongCount: number; answer: string; revealed: boolean };
 
@@ -13,12 +14,18 @@ export default function Lesson({
   onBack,
   onComplete,
   onWrong,
+  progress,
+  onPostNote,
+  onHelp,
 }: {
   stop: Stop;
   alreadyDone: boolean;
   onBack: () => void;
   onComplete: (r: LessonResult) => void;
   onWrong: (stop: Stop) => void;
+  progress: Progress;
+  onPostNote: (stopId: string, text: string) => void;
+  onHelp: (noteId: string) => void;
 }) {
   const [answer, setAnswer] = useState("");
   const [grade, setGrade] = useState<Grade | null>(null);
@@ -27,8 +34,11 @@ export default function Lesson({
   const [showDoc, setShowDoc] = useState(false);
   const [showRubric, setShowRubric] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
   const doc = docById(stop.docId);
-  const author = personById(stop.noteBy);
+  const canPost = alreadyDone || !!grade?.pass;
+  const noteCount = notesForStop(stop.id).length + progress.notes.filter((n) => n.stopId === stop.id).length;
+  const sidebarProps = { stopId: stop.id, canPost, progress, onPost: (t: string) => onPostNote(stop.id, t), onHelp };
 
   async function check() {
     if (!answer.trim() || busy) return;
@@ -65,7 +75,8 @@ export default function Lesson({
   const mood = grade ? (grade.pass ? "party" : "think") : "happy";
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col gap-5 pb-40">
+    <div className="mx-auto grid w-full max-w-5xl gap-7 pb-40 lg:grid-cols-[1fr_340px] lg:items-start">
+    <div className="flex w-full flex-col gap-5">
       <div className="flex items-center justify-between">
         <button type="button" onClick={onBack} className="text-sm font-bold text-slate-400 hover:text-slate-600">
           ✕ Back to path
@@ -82,20 +93,10 @@ export default function Lesson({
       {/* Bean + teammate note */}
       <div className="flex items-start gap-3">
         <Mascot mood={mood} size={64} />
-        <div className="flex flex-1 flex-col gap-2">
+        <div className="flex flex-1 flex-col">
           <div className="rounded-2xl rounded-tl-sm border-2 border-slate-200 bg-white p-4 text-lg font-semibold text-slate-800">
             {stop.prompt}
           </div>
-          {author && (
-            <div className="flex items-start gap-2 rounded-2xl border-2 border-sky-100 bg-sky-50 p-3 text-sm">
-              <Avatar person={author} size={28} />
-              <div>
-                <span className="font-bold text-slate-700">{author.name}</span>
-                <span className="text-slate-400"> · {author.location}{author.remote ? " · remote" : ""}</span>
-                <div className="text-slate-600">&ldquo;{stop.note}&rdquo;</div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
 
@@ -130,6 +131,28 @@ export default function Lesson({
         className="w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
       />
 
+    </div>
+
+    <div className="sticky top-4 hidden lg:block">
+      <NotesSidebar {...sidebarProps} />
+    </div>
+
+    {/* Mobile: floating button + bottom sheet */}
+    <button
+      type="button"
+      onClick={() => setNotesOpen(true)}
+      className="fixed bottom-28 right-4 z-40 rounded-full border-2 border-slate-200 bg-white px-4 py-2 text-sm font-extrabold text-slate-700 shadow-[0_3px_0_#cbd5e1] lg:hidden"
+    >
+      💬 {noteCount}
+    </button>
+    {notesOpen && (
+      <div className="fixed inset-0 z-50 flex items-end bg-slate-900/40 lg:hidden" onClick={() => setNotesOpen(false)}>
+        <div className="max-h-[85vh] w-full" onClick={(e) => e.stopPropagation()}>
+          <NotesSidebar {...sidebarProps} onClose={() => setNotesOpen(false)} />
+        </div>
+      </div>
+    )}
+
       {/* Bottom result bar, Duolingo style */}
       <div
         className={[
@@ -137,7 +160,7 @@ export default function Lesson({
           grade ? (grade.pass ? "border-emerald-200 bg-emerald-50" : "border-amber-200 bg-amber-50") : "border-slate-200 bg-white",
         ].join(" ")}
       >
-        <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex-1 text-sm">
             {grade ? (
               <>

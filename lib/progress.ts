@@ -6,7 +6,9 @@ export type Progress = {
   streak: { count: number; lastDay: string | null };
   attempts: Record<string, number>;
   wrong: Record<string, number>;
-  notes: { stopId: string; text: string }[];
+  notes: { id: string; stopId: string; text: string; at: string }[];
+  /** ids of trail notes (bundled or own) the user marked as helpful */
+  helped: string[];
   finishedAt: string | null;
 };
 
@@ -19,6 +21,7 @@ export const emptyProgress = (): Progress => ({
   attempts: {},
   wrong: {},
   notes: [],
+  helped: [],
   finishedAt: null,
 });
 

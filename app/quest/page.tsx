@@ -46,7 +46,10 @@ export default function QuestPage() {
     const wasDone = progress.completed.includes(r.stop.id);
     update((p) => {
       const completed = wasDone ? p.completed : [...p.completed, r.stop.id];
-      const notes = r.stop.id === "pay-it-forward" && !wasDone ? [...p.notes, { stopId: r.stop.id, text: r.answer }] : p.notes;
+      const notes =
+        r.stop.id === "pay-it-forward" && !wasDone
+          ? [...p.notes, { id: `u-${Date.now()}`, stopId: r.stop.id, text: r.answer, at: new Date().toISOString() }]
+          : p.notes;
       const finished = completed.length === STOPS.length;
       return {
         ...p,
@@ -70,6 +73,14 @@ export default function QuestPage() {
     update((p) => ({ ...p, wrong: { ...p.wrong, [stop.id]: (p.wrong[stop.id] ?? 0) + 1 } }));
   }
 
+  function onPostNote(stopId: string, text: string) {
+    update((p) => ({ ...p, notes: [...p.notes, { id: `u-${Date.now()}`, stopId, text, at: new Date().toISOString() }] }));
+  }
+
+  function onHelp(noteId: string) {
+    update((p) => ({ ...p, helped: p.helped.includes(noteId) ? p.helped.filter((x) => x !== noteId) : [...p.helped, noteId] }));
+  }
+
   function reset() {
     resetProgress();
     setProgress(emptyProgress());
@@ -79,7 +90,7 @@ export default function QuestPage() {
   const finished = loaded && progress.completed.length === STOPS.length && !open;
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-3xl px-4 py-6">
+    <main className={`mx-auto min-h-screen w-full px-4 py-6 ${open ? "max-w-5xl" : "max-w-3xl"}`}>
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <Link href="/" className="flex items-center gap-2 font-extrabold text-slate-700">
           <Mascot size={36} /> First Week Quest <span className="hidden text-slate-400 sm:inline">· {COMPANY.name}</span>
@@ -100,6 +111,9 @@ export default function QuestPage() {
           onBack={() => setOpen(null)}
           onComplete={onComplete}
           onWrong={onWrong}
+          progress={progress}
+          onPostNote={onPostNote}
+          onHelp={onHelp}
         />
       ) : finished ? (
         <Finish progress={progress} onReset={reset} />

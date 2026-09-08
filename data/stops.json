@@ -8,14 +8,22 @@
     "docId": "teams",
     "prompt": "A customer says they were charged twice. Which team owns billing, and which Slack channel do you post in to ask?",
     "rubric": "A passing answer names the Ledger team (or Priya Nair) as the owner of billing AND names the #ledger channel. Either the team name or the lead's name is enough for the first part.",
-    "keywords": [["ledger", "priya"], ["#ledger", "ledger channel", "ledger"]],
+    "keywords": [
+      [
+        "ledger",
+        "priya"
+      ],
+      [
+        "#ledger",
+        "ledger channel",
+        "ledger"
+      ]
+    ],
     "hints": [
       "Look at the 'Teams and who owns what' page. Search for the word billing.",
       "Billing belongs to Ledger. Every team has its own channel with the same name."
     ],
-    "reveal": "Ledger team owns billing. Priya Nair leads it. Ask in #ledger.",
-    "noteBy": "kai",
-    "note": "I asked in #grind by mistake on day one. Nobody minded. They just pointed me to #ledger."
+    "reveal": "Ledger team owns billing. Priya Nair leads it. Ask in #ledger."
   },
   {
     "id": "get-your-gear",
@@ -26,14 +34,25 @@
     "docId": "tools",
     "prompt": "Your laptop will not connect to the VPN. Write the message you would post to get help. Where do you post it, and what three things must it include?",
     "rubric": "A passing answer posts in #help-it AND includes at least two of: the laptop asset tag (ORB-...), what they tried, and the exact error text. Bonus if they mention BLOCKED for urgent issues, but that is not required.",
-    "keywords": [["help-it", "help it", "helpit"], ["asset", "orb-", "tag", "error", "tried"]],
+    "keywords": [
+      [
+        "help-it",
+        "help it",
+        "helpit"
+      ],
+      [
+        "asset",
+        "orb-",
+        "tag",
+        "error",
+        "tried"
+      ]
+    ],
     "hints": [
       "The IT page says which channel Nova team watches.",
       "Three things: asset tag, what you tried, exact error. Post in #help-it."
     ],
-    "reveal": "Post in #help-it with your asset tag (ORB-...), what you tried, and the exact error text.",
-    "noteBy": "dev",
-    "note": "The asset tag sticker is on the bottom of the laptop. Yes, you have to flip it over. Everyone does."
+    "reveal": "Post in #help-it with your asset tag (ORB-...), what you tried, and the exact error text."
   },
   {
     "id": "learn-the-lingo",
@@ -44,14 +63,25 @@
     "docId": "glossary",
     "prompt": "A teammate says: 'Bean count is up but we might miss the roast window.' Explain in plain words what they mean.",
     "rubric": "A passing answer explains that bean count means the number of orders today (so orders are up) AND that the roast window is the 6am to 10am shipping deadline (so orders might not ship on time / miss the truck).",
-    "keywords": [["order", "orders"], ["ship", "6am", "10am", "deadline", "truck", "window"]],
+    "keywords": [
+      [
+        "order",
+        "orders"
+      ],
+      [
+        "ship",
+        "6am",
+        "10am",
+        "deadline",
+        "truck",
+        "window"
+      ]
+    ],
     "hints": [
       "Both words are in the Glossary page.",
       "Bean count = orders today. Roast window = the 6am to 10am shipping deadline."
     ],
-    "reveal": "Lots of orders came in today, but some may not ship in the 6am to 10am window and will miss the truck.",
-    "noteBy": "lena",
-    "note": "I nodded along in a meeting for two weeks before I looked up 'roast window'. Don't be me. Ask."
+    "reveal": "Lots of orders came in today, but some may not ship in the 6am to 10am window and will miss the truck."
   },
   {
     "id": "ship-something-tiny",
@@ -62,14 +92,26 @@
     "docId": "how-we-ship",
     "prompt": "You found a typo in the README. List the steps to get your fix merged, the Orbital way.",
     "rubric": "A passing answer includes at least four of these: make a branch, keep the PR small, write a why-description, ask exactly one reviewer, CI must be green, squash merge (reviewer merges). Order does not need to be exact.",
-    "keywords": [["branch"], ["review", "reviewer"], ["ci", "green", "squash", "merge"]],
+    "keywords": [
+      [
+        "branch"
+      ],
+      [
+        "review",
+        "reviewer"
+      ],
+      [
+        "ci",
+        "green",
+        "squash",
+        "merge"
+      ]
+    ],
     "hints": [
       "The 'How we ship code' page has a numbered list. Count the steps.",
       "Branch, small PR, why-description, one reviewer, green CI, reviewer squash merges."
     ],
-    "reveal": "Branch from main. Small PR with a why. One reviewer. CI green. The reviewer squash merges.",
-    "noteBy": "marcus",
-    "note": "Your first PR should be boring. Mine fixed one word. The point is learning the flow, not impressing anyone."
+    "reveal": "Branch from main. Small PR with a why. One reviewer. CI green. The reviewer squash merges."
   },
   {
     "id": "get-heard",
@@ -80,14 +122,26 @@
     "docId": "meetings",
     "prompt": "You are remote, on a call, and you have a point to make. People keep talking over each other. What does the Orbital norm say to do, and why does it exist?",
     "rubric": "A passing answer says to type 'hand' (or raise a hand) in the meeting's Slack thread, and that the host reads the thread queue in order. It should mention the why: so remote people with lag or noise get equal air time. Mentioning cameras optional is a bonus, not required.",
-    "keywords": [["hand", "thread", "slack"], ["remote", "air time", "fair", "equal", "lag", "queue"]],
+    "keywords": [
+      [
+        "hand",
+        "thread",
+        "slack"
+      ],
+      [
+        "remote",
+        "air time",
+        "fair",
+        "equal",
+        "lag",
+        "queue"
+      ]
+    ],
     "hints": [
       "Check 'Meetings and remote norms'. There is a one word signal.",
       "Type 'hand' in the Slack thread. The host reads the queue in order so remote folks get equal air time."
     ],
-    "reveal": "Type 'hand' in the meeting's Slack thread. The host reads the queue in order. This gives remote people equal air time.",
-    "noteBy": "sofia",
-    "note": "This norm exists because of me. I got talked over for a month from Mexico City. Now nobody has to."
+    "reveal": "Type 'hand' in the meeting's Slack thread. The host reads the queue in order. This gives remote people equal air time."
   },
   {
     "id": "book-a-coffee",
@@ -98,14 +152,33 @@
     "docId": "coffee-chats",
     "prompt": "You are on the Grind team. Pick one person from a different team to have a coffee chat with. Say who, and one thing you want to ask them.",
     "rubric": "A passing answer names a real person from people.json who is NOT on the Grind team (so not Marcus Oyelaran or Lena Fischer), and includes a question or reason. Valid picks: Priya Nair, Sofia Reyes, Dev Patel, Amara Okafor, Tomás Silva, Jun Park, Nadia Haddad, Kai Nakamura.",
-    "keywords": [["priya", "sofia", "dev", "amara", "tomás", "tomas", "jun", "nadia", "kai"], ["ask", "?", "want", "learn", "how", "why", "what"]],
+    "keywords": [
+      [
+        "priya",
+        "sofia",
+        "dev",
+        "amara",
+        "tomás",
+        "tomas",
+        "jun",
+        "nadia",
+        "kai"
+      ],
+      [
+        "ask",
+        "?",
+        "want",
+        "learn",
+        "how",
+        "why",
+        "what"
+      ]
+    ],
     "hints": [
       "Look at the Teams page. Anyone not on Grind counts.",
       "Try Kai. They were new last week and know exactly what you are feeling."
     ],
-    "reveal": "Any non-Grind teammate works. For example: Kai Nakamura from Compass. Ask what surprised them in week one.",
-    "noteBy": "amara",
-    "note": "People say yes. Truly. The scariest DM you send this week will be the best 20 minutes of it."
+    "reveal": "Any non-Grind teammate works. For example: Kai Nakamura from Compass. Ask what surprised them in week one."
   },
   {
     "id": "beacon-goes-off",
@@ -116,14 +189,26 @@
     "docId": "on-call",
     "prompt": "It is 2am. Beacon pages you with a SEV2: orders are delayed. What is the first thing you do, by when, and what do you do if it is not fixed in 30 minutes?",
     "rubric": "A passing answer says: acknowledge the page within 10 minutes, open the runbook, and escalate to the on call lead if not fixed or diagnosed in 30 minutes. Mentioning that new hires shadow and are never paged alone is a nice bonus.",
-    "keywords": [["ack", "acknowledge"], ["10", "ten"], ["escalate", "lead", "help"]],
+    "keywords": [
+      [
+        "ack",
+        "acknowledge"
+      ],
+      [
+        "10",
+        "ten"
+      ],
+      [
+        "escalate",
+        "lead",
+        "help"
+      ]
+    ],
     "hints": [
       "The 'On call and Beacon' page has two time limits. Find both.",
       "Ack within 10 minutes. Open the runbook. Escalate to the on call lead at 30 minutes."
     ],
-    "reveal": "Acknowledge within 10 minutes. Open the runbook. If not fixed in 30 minutes, escalate to the on call lead. Never sit alone with it.",
-    "noteBy": "nadia",
-    "note": "Asking for help at minute 31 is following the rule. Waiting until minute 90 is the only way to do this wrong."
+    "reveal": "Acknowledge within 10 minutes. Open the runbook. If not fixed in 30 minutes, escalate to the on call lead. Never sit alone with it."
   },
   {
     "id": "pay-it-forward",
@@ -134,13 +219,27 @@
     "docId": "welcome",
     "prompt": "Last stop. Write a one or two sentence note for the next new hire. Which stop was hardest for you, and what would you tell them?",
     "rubric": "A passing answer is a sincere note of at least 8 words that names or clearly refers to one of the stops. Be generous. This stop is about kindness, not correctness.",
-    "keywords": [["people", "gear", "lingo", "ship", "call", "heard", "coffee", "beacon", "stop", "hard", "easy", "tip", "hint"]],
+    "keywords": [
+      [
+        "people",
+        "gear",
+        "lingo",
+        "ship",
+        "call",
+        "heard",
+        "coffee",
+        "beacon",
+        "stop",
+        "hard",
+        "easy",
+        "tip",
+        "hint"
+      ]
+    ],
     "hints": [
       "Any stop counts. Which one made you pause?",
       "Just be honest. Something like: 'Beacon scared me. Read the on call page twice.'"
     ],
-    "reveal": "Anything kind and true. For example: 'Get heard on a call was my favorite. Use the hand trick early.'",
-    "noteBy": "priya",
-    "note": "Your note goes on the map for the next person. Mine from 2023 is still on stop 1. That is the whole point."
+    "reveal": "Anything kind and true. For example: 'Get heard on a call was my favorite. Use the hand trick early.'"
   }
 ]
