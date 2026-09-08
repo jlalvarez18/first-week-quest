@@ -147,17 +147,34 @@ export default function Lesson({
         </div>
       )}
 
-      <div className="enter relative" style={{ "--i": 2 } as React.CSSProperties}>
-        <textarea
-          value={answer}
-          onChange={(e) => setAnswer(e.target.value)}
-          disabled={!!grade?.pass}
-          placeholder="Type your answer…"
-          rows={5}
-          className="w-full rounded-2xl border-2 border-slate-200 bg-white p-4 pb-16 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
-        />
-        {/* Actions live in the field's corner, so the eye never leaves the answer. */}
-        <div className="absolute bottom-3 right-3 flex gap-2">
+      <textarea
+        value={answer}
+        onChange={(e) => setAnswer(e.target.value)}
+        disabled={!!grade?.pass}
+        placeholder="Type your answer…"
+        rows={4}
+        style={{ "--i": 2 } as React.CSSProperties}
+        className="enter w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
+      />
+
+      {/* One row under the field: help on the left, action on the right. */}
+      <div className="enter flex items-center justify-between gap-3" style={{ "--i": 3 } as React.CSSProperties}>
+        {!notesOpen ? (
+          <button
+            type="button"
+            onClick={() => toggleNotes(true)}
+            className="group flex items-center gap-2 rounded-full border-2 border-dashed border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition-colors duration-150 hover:border-sky-400 hover:text-sky-700"
+          >
+            <span className="transition-transform duration-200 group-hover:-rotate-12">{canPost ? "💬" : "🪤"}</span>
+            {canPost ? "Leave a note for the next new hire" : "Are you stuck?"}
+            <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500 group-hover:bg-sky-100 group-hover:text-sky-700">
+              {noteCount} {noteCount === 1 ? "note" : "notes"}
+            </span>
+          </button>
+        ) : (
+          <span />
+        )}
+        <div className="flex gap-2">
           {grade && !grade.pass && attempt >= 2 && (
             <button type="button" onClick={reveal} className="rounded-xl border-2 border-amber-300 bg-white px-4 py-2 text-sm font-extrabold text-amber-700 hover:bg-amber-50">
               Show me
@@ -179,22 +196,6 @@ export default function Lesson({
           )}
         </div>
       </div>
-
-      {!notesOpen && (
-        <button
-          type="button"
-          onClick={() => toggleNotes(true)}
-          style={{ "--i": 3 } as React.CSSProperties}
-          className="enter group flex items-center gap-2 self-start rounded-full border-2 border-dashed border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-600 transition-colors duration-150 hover:border-sky-400 hover:text-sky-700"
-        >
-          <span className="transition-transform duration-200 group-hover:-rotate-12">{canPost ? "💬" : "🪤"}</span>
-          {canPost ? "Leave a note for the next new hire" : "Are you stuck?"}
-          <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs text-slate-500 group-hover:bg-sky-100 group-hover:text-sky-700">
-            {noteCount} {noteCount === 1 ? "note" : "notes"}
-          </span>
-        </button>
-      )}
-
     </div>
 
     {notesOpen && (
