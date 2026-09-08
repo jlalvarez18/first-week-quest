@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import Avatar from "./Avatar";
-import { notesForStop, personById, STUCK_BASELINE, type TrailNote } from "@/lib/data";
+import { notesForStop, personById, STUCK_BASELINE, USER_COLOR, type TrailNote } from "@/lib/data";
+import { firstName, initialsOf } from "@/lib/user";
 import type { Progress } from "@/lib/progress";
 
 export type UserNote = Progress["notes"][number];
@@ -21,6 +22,7 @@ export default function NotesSidebar({
   stopId,
   canPost,
   progress,
+  userName,
   onPost,
   onHelp,
   onClose,
@@ -28,6 +30,7 @@ export default function NotesSidebar({
   stopId: string;
   canPost: boolean;
   progress: Progress;
+  userName: string;
   onPost: (text: string) => void;
   onHelp: (noteId: string) => void;
   onClose?: () => void;
@@ -78,16 +81,10 @@ export default function NotesSidebar({
               style={{ animationDelay: `${Math.min(i * 60, 300)}ms` }}
               className={`note-in flex gap-2.5 px-4 py-2.5 ${r.tag === "buddy" ? "bg-yellow-50" : ""}`}
             >
-              {p ? (
-                <Avatar person={p} size={30} />
-              ) : (
-                <span className="inline-flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-sky-500 text-[10px] font-extrabold text-white ring-2 ring-white">
-                  YOU
-                </span>
-              )}
+              <Avatar person={p ?? { name: userName, initials: initialsOf(userName), color: USER_COLOR }} size={30} />
               <div className="min-w-0">
                 <div className="text-[13px] font-extrabold text-slate-800">
-                  {p?.name ?? "You"}
+                  {p?.name ?? `${firstName(userName)} (you)`}
                   {r.tag === "buddy" && <span className="ml-1 rounded bg-sky-100 px-1 text-[10px] text-sky-700">📌 buddy</span>}
                   {r.tag === "owner" && <span className="ml-1 rounded bg-amber-100 px-1 text-[10px] text-amber-800">owner</span>}
                 </div>

@@ -59,6 +59,28 @@ body {
 }
 .fact-pulse { animation: fact-pulse 1.2s ease-out 1; }
 
+/* Welcome screen: a ring that spins, then becomes a check. */
+.tick {
+  width: 20px; height: 20px; border-radius: 999px; flex-shrink: 0;
+  border: 3px solid #bae6fd; border-top-color: #0ea5e9;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.tick-done {
+  animation: tick-pop 320ms var(--ease-out-expo) both;
+  border-color: #22c55e; background: #22c55e;
+  position: relative;
+}
+.tick-done::after {
+  content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 9px;
+  border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
+}
+@keyframes tick-pop { 0% { transform: scale(0.6) rotate(0deg); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+/* Empty sign-in submit. */
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+.shake { animation: shake 320ms ease-in-out; }
+
 /* Result bar: slides up from below the fold when a grade lands. */
 @keyframes result-in {
   from { transform: translateY(24px); opacity: 0; }
@@ -102,7 +124,9 @@ body {
 ::view-transition-new(*) { animation-duration: 460ms; animation-timing-function: var(--ease-out-expo); }
 
 @media (prefers-reduced-motion: reduce) {
-  .note-in, .result-in, .sidebar-in, .sheet-in, .enter, .fact-pulse { animation: none; }
+  .note-in, .result-in, .sidebar-in, .sheet-in, .enter, .fact-pulse, .shake { animation: none; }
+  .tick { animation: none; border-top-color: #bae6fd; }
+  .tick-done { animation: none; }
   .helped-pop { animation: none; }
   .bouncy, .cheer, .confetti { animation: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 0.01ms; }

@@ -3,11 +3,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Mascot from "./Mascot";
 import type { Progress } from "@/lib/progress";
-import { COMPANY, STOPS, stopById } from "@/lib/data";
+import { PERSONA, STOPS, stopById } from "@/lib/data";
+import { firstName } from "@/lib/user";
 
-export default function Finish({ progress, onReset }: { progress: Progress; onReset: () => void }) {
+export default function Finish({ progress, name, onReset }: { progress: Progress; name: string; onReset: () => void }) {
   const [copied, setCopied] = useState(false);
-  const share = `I finished the First Week Quest at ${COMPANY.name}! ⚡ ${progress.xp} XP · 🔥 ${progress.streak.count} day streak · ✅ ${STOPS.length}/${STOPS.length} stops. Bean says hi.`;
+  const share = `${firstName(name)} finished the ${PERSONA.team} First Week Quest! ⚡ ${progress.xp} XP · 🔥 ${progress.streak.count} day streak · ✅ ${STOPS.length}/${STOPS.length} stops. Bean says hi.`;
   async function copy() {
     try {
       await navigator.clipboard.writeText(share);
@@ -22,7 +23,7 @@ export default function Finish({ progress, onReset }: { progress: Progress; onRe
         <Mascot mood="party" size={120} />
       </div>
       <h1 className="text-4xl font-extrabold text-slate-800">Quest complete!</h1>
-      <p className="text-lg text-slate-600">You know where things live, who to ask, and how we ship. That is week one.</p>
+      <p className="text-lg text-slate-600">You know who owns what, how the app ships, and what to do at 2am. That is week one on {PERSONA.team}.</p>
       <div className="grid w-full grid-cols-3 gap-3">
         <Stat label="XP" value={`⚡ ${progress.xp}`} />
         <Stat label="Streak" value={`🔥 ${progress.streak.count}`} />

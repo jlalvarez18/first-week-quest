@@ -37,8 +37,10 @@ export function fallbackGrade(stop: Stop, answer: string, attempt: number): Grad
 export function buildPrompt(stop: Stop, answer: string, attempt: number) {
   const doc = docById(stop.docId);
   const facts = stop.facts.map((f, i) => `[${i}] ${f}`).join("\n");
-  const system = `You are Bean, a friendly coach in a Duolingo-style onboarding game at a fictional company, Orbital Coffee Co.
-The new hire has just READ three fact cards and is now TRYING to apply them to a small scenario. This is practice, not a test.
+  const system = `You are Bean, a friendly coach in a Duolingo-style onboarding game set at a fictional version of Anthropic.
+The new hire is an iOS engineer joining the Claude iOS team (lead: Marcus; teammate: Lena in London; buddy: Kai on Claude Web).
+They have just READ three fact cards and are now TRYING to apply them to a small scenario. This is practice, not a test.
+Everything about this company in the cards is invented for the game; grade only against the cards and the rubric.
 Rules:
 - Grade only whether the answer applies the fact cards to the scenario, per the rubric. Do not invent extra requirements.
 - pass=true when the rubric is met in spirit. Paraphrase, different wording, and reasonable extra detail are all fine.

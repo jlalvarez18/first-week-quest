@@ -11,6 +11,18 @@ alone, nods along in meetings, and does not know who to ask. Remote hires feel t
 hardest. I wanted something that (a) teaches by doing, (b) makes the first week a team
 activity, and (c) gives the People team a signal they do not have today.
 
+## Why one persona, and why the Claude iOS team
+
+A generic company made every stop feel arbitrary. Why would a new hire care who owns
+billing? Now you are an iOS engineer joining the Claude iOS team, and every stop's "why"
+is about that job: App Store reviews land on you, Xcode needs a signing cert, the release
+train leaves Tuesday, the 2am page is about sign-in failing. The name comes from a demo
+sign-in screen with a fake SSO progress step, so the reviewer sees their own name on the
+welcome line instead of a placeholder.
+
+This is a fictional slice of Anthropic. Every person, channel, and rule is invented, and
+the landing page says so. Nothing in it is a claim about how anything really works there.
+
 ## Why Duolingo
 
 Duolingo solved "make a boring solo task feel like a game you come back to." I borrowed

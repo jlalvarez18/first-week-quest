@@ -2,35 +2,38 @@
   {
     "id": "find-your-people",
     "order": 1,
-    "title": "Find your people",
+    "title": "Meet your team",
     "emoji": "🧭",
     "xp": 10,
     "docId": "teams",
-    "why": "You will not know who owns what for a while. Nobody expects you to. You just need to know where to look.",
+    "why": "You're on Claude iOS. Marcus leads it from SF, and Lena is your teammate in London. App Store reviews will land on you first, but not everything they mention is yours to fix. Today is about knowing who to hand things to.",
     "facts": [
-      "Ledger team owns billing, invoices, and refunds. Priya Nair leads it.",
-      "Every team has a Slack channel with its own name, like #ledger.",
+      "Claude iOS owns the Claude app for iPhone and iPad. Marcus Oyelaran leads it. Channel: #claude-ios.",
+      "Subscriptions owns Claude Pro billing, App Store receipts, and refunds. Priya Nair leads it. Channel: #subscriptions.",
       "Not sure who owns something? Ask in #where-does-this-live. Nobody minds."
     ],
-    "scenario": "A customer emails support: they were charged twice for one order.",
+    "scenario": "A one-star App Store review says: \"Charged twice for Pro this month, still no refund.\" Marcus forwards it to you.",
     "task": "Write the short message you would post to get this looked at. Say which channel you post it in.",
-    "rubric": "A passing answer names the Ledger team (or Priya Nair) as the owner of billing AND names the #ledger channel. Either the team name or the lead's name is enough for the first part.",
+    "rubric": "A passing answer routes the issue to the Subscriptions team (naming the team, Priya, or the #subscriptions channel) rather than trying to fix it in #claude-ios, and includes a short real message. Naming #subscriptions or Subscriptions/Priya is enough for the routing part.",
     "keywords": [
       [
-        "ledger",
+        "subscriptions",
         "priya"
       ],
       [
-        "#ledger",
-        "ledger channel",
-        "ledger"
+        "charged",
+        "refund",
+        "review",
+        "pro",
+        "twice",
+        "receipt"
       ]
     ],
     "hints": [
-      "Look at the 'Teams and who owns what' page. Search for the word billing.",
-      "Billing belongs to Ledger. Every team has its own channel with the same name."
+      "Look at the fact card about receipts and refunds. That is a different team from yours.",
+      "Billing belongs to Subscriptions. Post a short message in #subscriptions."
     ],
-    "reveal": "Ledger team owns billing. Priya Nair leads it. Ask in #ledger."
+    "reveal": "Post in #subscriptions: \"Hi Subscriptions folks, an App Store review reports a double charge for Pro with no refund. Can someone check the receipt? I can share the review link.\""
   },
   {
     "id": "get-your-gear",
@@ -39,34 +42,38 @@
     "emoji": "💻",
     "xp": 10,
     "docId": "tools",
-    "why": "IT problems eat whole mornings when the first message is vague. One good message gets you unblocked fast.",
+    "why": "You cannot build the app until Xcode can sign it. Signing needs two things from two different people. One vague message costs a morning. One good message costs five minutes.",
     "facts": [
-      "All laptop, VPN, and access problems go in #help-it. Nova team watches it 9am to 6pm Pacific.",
-      "A good message has three things: your asset tag (a sticker under the laptop, starts with ORB-), what you tried, and the exact error text.",
-      "If it is blocking you, start the message with the word BLOCKED. Nova opens the ticket for you."
+      "Laptop, VPN, and access problems go in #help-it with three things: your asset tag (sticker under the laptop, starts with ANT-), what you tried, and the exact error text. Start with BLOCKED if it is blocking you.",
+      "The Apple Developer team invite does not come from IT. Marcus sends it from App Store Connect. TestFlight access follows within the hour.",
+      "Xcode fetches signing certificates on its own once you are on the VPN and in the Apple team."
     ],
-    "scenario": "It is your second morning. The VPN app says \"Authentication failed (code 412)\" and you cannot reach anything.",
-    "task": "Write the message you would post. Include where you post it and the three things Nova needs.",
-    "rubric": "A passing answer posts in #help-it AND includes at least two of: the laptop asset tag (ORB-...), what they tried, and the exact error text. Bonus if they mention BLOCKED for urgent issues, but that is not required.",
+    "scenario": "Second morning. Xcode says \"No signing certificate 'Apple Development' found\" and the VPN app shows \"Authentication failed (code 412)\".",
+    "task": "Write the message you would post in #help-it, with the three things IT needs. Then say who you ask about the Apple Developer invite.",
+    "rubric": "A passing answer posts in #help-it with at least two of: the asset tag (ANT-...), what they tried, the exact error text; AND says the Apple Developer invite comes from Marcus (the team lead), not IT. BLOCKED is a bonus.",
     "keywords": [
       [
         "help-it",
-        "help it",
-        "helpit"
+        "help it"
       ],
       [
+        "ant-",
         "asset",
-        "orb-",
         "tag",
         "error",
-        "tried"
+        "tried",
+        "412"
+      ],
+      [
+        "marcus",
+        "lead"
       ]
     ],
     "hints": [
-      "The IT page says which channel Nova team watches.",
-      "Three things: asset tag, what you tried, exact error. Post in #help-it."
+      "Two cards apply here. One for the VPN. One for the Apple invite. They go to different people.",
+      "VPN: #help-it with asset tag, what you tried, and the error. Apple invite: ask Marcus, not IT."
     ],
-    "reveal": "Post in #help-it with your asset tag (ORB-...), what you tried, and the exact error text."
+    "reveal": "#help-it: \"BLOCKED. VPN auth failed (code 412). Asset tag ANT-2291. I restarted the app and re-entered my password. Exact error: Authentication failed (code 412).\" Then DM Marcus for the Apple Developer invite."
   },
   {
     "id": "learn-the-lingo",
@@ -75,34 +82,35 @@
     "emoji": "🗣️",
     "xp": 15,
     "docId": "glossary",
-    "why": "Orbital has its own words. Nodding along is easy. Asking is better. Knowing the words is best.",
+    "why": "The iOS team has its own words. You will hear them in your first standup. Nodding along is easy. Asking is better. Knowing them is best.",
     "facts": [
-      "Bean count is the number of orders placed today. We watch it every morning.",
-      "Roast window is 6am to 10am Pacific. Orders placed before 6am must ship in that window or miss the truck.",
-      "Grind is the roasting scheduler service, and also the team that owns it. Beacon is the paging system."
+      "TF build is the nightly TestFlight build of the Claude iOS app. It goes out at 6am Pacific to the internal group.",
+      "Release train is the weekly App Store submission. It leaves every Tuesday at noon Pacific. Miss it and the change waits a week.",
+      "Crash-free rate is the share of sessions with no crash. Below 99.5% is a conversation."
     ],
-    "scenario": "In standup, Lena says: \"Bean count is up, but Grind is lagging and we might miss the roast window.\"",
+    "scenario": "Monday standup. Lena says: \"Crash-free dipped to 99.2 after last night's TF build. If we can't find it today we miss the train.\"",
     "task": "Explain in plain words what Lena means, as if to a friend who does not work here.",
-    "rubric": "A passing answer explains that bean count means the number of orders today (so orders are up) AND that the roast window is the 6am to 10am shipping deadline (so orders might not ship on time / miss the truck).",
+    "rubric": "A passing answer explains that last night's TestFlight build introduced crashes (crash-free rate fell below the 99.5% line) AND that if it is not fixed by Tuesday noon the weekly App Store release will go out without the fix, or be delayed a week.",
     "keywords": [
       [
-        "order",
-        "orders"
+        "crash",
+        "crashes",
+        "crashing"
       ],
       [
-        "ship",
-        "6am",
-        "10am",
-        "deadline",
-        "truck",
-        "window"
+        "tuesday",
+        "app store",
+        "release",
+        "week",
+        "train",
+        "submission"
       ]
     ],
     "hints": [
-      "Both words are in the Glossary page.",
-      "Bean count = orders today. Roast window = the 6am to 10am shipping deadline."
+      "All three cards are in that one sentence. Take them one at a time.",
+      "TF build = last night's test build. Crash-free 99.2 = too many crashes. The train = Tuesday's App Store release."
     ],
-    "reveal": "Lots of orders came in today, but some may not ship in the 6am to 10am window and will miss the truck."
+    "reveal": "Last night's test build is crashing more than we allow. If we cannot find the cause today, Tuesday's App Store release goes out without the fix, or waits a week."
   },
   {
     "id": "ship-something-tiny",
@@ -111,15 +119,15 @@
     "emoji": "🚀",
     "xp": 20,
     "docId": "how-we-ship",
-    "why": "Your first change should be boring on purpose. The point is to learn the path from branch to merge while nothing is at stake.",
+    "why": "Your first change to the Claude app should be boring on purpose. The point is to learn branch, review, Xcode Cloud, and merge while nothing is at stake.",
     "facts": [
       "Branch from main, named your-name/short-description. Keep the PR small, under 200 lines.",
-      "Open the PR with a one-paragraph description that says why. Ask exactly one reviewer and post the link in your team channel.",
-      "CI must be green, no exceptions. The reviewer squash merges, not the author."
+      "Open the PR with a one-paragraph why. UI changes need a before and after screenshot. Ask exactly one reviewer and post the link in #claude-ios.",
+      "Xcode Cloud must be green, no exceptions. The reviewer squash merges, not the author."
     ],
-    "scenario": "You spotted a typo in the README. \"Recieve\" should be \"receive\".",
-    "task": "List the steps you would take to get that fix merged, in order, the Orbital way.",
-    "rubric": "A passing answer is an ordered list that includes at least four of: branch from main, keep it small, write a why-description, ask exactly one reviewer, CI green, reviewer squash merges. Order should be roughly right (branch before PR before merge).",
+    "scenario": "In the Settings screen, a string says \"Recieve notifications\". It should say \"Receive\".",
+    "task": "List the steps you would take to get that fix merged, in order, the Claude iOS way.",
+    "rubric": "A passing answer is an ordered list that includes at least four of: branch from main, keep it small, write a why-description, a screenshot (since it is a UI string), ask exactly one reviewer, post in #claude-ios, Xcode Cloud green, reviewer squash merges. Order should be roughly right.",
     "keywords": [
       [
         "branch"
@@ -129,6 +137,7 @@
         "reviewer"
       ],
       [
+        "xcode cloud",
         "ci",
         "green",
         "squash",
@@ -136,10 +145,10 @@
       ]
     ],
     "hints": [
-      "The 'How we ship code' page has a numbered list. Count the steps.",
-      "Branch, small PR, why-description, one reviewer, green CI, reviewer squash merges."
+      "Card 2 has two things people forget on a UI change. One is a picture.",
+      "Branch, small PR with a why and a screenshot, one reviewer in #claude-ios, Xcode Cloud green, reviewer squash merges."
     ],
-    "reveal": "Branch from main. Small PR with a why. One reviewer. CI green. The reviewer squash merges."
+    "reveal": "Branch from main. Fix the string. Small PR with a why and a before/after screenshot. One reviewer, link in #claude-ios. Xcode Cloud green. The reviewer squash merges."
   },
   {
     "id": "get-heard",
@@ -148,15 +157,15 @@
     "emoji": "✋",
     "xp": 20,
     "docId": "meetings",
-    "why": "Calls are hard for remote people. Lag, noise, and loud rooms. Orbital has a rule so quiet voices get in.",
+    "why": "Tuesday iOS planning is Marcus in SF, Jun in the office, you and Lena remote. Lag and loud rooms are real. There is a rule so quiet voices get in.",
     "facts": [
       "Want to speak and cannot find a gap? Type \"hand\" in the meeting's Slack thread.",
       "The host reads the thread queue in order before taking new speakers. First hand goes first.",
       "Cameras are optional. Decisions get written in the thread within the hour. If it is not written, it did not happen."
     ],
-    "scenario": "You are on a planning call from home. Three people are talking over each other and you have a point that changes the plan.",
-    "task": "Say what you would do to get your point in, and why Orbital does it that way.",
-    "rubric": "A passing answer says to type 'hand' (or raise a hand) in the meeting's Slack thread, and that the host reads the thread queue in order. It should mention the why: so remote people with lag or noise get equal air time. Mentioning cameras optional is a bonus, not required.",
+    "scenario": "Tuesday planning. Marcus and Jun are talking over each other about the new sign-in screen. You just found a bug in it that changes the plan.",
+    "task": "Say what you would do to get your point in, and why the team does it that way.",
+    "rubric": "A passing answer says to type 'hand' (or raise a hand) in the meeting's Slack thread and that the host reads the queue in order. It should mention the why: so remote people with lag or noise get equal air time.",
     "keywords": [
       [
         "hand",
@@ -169,14 +178,15 @@
         "fair",
         "equal",
         "lag",
-        "queue"
+        "queue",
+        "order"
       ]
     ],
     "hints": [
-      "Check 'Meetings and remote norms'. There is a one word signal.",
+      "Card 1 is one word. Card 2 says what the host does with it.",
       "Type 'hand' in the Slack thread. The host reads the queue in order so remote folks get equal air time."
     ],
-    "reveal": "Type 'hand' in the meeting's Slack thread. The host reads the queue in order. This gives remote people equal air time."
+    "reveal": "Type 'hand' in the meeting's Slack thread. Marcus reads the queue in order. This exists so remote people get the same air time as the room."
   },
   {
     "id": "book-a-coffee",
@@ -185,26 +195,26 @@
     "emoji": "☕",
     "xp": 15,
     "docId": "coffee-chats",
-    "why": "The people you meet in week one are the ones you will ask for help in week ten. Meeting them is part of the job.",
+    "why": "You will ship UI, so you will work with Design. You will touch receipts, so you will work with Subscriptions. The people you meet this week are the ones you will ask for help in week ten.",
     "facts": [
-      "Book at least one coffee chat this week with someone outside your own team. 20 minutes, no agenda.",
+      "Book at least one coffee chat this week with someone outside Claude iOS. 20 minutes, no agenda.",
       "Use #coffee-roulette or just DM them. People say yes.",
-      "Teams outside Grind: Ledger (Priya, Tomás), Compass (Sofia, Jun, Kai), Nova (Dev, Nadia), People (Amara)."
+      "Outside your team: Jun (Claude Design, your iOS designer), Priya and Tomás (Subscriptions), Sofia and Kai (Claude Web), Dev (IT), Nadia (Reliability), Amara (People)."
     ],
-    "scenario": "You are on the Grind team. It is Wednesday, no meetings, and your calendar is empty.",
+    "scenario": "It is Wednesday. No meetings. Your calendar is empty.",
     "task": "Pick one person from another team and write the DM you would send to ask for a coffee chat. Include one thing you want to ask them.",
-    "rubric": "A passing answer names a real person from people.json who is NOT on the Grind team (so not Marcus Oyelaran or Lena Fischer), and includes a question or reason. Valid picks: Priya Nair, Sofia Reyes, Dev Patel, Amara Okafor, Tomás Silva, Jun Park, Nadia Haddad, Kai Nakamura.",
+    "rubric": "A passing answer names a real person from the fact card who is NOT on Claude iOS (so not Marcus or Lena), and includes a short DM with a question or reason. Valid picks: Jun, Priya, Tomás, Sofia, Kai, Dev, Nadia, Amara.",
     "keywords": [
       [
+        "jun",
         "priya",
-        "sofia",
-        "dev",
-        "amara",
         "tomás",
         "tomas",
-        "jun",
+        "sofia",
+        "kai",
+        "dev",
         "nadia",
-        "kai"
+        "amara"
       ],
       [
         "ask",
@@ -213,14 +223,15 @@
         "learn",
         "how",
         "why",
-        "what"
+        "what",
+        "curious"
       ]
     ],
     "hints": [
-      "Look at the Teams page. Anyone not on Grind counts.",
-      "Try Kai. They were new last week and know exactly what you are feeling."
+      "Card 3 lists everyone. Anyone not on Claude iOS counts.",
+      "Try Jun. You will ship their designs. Ask how the iOS design system works."
     ],
-    "reveal": "Any non-Grind teammate works. For example: Kai Nakamura from Compass. Ask what surprised them in week one."
+    "reveal": "DM Jun: \"Hi Jun! I'm Sam, new on Claude iOS. Could we do a 20 minute coffee chat this week? I'd love to hear how the iOS design system is set up before I ship my first screen.\""
   },
   {
     "id": "beacon-goes-off",
@@ -229,35 +240,36 @@
     "emoji": "🚨",
     "xp": 25,
     "docId": "on-call",
-    "why": "Being paged is scary the first time. The rules exist so you never have to figure it out alone at 2am.",
+    "why": "Being paged is scary the first time. The rules exist so you never have to figure it out alone at 2am. This week you are shadowing Lena's on call.",
     "facts": [
       "When Beacon pages you: acknowledge within 10 minutes, or it escalates on its own.",
       "Open the runbook linked in the page. If it is not fixed or understood in 30 minutes, escalate to the on call lead.",
       "Never sit alone with a SEV1 or SEV2. Asking for help is the rule. New hires shadow for a month and are never paged alone."
     ],
-    "scenario": "It is 2:07am. Your phone buzzes: SEV2, orders are delayed. You are shadowing Nadia this week.",
+    "scenario": "It is 2:07am. Your phone buzzes: SEV2, iOS sign-in failing for 8% of users. You are shadowing Lena this week.",
     "task": "Write what you do in the first minute, what you do next, and what you do at minute 30 if it is still broken.",
-    "rubric": "A passing answer covers: acknowledge the page within 10 minutes, open the runbook, and escalate to the on call lead (or loop in Nadia) if not fixed or understood at 30 minutes. Mentioning they are shadowing and not alone is a bonus.",
+    "rubric": "A passing answer covers: acknowledge the page within 10 minutes, open the runbook, and escalate to the on call lead (or loop in Lena, who they are shadowing) if not fixed or understood at 30 minutes. Mentioning they are shadowing and not alone is a bonus.",
     "keywords": [
       [
         "ack",
         "acknowledge"
       ],
       [
-        "10",
-        "ten"
+        "runbook",
+        "lena"
       ],
       [
         "escalate",
         "lead",
-        "help"
+        "help",
+        "30"
       ]
     ],
     "hints": [
-      "The 'On call and Beacon' page has two time limits. Find both.",
-      "Ack within 10 minutes. Open the runbook. Escalate to the on call lead at 30 minutes."
+      "Card 1 is the first minute. Card 2 is the next step and the 30 minute rule. Card 3 says who is with you.",
+      "Ack within 10 minutes. Open the runbook and loop in Lena. At 30 minutes, escalate to the on call lead."
     ],
-    "reveal": "Acknowledge within 10 minutes. Open the runbook. If not fixed in 30 minutes, escalate to the on call lead. Never sit alone with it."
+    "reveal": "First minute: acknowledge the page. Next: open the runbook and ping Lena, you are shadowing her. Minute 30 if still broken: escalate to the on call lead. You are never alone with a SEV2."
   },
   {
     "id": "pay-it-forward",
@@ -266,18 +278,18 @@
     "emoji": "💌",
     "xp": 15,
     "docId": "welcome",
-    "why": "Every note on this map was left by someone who was new once. Now it is your turn.",
+    "why": "Every note on this map was left by someone who was new once. The next iOS hire opens this same quest. Now it is your turn.",
     "facts": [
       "Your note goes on the map for the next new hire. Priya's from 2023 is still on stop 1.",
       "The most helpful notes name a stop and say one honest thing about it.",
       "Short is fine. Kind is required."
     ],
-    "scenario": "Someone starts next Monday. They will open this same quest.",
+    "scenario": "Someone joins Claude iOS next Monday. They will open this same quest.",
     "task": "Write them a one or two sentence note. Name the stop that was hardest for you and what you would tell them.",
     "rubric": "A passing answer is a sincere note of at least 8 words that names or clearly refers to one of the stops. Be generous. This stop is about kindness, not correctness.",
     "keywords": [
       [
-        "people",
+        "team",
         "gear",
         "lingo",
         "ship",

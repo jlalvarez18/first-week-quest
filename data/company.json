@@ -1,46 +1,46 @@
 {
-  "name": "Orbital Coffee Co.",
-  "tagline": "Fresh roasted beans, shipped before your alarm goes off.",
+  "name": "Anthropic (demo)",
+  "tagline": "A fictional slice of Anthropic, built for onboarding practice. Every person, channel, and rule here is invented.",
   "docs": [
     {
       "id": "welcome",
-      "title": "Welcome to Orbital",
-      "body": "Orbital Coffee Co. roasts and ships coffee subscriptions to 40,000 homes. We are remote-first across 6 time zones. Our three values: Ship small, Say it in writing, Leave the campsite cleaner. New hires spend week one on the Quest. Every stop was written by someone who was new once too."
+      "title": "Welcome to the Claude iOS team",
+      "body": "You are joining the Claude iOS team. We build the Claude app for iPhone and iPad. Marcus Oyelaran leads the team from San Francisco. Lena Fischer is your teammate, remote in London. Your buddy for the first month is Kai Nakamura on the Claude Web team.\nWe are spread across San Francisco, New York, London, Dublin, Zurich, and Tokyo, so most of the team is remote to someone. Three habits we care about: Ship small, Say it in writing, Leave the campsite cleaner.\nNew hires spend week one on the Quest. Every stop was written by someone who was new once too."
     },
     {
       "id": "teams",
       "title": "Teams and who owns what",
-      "body": "Grind team owns the roasting scheduler and the mobile app. Lead: Marcus Oyelaran. Channel: #grind.\nLedger team owns the billing service, invoices, and refunds. Lead: Priya Nair. Channel: #ledger.\nCompass team owns the website and the onboarding flow. Lead: Sofia Reyes. Channel: #compass.\nNova team is IT and internal tools. Lead: Dev Patel. Channel: #help-it.\nPeople team runs hiring, onboarding, and the buddy program. Lead: Amara Okafor. Channel: #people.\nIf you do not know who owns something, ask in #where-does-this-live. Nobody minds."
+      "body": "Claude iOS owns the Claude app for iPhone and iPad. Lead: Marcus Oyelaran. Channel: #claude-ios.\nClaude Web owns claude.ai in the browser. Lead: Sofia Reyes. Channel: #claude-web.\nSubscriptions owns Claude Pro billing, App Store receipts, and refunds. Lead: Priya Nair. Channel: #subscriptions.\nClaude Design owns the design system and app UI. Jun Park is the designer for iOS. Channel: #claude-design.\nIT & Devices owns laptops, VPN, and Apple Developer seats. Lead: Dev Patel. Channel: #help-it.\nReliability owns on call, paging (Beacon), and the SEV process. Lead: Nadia Haddad. Channel: #reliability.\nPeople runs onboarding and the buddy program. Lead: Amara Okafor. Channel: #people.\nIf you do not know who owns something, ask in #where-does-this-live. Nobody minds."
     },
     {
       "id": "tools",
-      "title": "Laptops, access, and IT",
-      "body": "For any laptop, VPN, or access problem post in #help-it. Nova team watches it 9am to 6pm Pacific. Include three things: your laptop asset tag (a sticker on the bottom, starts with ORB-), what you tried, and the exact error text. Urgent and blocking? Add the word BLOCKED at the start of your message. Nova opens a ticket for you. You do not need to file one yourself."
+      "title": "Laptops, access, Xcode, and IT",
+      "body": "For any laptop, VPN, or access problem post in #help-it. IT & Devices watches it 9am to 6pm Pacific. Include three things: your laptop asset tag (a sticker on the bottom, starts with ANT-), what you tried, and the exact error text. Urgent and blocking? Start your message with BLOCKED. IT opens a ticket for you.\nApple Developer team invites do not come from IT. Your team lead (Marcus) sends the invite from App Store Connect. TestFlight access follows the invite within the hour. Signing certificates are fetched by Xcode once you are on the VPN and in the Apple team."
     },
     {
       "id": "glossary",
       "title": "Glossary",
-      "body": "Bean count: the number of orders placed today. We watch it every morning.\nRoast window: 6am to 10am Pacific. All orders placed before 6am must ship in this window or they miss the truck.\nGrind: the roasting scheduler service, and also the team that owns it.\nBeacon: our paging system. If Beacon calls you, you are on call.\nCampsite rule: leave any code or doc you touch a little cleaner than you found it."
+      "body": "TF build: the nightly TestFlight build of the Claude iOS app. It goes out at 6am Pacific to the internal group.\nRelease train: the weekly App Store submission. It leaves every Tuesday at noon Pacific. Miss it and your change waits a week.\nCrash-free rate: the share of sessions with no crash. We watch it every morning. Below 99.5% is a conversation.\nPro: the Claude Pro subscription. Subscriptions team owns billing for it.\nBeacon: our paging system. If Beacon calls you, you are on call.\nCampsite rule: leave any code or doc you touch a little cleaner than you found it."
     },
     {
       "id": "how-we-ship",
-      "title": "How we ship code",
-      "body": "1. Make a branch from main. Name it your-name/short-description.\n2. Keep the PR small. Under 200 lines is the goal. Split it if it grows.\n3. Open the PR with a one paragraph description that says why, not just what.\n4. Ask one reviewer. Not two. One. Post the link in your team channel.\n5. CI must be green. No exceptions, even for typos.\n6. Squash merge. The reviewer merges, not the author.\nYour first PR should be tiny on purpose. A typo fix counts. It teaches you the flow."
+      "title": "How we ship the iOS app",
+      "body": "1. Make a branch from main. Name it your-name/short-description.\n2. Keep the PR small. Under 200 lines is the goal. Split it if it grows.\n3. Open the PR with a one paragraph description that says why, not just what. UI changes need a before and after screenshot in the PR.\n4. Ask one reviewer. Not two. One. Post the link in #claude-ios.\n5. Xcode Cloud must be green. No exceptions, even for typos.\n6. Squash merge. The reviewer merges, not the author.\nYour first PR should be tiny on purpose. A string typo counts. It teaches you the flow."
     },
     {
       "id": "on-call",
       "title": "On call and Beacon",
-      "body": "Each team runs a weekly on call rotation through Beacon. Severity levels: SEV1 means customers cannot order. SEV2 means orders are delayed or a team is blocked. SEV3 means it can wait until morning.\nWhen Beacon pages you: acknowledge the page within 10 minutes so it does not escalate. Open the runbook linked in the page. If you have not fixed it or found the cause in 30 minutes, escalate to the on call lead. Never sit alone with a SEV1 or SEV2. Asking for help is the rule, not a weakness.\nNew hires shadow on call for the first month and are never paged alone."
+      "body": "Claude iOS runs a weekly on call rotation through Beacon. Severity levels: SEV1 means users cannot open the app or sign in. SEV2 means a core flow is failing for a slice of users, or crash-free dropped sharply. SEV3 means it can wait until morning.\nWhen Beacon pages you: acknowledge the page within 10 minutes so it does not escalate. Open the runbook linked in the page. If you have not fixed it or found the cause in 30 minutes, escalate to the on call lead. Never sit alone with a SEV1 or SEV2. Asking for help is the rule, not a weakness.\nNew hires shadow on call for the first month and are never paged alone."
     },
     {
       "id": "meetings",
       "title": "Meetings and remote norms",
-      "body": "We are remote-first. Every meeting has a written agenda before it starts, or it gets cancelled. Default length is 25 minutes. Wednesdays have no meetings.\nOn calls: cameras are optional. If you want to speak and cannot find a gap, type 'hand' in the meeting's Slack thread. The host reads the thread queue in order before taking new speakers. This is so remote people in noisy or laggy connections get the same air time.\nDecisions made in a meeting are written in the thread within the hour. If it is not written, it did not happen."
+      "body": "We are spread across six offices and many homes. Every meeting has a written agenda before it starts, or it gets cancelled. Default length is 25 minutes. Wednesdays have no meetings.\nOn calls: cameras are optional. If you want to speak and cannot find a gap, type 'hand' in the meeting's Slack thread. The host reads the thread queue in order before taking new speakers. This is so remote people on laggy or noisy connections get the same air time.\nDecisions made in a meeting are written in the thread within the hour. If it is not written, it did not happen."
     },
     {
       "id": "coffee-chats",
       "title": "Coffee chats and the buddy program",
-      "body": "Every new hire gets a buddy from a different team. Your buddy is not your manager. Ask them the questions you feel silly asking.\nIn week one, book at least one coffee chat with someone outside your own team. Use the #coffee-roulette channel or just DM them. People say yes. It is a 20 minute call, no agenda.\nRemote inclusion norm: when the office folks grab coffee, someone posts in #brew-chat so remote people can join by video. Nobody should learn about a decision because they missed the kitchen."
+      "body": "Every new hire gets a buddy from a different team. Your buddy is not your manager. Ask them the questions you feel silly asking.\nIn week one, book at least one coffee chat with someone outside your own team. Use the #coffee-roulette channel or just DM them. People say yes. It is a 20 minute call, no agenda.\nRemote inclusion norm: when the office folks grab coffee, someone posts in #hallway so remote people can join by video. Nobody should learn about a decision because they missed the kitchen."
     }
   ]
 }

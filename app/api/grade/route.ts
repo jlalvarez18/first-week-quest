@@ -35,7 +35,9 @@ export async function POST(req: Request) {
       output_config: { effort: "low", format: zodOutputFormat(GradeSchema) },
     });
     if (!res.parsed_output) throw new Error("no parsed output");
-    const grade: Grade = { ...res.parsed_output, grader: "claude" };
+    // The model occasionally emits a bare newline where a dash was meant. Keep prose on one line.
+    const tidy = (t: string) => t.replace(/\s*\n+\s*/g, " ").replace(/\s{2,}/g, " ").trim();
+    const grade: Grade = { ...res.parsed_output, feedback: tidy(res.parsed_output.feedback), hint: tidy(res.parsed_output.hint), grader: "claude" };
     return NextResponse.json(grade);
   } catch (err) {
     console.error("grade: Claude call failed, using fallback", err);

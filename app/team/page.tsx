@@ -5,14 +5,15 @@ import { useSearchParams } from "next/navigation";
 import Avatar from "@/components/Avatar";
 import Mascot from "@/components/Mascot";
 import CheerToast, { type Cheer } from "@/components/CheerToast";
-import { NOTES, PEOPLE, STOPS, STUCK_BASELINE, personById, type Person } from "@/lib/data";
+import { NOTES, PEOPLE, STOPS, STUCK_BASELINE, USER_COLOR, personById, type Person } from "@/lib/data";
+import { firstName, getName, initialsOf } from "@/lib/user";
 import { loadProgress, resetProgress, type Progress, emptyProgress } from "@/lib/progress";
 
 type Hire = { id: string; name: string; initials: string; color: string; location: string; remote: boolean; stop: number };
 const INITIAL_HIRES: Hire[] = [
-  { id: "you", name: "You", initials: "YOU", color: "#0ea5e9", location: "here", remote: true, stop: 0 },
-  { id: "ravi", name: "Ravi Menon", initials: "RM", color: "#a855f7", location: "Chennai", remote: true, stop: 2 },
-  { id: "mei", name: "Mei Tanaka", initials: "MT", color: "#f43f5e", location: "Portland", remote: false, stop: 5 },
+  { id: "you", name: "You", initials: "YOU", color: USER_COLOR, location: "here", remote: true, stop: 0 },
+  { id: "ravi", name: "Ravi Menon", initials: "RM", color: "#a855f7", location: "Dublin", remote: true, stop: 2 },
+  { id: "mei", name: "Mei Tanaka", initials: "MT", color: "#f43f5e", location: "San Francisco", remote: false, stop: 5 },
   { id: "kai", name: "Kai Nakamura", initials: "KN", color: "#84cc16", location: "Tokyo", remote: true, stop: 8 },
 ];
 
@@ -27,6 +28,7 @@ export default function TeamPage() {
 function TeamBoard() {
   const params = useSearchParams();
   const [progress, setProgress] = useState<Progress>(emptyProgress);
+  const [name, setName] = useState<string | null>(null);
   const [hires, setHires] = useState<Hire[]>(INITIAL_HIRES);
   const [bumps, setBumps] = useState<Record<string, number>>({});
   const [cheers, setCheers] = useState<Cheer[]>([]);
@@ -37,9 +39,11 @@ function TeamBoard() {
 
   useEffect(() => {
     const p = loadProgress();
+    const n = getName();
     // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only readable after mount
     setProgress(p);
-    setHires((h) => h.map((x) => (x.id === "you" ? { ...x, stop: p.completed.length } : x)));
+    setName(n);
+    setHires((h) => h.map((x) => (x.id === "you" ? { ...x, stop: p.completed.length, name: n ? `${firstName(n)} (you)` : "You", initials: n ? initialsOf(n) : "YOU" } : x)));
   }, []);
 
   useEffect(() => {
@@ -64,12 +68,12 @@ function TeamBoard() {
   function play() {
     stop();
     setPlaying(true);
-    setHires(INITIAL_HIRES.map((h) => (h.id === "you" ? { ...h, stop: loadProgress().completed.length } : h)));
+    setHires(INITIAL_HIRES.map((h) => (h.id === "you" ? { ...h, stop: loadProgress().completed.length, name: name ? `${firstName(name)} (you)` : "You", initials: name ? initialsOf(name) : "YOU" } : h)));
     setBumps({});
     setTick(0);
     const script: { at: number; run: () => void }[] = [
       { at: 1500, run: () => advance("ravi") },
-      { at: 2200, run: () => cheer(personById("lena")!, "Ravi just cleared Learn the lingo. Remote high five from Berlin!") },
+      { at: 2200, run: () => cheer(personById("lena")!, "Ravi just cleared Learn the lingo. Remote high five from London!") },
       { at: 4500, run: () => stuck("beacon-goes-off") },
       { at: 5200, run: () => cheer(personById("nadia")!, "Mei is on Beacon. I am hopping in the thread to help.") },
       { at: 8000, run: () => stuck("beacon-goes-off") },
@@ -201,13 +205,9 @@ function TeamBoard() {
             const p = personById(n.by);
             return (
               <div key={i} className="flex items-start gap-2 text-sm">
-                {p ? (
-                  <Avatar person={p} size={28} />
-                ) : (
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-sky-500 text-[10px] font-bold text-white">YOU</span>
-                )}
+                <Avatar person={p ?? { name: name ?? "You", initials: name ? initialsOf(name) : "YOU", color: USER_COLOR }} size={28} />
                 <div>
-                  <span className="font-bold text-slate-700">{p?.name ?? "You"}</span>
+                  <span className="font-bold text-slate-700">{p?.name ?? (name ? `${firstName(name)} (you)` : "You")}</span>
                   <span className="text-slate-400"> · at {STOPS.find((s) => s.id === n.stopId)?.title}</span>
                   <div className="text-slate-600">&ldquo;{n.text}&rdquo;</div>
                 </div>

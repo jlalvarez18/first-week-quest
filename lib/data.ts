@@ -2,6 +2,7 @@ import company from "@/data/company.json";
 import stops from "@/data/stops.json";
 import people from "@/data/people.json";
 import notes from "@/data/notes.json";
+import persona from "@/data/persona.json";
 
 export type Doc = { id: string; title: string; body: string };
 export type Stop = {
@@ -49,6 +50,12 @@ export type TrailNote = {
   tag?: "buddy" | "owner";
 };
 export const NOTES = notes as TrailNote[];
+
+/** The fixed role the demo onboards into. The name comes from the sign-in screen, not here. */
+export type Persona = { role: string; team: string; teamChannel: string; leadId: string; buddyId: string; teammateIds: string[] };
+export const PERSONA = persona as Persona;
+/** Color for the signed-in user's avatar everywhere. */
+export const USER_COLOR = "#0ea5e9";
 export const notesForStop = (stopId: string) => NOTES.filter((n) => n.stopId === stopId);
 
 /** Bundled "last cohort" wrong-answer counts per stop. Per stop only, never per person. */

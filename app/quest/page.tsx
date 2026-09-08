@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Path from "@/components/Path";
 import Lesson, { type LessonResult } from "@/components/Lesson";
@@ -7,11 +8,14 @@ import Finish from "@/components/Finish";
 import StreakBar from "@/components/StreakBar";
 import CheerToast, { type Cheer } from "@/components/CheerToast";
 import Mascot from "@/components/Mascot";
-import { COMPANY, PEOPLE, STOPS, type Stop } from "@/lib/data";
+import { PEOPLE, PERSONA, STOPS, type Stop } from "@/lib/data";
+import { firstName, getName } from "@/lib/user";
 import { withViewTransition } from "@/lib/transition";
 import { bumpStreak, emptyProgress, loadProgress, resetProgress, saveProgress, type Progress } from "@/lib/progress";
 
 export default function QuestPage() {
+  const router = useRouter();
+  const [name, setName] = useState("");
   const [progress, setProgress] = useState<Progress>(emptyProgress);
   const [loaded, setLoaded] = useState(false);
   const [open, setOpen] = useState<Stop | null>(null);
@@ -19,10 +23,16 @@ export default function QuestPage() {
   const cheerId = useRef(0);
 
   useEffect(() => {
+    const n = getName();
+    if (!n) {
+      router.replace("/");
+      return;
+    }
     // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only readable after mount
+    setName(n);
     setProgress(loadProgress());
     setLoaded(true);
-  }, []);
+  }, [router]);
 
   const update = useCallback((fn: (p: Progress) => Progress) => {
     setProgress((p) => {
@@ -106,7 +116,7 @@ export default function QuestPage() {
     <main className={`mx-auto min-h-screen w-full px-4 py-6 ${open ? "max-w-5xl" : "max-w-3xl"}`}>
       <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <Link href="/" className="flex items-center gap-2 font-extrabold text-slate-700">
-          <Mascot size={36} /> First Week Quest <span className="hidden text-slate-400 sm:inline">· {COMPANY.name}</span>
+          <Mascot size={36} /> First Week Quest <span className="hidden text-slate-400 sm:inline">· {PERSONA.team}</span>
         </Link>
         <div className="flex items-center gap-3">
           <StreakBar xp={progress.xp} streak={progress.streak.count} done={progress.completed.length} total={STOPS.length} />
@@ -126,16 +136,19 @@ export default function QuestPage() {
           onWrong={onWrong}
           onPeek={onPeek}
           progress={progress}
+          userName={name}
           onPostNote={onPostNote}
           onHelp={onHelp}
         />
       ) : finished ? (
-        <Finish progress={progress} onReset={reset} />
+        <Finish progress={progress} name={name} onReset={reset} />
       ) : (
         <>
           <div className="mx-auto mb-2 max-w-md rounded-2xl border-2 border-slate-200 bg-white p-4 text-center text-sm text-slate-600">
-            <span className="font-bold text-slate-800">Week 1 at {COMPANY.name}.</span> Eight stops. Answer in your own words.
-            Wrong answers cost nothing but earn a hint.
+            <span className="font-bold text-slate-800">
+              Welcome to the {PERSONA.team} team, {firstName(name)}.
+            </span>{" "}
+            Eight stops. Marcus and Lena are cheering you on. Wrong answers cost nothing but earn a hint.
           </div>
           <Path stops={STOPS} completed={progress.completed} onOpen={transitionTo} />
           <div className="mt-6 text-center">

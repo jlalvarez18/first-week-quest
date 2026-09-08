@@ -18,6 +18,7 @@ export default function Lesson({
   onWrong,
   onPeek,
   progress,
+  userName,
   onPostNote,
   onHelp,
 }: {
@@ -28,6 +29,7 @@ export default function Lesson({
   onWrong: (stop: Stop) => void;
   onPeek: (stop: Stop) => void;
   progress: Progress;
+  userName: string;
   onPostNote: (stopId: string, text: string) => void;
   onHelp: (noteId: string) => void;
 }) {
@@ -41,7 +43,7 @@ export default function Lesson({
   const doc = docById(stop.docId);
   const canPost = alreadyDone || !!grade?.pass;
   const noteCount = notesForStop(stop.id).length + progress.notes.filter((n) => n.stopId === stop.id).length;
-  const sidebarProps = { stopId: stop.id, canPost, progress, onPost: (t: string) => onPostNote(stop.id, t), onHelp };
+  const sidebarProps = { stopId: stop.id, canPost, progress, userName, onPost: (t: string) => onPostNote(stop.id, t), onHelp };
 
   /** Reveal or hide the notes column. On wide screens the column change is a layout shift the browser morphs. */
   function toggleNotes(next: boolean) {
