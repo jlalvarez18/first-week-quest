@@ -102,6 +102,19 @@ export default function QuestPage() {
     );
   }
 
+  function onCheck(stopId: string, itemId: string, on: boolean) {
+    update((p) => {
+      const cur = new Set(p.checks[stopId] ?? []);
+      if (on) cur.add(itemId);
+      else cur.delete(itemId);
+      return { ...p, checks: { ...p.checks, [stopId]: [...cur] } };
+    });
+  }
+
+  function onPick(stopId: string, personId: string) {
+    update((p) => ({ ...p, picks: { ...p.picks, [stopId]: personId } }));
+  }
+
   function onPostNote(stopId: string, text: string) {
     update((p) => ({ ...p, notes: [...p.notes, { id: `u-${Date.now()}`, stopId, text, at: new Date().toISOString() }] }));
   }
@@ -141,6 +154,8 @@ export default function QuestPage() {
           onComplete={onComplete}
           onWrong={onWrong}
           onPeek={onPeek}
+          onCheck={onCheck}
+          onPick={onPick}
           progress={progress}
           userName={name}
           onPostNote={onPostNote}
@@ -157,7 +172,7 @@ export default function QuestPage() {
             <span className="font-bold text-slate-800">
               Welcome to the {PERSONA.team} team, {firstName(name)}.
             </span>{" "}
-            Eight stops. Marcus and Lena are cheering you on. Wrong answers cost nothing but earn a hint.
+            Ten stops. Marcus and Lena are cheering you on. Wrong answers cost nothing but earn a hint.
           </div>
           <Path stops={STOPS} completed={progress.completed} onOpen={transitionTo} animateIn={animatePath} />
           <div className="mt-6 text-center">

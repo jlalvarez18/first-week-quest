@@ -3,37 +3,35 @@
     "id": "find-your-people",
     "order": 1,
     "title": "Meet your team",
-    "emoji": "🧭",
+    "emoji": "👋",
     "xp": 10,
-    "docId": "teams",
-    "why": "You're on Claude iOS. Marcus leads it from SF, and Lena is your teammate in London. App Store reviews will land on you first, but not everything they mention is yours to fix. Today is about knowing who to hand things to.",
-    "facts": [
-      "Claude iOS owns the Claude app for iPhone and iPad. Marcus Oyelaran leads it. Channel: #claude-ios.",
-      "Subscriptions owns Claude Pro billing, App Store receipts, and refunds. Priya Nair leads it. Channel: #subscriptions.",
-      "Not sure who owns something? Ask in #where-does-this-live. Nobody minds."
+    "docId": "welcome",
+    "kind": "action",
+    "why": "You're on Claude iOS. Marcus leads it from SF. Lena is your teammate in London. Kai on Claude Web is your buddy, and Jun designs the screens you'll build. Say hi today so tomorrow's questions are easy to ask.",
+    "people": [
+      "marcus",
+      "lena",
+      "kai",
+      "jun"
     ],
-    "scenario": "A one-star App Store review says: \"Charged twice for Pro this month, still no refund.\" Marcus forwards it to you.",
-    "task": "Write the short message you would post to get this looked at. Say which channel you post it in.",
-    "rubric": "A passing answer routes the issue to the Subscriptions team (naming the team, Priya, or the #subscriptions channel) rather than trying to fix it in #claude-ios, and includes a short real message. Naming #subscriptions or Subscriptions/Priya is enough for the routing part.",
-    "keywords": [
-      [
-        "subscriptions",
-        "priya"
-      ],
-      [
-        "charged",
-        "refund",
-        "review",
-        "pro",
-        "twice",
-        "receipt"
-      ]
+    "checklist": [
+      {
+        "id": "read",
+        "label": "Read who's who above",
+        "help": "The full list of teams and channels is on the 'Teams and who owns what' wiki page. Read the full page link below."
+      },
+      {
+        "id": "hello",
+        "label": "Post a hello in #claude-ios",
+        "help": "Can't find the channel? Search Slack for claude-ios, or ask Kai, your buddy. A one line hello is plenty."
+      },
+      {
+        "id": "kai",
+        "label": "Reply to Kai's welcome DM",
+        "help": "Kai is 16 hours ahead in Tokyo. If there is no DM yet, send one first. They are expecting it."
+      }
     ],
-    "hints": [
-      "Look at the fact card about receipts and refunds. That is a different team from yours.",
-      "Billing belongs to Subscriptions. Post a short message in #subscriptions."
-    ],
-    "reveal": "Post in #subscriptions: \"Hi Subscriptions folks, an App Store review reports a double charge for Pro with no refund. Can someone check the receipt? I can share the review link.\""
+    "completeLabel": "I said hi"
   },
   {
     "id": "get-your-gear",
@@ -42,42 +40,78 @@
     "emoji": "💻",
     "xp": 10,
     "docId": "tools",
-    "why": "You cannot build the app until Xcode can sign it. Signing needs two things from two different people. One vague message costs a morning. One good message costs five minutes.",
-    "facts": [
-      "Laptop, VPN, and access problems go in #help-it with three things: your asset tag (sticker under the laptop, starts with ANT-), what you tried, and the exact error text. Start with BLOCKED if it is blocking you.",
-      "The Apple Developer team invite does not come from IT. Marcus sends it from App Store Connect. TestFlight access follows within the hour.",
-      "Xcode fetches signing certificates on its own once you are on the VPN and in the Apple team."
+    "kind": "setup",
+    "why": "You cannot build the app until Xcode can sign it. That needs two things from two different people. This checklist is the whole morning, in order.",
+    "checklist": [
+      {
+        "id": "tag",
+        "label": "Find your laptop asset tag (sticker under the laptop, starts with ANT-)",
+        "help": "Flip the laptop over. The sticker is on the bottom, near the hinge. You will need it for any IT message."
+      },
+      {
+        "id": "vpn",
+        "label": "Connect to the VPN",
+        "help": "Post in #help-it with three things: your asset tag (ANT-...), what you tried, and the exact error text. Start with BLOCKED if you cannot work. IT opens the ticket for you."
+      },
+      {
+        "id": "xcode",
+        "label": "Install Xcode from the internal installer",
+        "help": "The installer is pinned in #claude-ios. Do not use the App Store version, it lags a release behind what the project needs."
+      },
+      {
+        "id": "apple",
+        "label": "Accept the Apple Developer team invite",
+        "help": "This does not come from IT. Marcus sends it from App Store Connect. No invite in your inbox? DM Marcus, not #help-it."
+      },
+      {
+        "id": "tf",
+        "label": "Install TestFlight and open the internal build",
+        "help": "TestFlight access follows the Apple invite within the hour. If the build is not there after an hour, ask in #claude-ios."
+      }
     ],
-    "scenario": "Second morning. Xcode says \"No signing certificate 'Apple Development' found\" and the VPN app shows \"Authentication failed (code 412)\".",
-    "task": "Write the message you would post in #help-it, with the three things IT needs. Then say who you ask about the Apple Developer invite.",
-    "rubric": "A passing answer posts in #help-it with at least two of: the asset tag (ANT-...), what they tried, the exact error text; AND says the Apple Developer invite comes from Marcus (the team lead), not IT. BLOCKED is a bonus.",
-    "keywords": [
-      [
-        "help-it",
-        "help it"
-      ],
-      [
-        "ant-",
-        "asset",
-        "tag",
-        "error",
-        "tried",
-        "412"
-      ],
-      [
-        "marcus",
-        "lead"
-      ]
+    "completeLabel": "Setup complete"
+  },
+  {
+    "id": "build-the-app",
+    "order": 3,
+    "title": "Build the app",
+    "emoji": "🔨",
+    "xp": 10,
+    "docId": "how-we-ship",
+    "kind": "setup",
+    "why": "Nothing feels real until the app runs on your machine. This is the moment most new hires get stuck, and it is never their fault. The help on each step is where to look.",
+    "checklist": [
+      {
+        "id": "clone",
+        "label": "Clone the claude-ios repo",
+        "help": "The repo link is pinned in #claude-ios. If you get a permission error, your GitHub org invite is still pending. Ask in #help-it."
+      },
+      {
+        "id": "bootstrap",
+        "label": "Run the bootstrap script (./scripts/bootstrap)",
+        "help": "It installs tools and fetches packages. If it fails on a package, run it once more before asking. If it fails twice, paste the last 20 lines in #claude-ios."
+      },
+      {
+        "id": "open",
+        "label": "Open Claude.xcworkspace (not the .xcodeproj)",
+        "help": "Opening the project file instead of the workspace is the number one cause of 'missing module' errors. Close it and open the workspace."
+      },
+      {
+        "id": "build",
+        "label": "Build and run on an iPhone simulator",
+        "help": "Signing errors here mean the Apple invite has not landed yet. Everything else, ask Lena. She has seen every build error this project can make."
+      },
+      {
+        "id": "tests",
+        "label": "Run the unit tests once (Cmd+U)",
+        "help": "A few tests are known to be flaky on first run. Run them again. Still red? Post the test name in #claude-ios."
+      }
     ],
-    "hints": [
-      "Two cards apply here. One for the VPN. One for the Apple invite. They go to different people.",
-      "VPN: #help-it with asset tag, what you tried, and the error. Apple invite: ask Marcus, not IT."
-    ],
-    "reveal": "#help-it: \"BLOCKED. VPN auth failed (code 412). Asset tag ANT-2291. I restarted the app and re-entered my password. Exact error: Authentication failed (code 412).\" Then DM Marcus for the Apple Developer invite."
+    "completeLabel": "Setup complete"
   },
   {
     "id": "learn-the-lingo",
-    "order": 3,
+    "order": 4,
     "title": "Learn the lingo",
     "emoji": "🗣️",
     "xp": 15,
@@ -110,49 +144,92 @@
       "All three cards are in that one sentence. Take them one at a time.",
       "TF build = last night's test build. Crash-free 99.2 = too many crashes. The train = Tuesday's App Store release."
     ],
-    "reveal": "Last night's test build is crashing more than we allow. If we cannot find the cause today, Tuesday's App Store release goes out without the fix, or waits a week."
+    "reveal": "Last night's test build is crashing more than we allow. If we cannot find the cause today, Tuesday's App Store release goes out without the fix, or waits a week.",
+    "kind": "practice"
   },
   {
     "id": "ship-something-tiny",
-    "order": 4,
+    "order": 5,
     "title": "Ship something tiny",
     "emoji": "🚀",
-    "xp": 20,
+    "xp": 10,
     "docId": "how-we-ship",
-    "why": "Your first change to the Claude app should be boring on purpose. The point is to learn branch, review, Xcode Cloud, and merge while nothing is at stake.",
-    "facts": [
-      "Branch from main, named your-name/short-description. Keep the PR small, under 200 lines.",
-      "Open the PR with a one-paragraph why. UI changes need a before and after screenshot. Ask exactly one reviewer and post the link in #claude-ios.",
-      "Xcode Cloud must be green, no exceptions. The reviewer squash merges, not the author."
+    "kind": "action",
+    "why": "Your first change should be boring on purpose. There is a typo in Settings: \"Recieve notifications\". Fix it, and you will have walked the whole path from branch to merge while nothing is at stake.",
+    "checklist": [
+      {
+        "id": "branch",
+        "label": "Branch from main: your-name/fix-receive-typo",
+        "help": "Branch names are your-name/short-description. If main will not pull, you may not have the repo permission yet. Ask in #help-it."
+      },
+      {
+        "id": "fix",
+        "label": "Fix the string in Settings",
+        "help": "Search the project for 'Recieve'. It lives in Localizable.strings. Change it in the English file only, translations follow later."
+      },
+      {
+        "id": "shot",
+        "label": "Take a before and after screenshot",
+        "help": "UI changes always get a screenshot in the PR, even one word. Jun will ask for it anyway."
+      },
+      {
+        "id": "pr",
+        "label": "Open a small PR with a one paragraph why",
+        "help": "Say why, not just what. 'Typo in Settings string, users see it every day' is enough."
+      },
+      {
+        "id": "review",
+        "label": "Ask one reviewer and post the link in #claude-ios",
+        "help": "One reviewer, not two. Lena is a safe first pick. Someone usually grabs it before lunch."
+      },
+      {
+        "id": "ci",
+        "label": "Wait for Xcode Cloud to go green",
+        "help": "Red CI on a typo fix is almost always a flaky test. Re-run once. Still red? Ask in #claude-ios before touching anything."
+      }
     ],
-    "scenario": "In the Settings screen, a string says \"Recieve notifications\". It should say \"Receive\".",
-    "task": "List the steps you would take to get that fix merged, in order, the Claude iOS way.",
-    "rubric": "A passing answer is an ordered list that includes at least four of: branch from main, keep it small, write a why-description, a screenshot (since it is a UI string), ask exactly one reviewer, post in #claude-ios, Xcode Cloud green, reviewer squash merges. Order should be roughly right.",
+    "completeLabel": "PR opened"
+  },
+  {
+    "id": "who-owns-what",
+    "order": 6,
+    "title": "Who owns what",
+    "emoji": "🧭",
+    "xp": 15,
+    "docId": "teams",
+    "why": "App Store reviews land on you first. Not everything they mention is yours to fix. This one is about handing things to the right team fast.",
+    "facts": [
+      "Claude iOS owns the Claude app for iPhone and iPad. Marcus Oyelaran leads it. Channel: #claude-ios.",
+      "Subscriptions owns Claude Pro billing, App Store receipts, and refunds. Priya Nair leads it. Channel: #subscriptions.",
+      "Not sure who owns something? Ask in #where-does-this-live. Nobody minds."
+    ],
+    "scenario": "A one-star App Store review says: \"Charged twice for Pro this month, still no refund.\" Marcus forwards it to you.",
+    "task": "Write the short message you would post to get this looked at. Say which channel you post it in.",
+    "rubric": "A passing answer routes the issue to the Subscriptions team (naming the team, Priya, or the #subscriptions channel) rather than trying to fix it in #claude-ios, and includes a short real message. Naming #subscriptions or Subscriptions/Priya is enough for the routing part.",
     "keywords": [
       [
-        "branch"
+        "subscriptions",
+        "priya"
       ],
       [
+        "charged",
+        "refund",
         "review",
-        "reviewer"
-      ],
-      [
-        "xcode cloud",
-        "ci",
-        "green",
-        "squash",
-        "merge"
+        "pro",
+        "twice",
+        "receipt"
       ]
     ],
     "hints": [
-      "Card 2 has two things people forget on a UI change. One is a picture.",
-      "Branch, small PR with a why and a screenshot, one reviewer in #claude-ios, Xcode Cloud green, reviewer squash merges."
+      "Look at the fact card about receipts and refunds. That is a different team from yours.",
+      "Billing belongs to Subscriptions. Post a short message in #subscriptions."
     ],
-    "reveal": "Branch from main. Fix the string. Small PR with a why and a before/after screenshot. One reviewer, link in #claude-ios. Xcode Cloud green. The reviewer squash merges."
+    "reveal": "Post in #subscriptions: \"Hi Subscriptions folks, an App Store review reports a double charge for Pro with no refund. Can someone check the receipt? I can share the review link.\"",
+    "kind": "practice"
   },
   {
     "id": "get-heard",
-    "order": 5,
+    "order": 7,
     "title": "Get heard on a call",
     "emoji": "✋",
     "xp": 20,
@@ -186,56 +263,50 @@
       "Card 1 is one word. Card 2 says what the host does with it.",
       "Type 'hand' in the Slack thread. The host reads the queue in order so remote folks get equal air time."
     ],
-    "reveal": "Type 'hand' in the meeting's Slack thread. Marcus reads the queue in order. This exists so remote people get the same air time as the room."
+    "reveal": "Type 'hand' in the meeting's Slack thread. Marcus reads the queue in order. This exists so remote people get the same air time as the room.",
+    "kind": "practice"
   },
   {
     "id": "book-a-coffee",
-    "order": 6,
+    "order": 8,
     "title": "Book a coffee chat",
     "emoji": "☕",
-    "xp": 15,
+    "xp": 10,
     "docId": "coffee-chats",
+    "kind": "action",
     "why": "You will ship UI, so you will work with Design. You will touch receipts, so you will work with Subscriptions. The people you meet this week are the ones you will ask for help in week ten.",
-    "facts": [
-      "Book at least one coffee chat this week with someone outside Claude iOS. 20 minutes, no agenda.",
-      "Use #coffee-roulette or just DM them. People say yes.",
-      "Outside your team: Jun (Claude Design, your iOS designer), Priya and Tomás (Subscriptions), Sofia and Kai (Claude Web), Dev (IT), Nadia (Reliability), Amara (People)."
+    "people": [
+      "jun",
+      "priya",
+      "tomas",
+      "sofia",
+      "dev",
+      "nadia",
+      "amara"
     ],
-    "scenario": "It is Wednesday. No meetings. Your calendar is empty.",
-    "task": "Pick one person from another team and write the DM you would send to ask for a coffee chat. Include one thing you want to ask them.",
-    "rubric": "A passing answer names a real person from the fact card who is NOT on Claude iOS (so not Marcus or Lena), and includes a short DM with a question or reason. Valid picks: Jun, Priya, Tomás, Sofia, Kai, Dev, Nadia, Amara.",
-    "keywords": [
-      [
-        "jun",
-        "priya",
-        "tomás",
-        "tomas",
-        "sofia",
-        "kai",
-        "dev",
-        "nadia",
-        "amara"
-      ],
-      [
-        "ask",
-        "?",
-        "want",
-        "learn",
-        "how",
-        "why",
-        "what",
-        "curious"
-      ]
+    "pickOne": true,
+    "checklist": [
+      {
+        "id": "pick",
+        "label": "Pick someone outside Claude iOS above",
+        "help": "Anyone not on Claude iOS counts. Jun is a great first pick, you will ship their designs."
+      },
+      {
+        "id": "dm",
+        "label": "Send them a DM asking for 20 minutes",
+        "help": "People say yes. Something like: 'Hi, I'm new on Claude iOS. Could we do a 20 minute coffee chat this week?' Or use #coffee-roulette."
+      },
+      {
+        "id": "cal",
+        "label": "Put it on both calendars",
+        "help": "Wednesdays are meeting free, so calendars are empty. Remember Lena and Priya are in Europe: mornings Pacific work best."
+      }
     ],
-    "hints": [
-      "Card 3 lists everyone. Anyone not on Claude iOS counts.",
-      "Try Jun. You will ship their designs. Ask how the iOS design system works."
-    ],
-    "reveal": "DM Jun: \"Hi Jun! I'm Sam, new on Claude iOS. Could we do a 20 minute coffee chat this week? I'd love to hear how the iOS design system is set up before I ship my first screen.\""
+    "completeLabel": "Coffee booked"
   },
   {
     "id": "beacon-goes-off",
-    "order": 7,
+    "order": 9,
     "title": "Beacon goes off",
     "emoji": "🚨",
     "xp": 25,
@@ -269,45 +340,18 @@
       "Card 1 is the first minute. Card 2 is the next step and the 30 minute rule. Card 3 says who is with you.",
       "Ack within 10 minutes. Open the runbook and loop in Lena. At 30 minutes, escalate to the on call lead."
     ],
-    "reveal": "First minute: acknowledge the page. Next: open the runbook and ping Lena, you are shadowing her. Minute 30 if still broken: escalate to the on call lead. You are never alone with a SEV2."
+    "reveal": "First minute: acknowledge the page. Next: open the runbook and ping Lena, you are shadowing her. Minute 30 if still broken: escalate to the on call lead. You are never alone with a SEV2.",
+    "kind": "practice"
   },
   {
     "id": "pay-it-forward",
-    "order": 8,
+    "order": 10,
     "title": "Pay it forward",
     "emoji": "💌",
     "xp": 15,
     "docId": "welcome",
+    "kind": "reflect",
     "why": "Every note on this map was left by someone who was new once. The next iOS hire opens this same quest. Now it is your turn.",
-    "facts": [
-      "Your note goes on the map for the next new hire. Priya's from 2023 is still on stop 1.",
-      "The most helpful notes name a stop and say one honest thing about it.",
-      "Short is fine. Kind is required."
-    ],
-    "scenario": "Someone joins Claude iOS next Monday. They will open this same quest.",
-    "task": "Write them a one or two sentence note. Name the stop that was hardest for you and what you would tell them.",
-    "rubric": "A passing answer is a sincere note of at least 8 words that names or clearly refers to one of the stops. Be generous. This stop is about kindness, not correctness.",
-    "keywords": [
-      [
-        "team",
-        "gear",
-        "lingo",
-        "ship",
-        "call",
-        "heard",
-        "coffee",
-        "beacon",
-        "stop",
-        "hard",
-        "easy",
-        "tip",
-        "hint"
-      ]
-    ],
-    "hints": [
-      "Any stop counts. Which one made you pause?",
-      "Just be honest. Something like: 'Beacon scared me. Read the on call page twice.'"
-    ],
-    "reveal": "Anything kind and true. For example: 'Get heard on a call was my favorite. Use the hand trick early.'"
+    "prompt": "Write them a one or two sentence note. Name the stop that was hardest for you and what you would tell them."
   }
 ]

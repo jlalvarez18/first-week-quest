@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { docById, type Stop } from "./data";
+import { docById, type PracticeStop } from "./data";
 
 export const GradeSchema = z.object({
   pass: z.boolean(),
@@ -15,7 +15,7 @@ export type Grade = z.infer<typeof GradeSchema> & { grader: "claude" | "fallback
  * the API call fails). Each keyword group is an OR; all groups must match (AND).
  * It is deliberately lenient: the demo must never dead-end a reviewer.
  */
-export function fallbackGrade(stop: Stop, answer: string, attempt: number): Grade {
+export function fallbackGrade(stop: PracticeStop, answer: string, attempt: number): Grade {
   const a = answer.toLowerCase().trim();
   const tooShort = a.split(/\s+/).filter(Boolean).length < 4;
   const missing = stop.keywords.filter((group) => !group.some((k) => a.includes(k.toLowerCase())));
@@ -34,7 +34,7 @@ export function fallbackGrade(stop: Stop, answer: string, attempt: number): Grad
   };
 }
 
-export function buildPrompt(stop: Stop, answer: string, attempt: number) {
+export function buildPrompt(stop: PracticeStop, answer: string, attempt: number) {
   const doc = docById(stop.docId);
   const facts = stop.facts.map((f, i) => `[${i}] ${f}`).join("\n");
   const system = `You are Clay, a friendly coach in a Duolingo-style onboarding game set at a fictional version of Anthropic.
@@ -45,6 +45,7 @@ Rules:
 - Grade only whether the answer applies the fact cards to the scenario, per the rubric. Do not invent extra requirements.
 - pass=true when the rubric is met in spirit. Paraphrase, different wording, and reasonable extra detail are all fine.
 - pass=false for empty, joke, off-topic, or keyword-spam answers, or when a required part of the rubric is missing. A real attempt is plain sentences that show the fact was applied.
+- Plain punctuation only: commas and periods. No em dashes or en dashes; they get mangled in transit.
 - feedback: one or two short sentences, coach voice. Start with what they applied well. If pass=false, name the ONE thing to change, and refer to the fact card by what it says, not by number. Never give the full answer.
 - factIndex: if pass=false, the index (0, 1, or 2) of the single fact card they should re-read. If pass=true, null.
 - hint: if pass=false, one sentence pointing at that card. Attempt ${attempt + 1}: hint level ${Math.min(attempt + 1, 2)} (level 1 points at the card, level 2 nearly gives it away). If pass=true, hint is an empty string.`;

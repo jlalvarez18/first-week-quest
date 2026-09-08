@@ -12,9 +12,9 @@ import { loadProgress, resetProgress, type Progress, emptyProgress } from "@/lib
 type Hire = { id: string; name: string; initials: string; color: string; location: string; remote: boolean; stop: number };
 const INITIAL_HIRES: Hire[] = [
   { id: "you", name: "You", initials: "YOU", color: USER_COLOR, location: "here", remote: true, stop: 0 },
-  { id: "ravi", name: "Ravi Menon", initials: "RM", color: "#a855f7", location: "Dublin", remote: true, stop: 2 },
-  { id: "mei", name: "Mei Tanaka", initials: "MT", color: "#f43f5e", location: "San Francisco", remote: false, stop: 5 },
-  { id: "kai", name: "Kai Nakamura", initials: "KN", color: "#84cc16", location: "Tokyo", remote: true, stop: 8 },
+  { id: "ravi", name: "Ravi Menon", initials: "RM", color: "#a855f7", location: "Dublin", remote: true, stop: 3 },
+  { id: "mei", name: "Mei Tanaka", initials: "MT", color: "#f43f5e", location: "San Francisco", remote: false, stop: 7 },
+  { id: "kai", name: "Kai Nakamura", initials: "KN", color: "#84cc16", location: "Tokyo", remote: true, stop: 10 },
 ];
 
 export default function TeamPage() {
@@ -80,7 +80,7 @@ function TeamBoard() {
       { at: 10500, run: () => advance("mei") },
       { at: 11200, run: () => cheer(personById("marcus")!, "Mei cleared Beacon on the third try. That is the rule working.") },
       { at: 14000, run: () => advance("ravi") },
-      { at: 14700, run: () => cheer(personById("priya")!, "Ravi shipped something tiny. One word PR. Perfect.") },
+      { at: 14700, run: () => cheer(personById("lena")!, "Ravi got the app building. Workspace, not project. Learned it in one.") },
       { at: 17500, run: () => stuck("learn-the-lingo") },
       { at: 20000, run: () => advance("mei") },
       { at: 20700, run: () => cheer(personById("amara")!, "Mei is one stop from done. Cheer squad, assemble.") },
@@ -171,7 +171,7 @@ function TeamBoard() {
       <section className="mb-6 rounded-2xl border-2 border-slate-200 bg-white p-5">
         <h2 className="text-lg font-extrabold text-slate-800">Where people get stuck</h2>
         <p className="mb-4 text-sm text-slate-500">
-          Stuck signals per stop: wrong answers, plus opening the notes before passing. Last cohort plus this week. Counted per stop, never per person. A tall bar means the wiki page needs work, not the new hire.
+          Stuck signals per stop: wrong answers, issues raised on a checklist, and opening the notes before passing. Last cohort plus this week. Counted per stop, never per person. A tall bar means the wiki page needs work, not the new hire.
         </p>
         <div className="flex flex-col gap-2">
           {STOPS.map((s) => {

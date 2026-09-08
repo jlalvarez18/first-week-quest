@@ -9,6 +9,10 @@ export type Progress = {
   wrong: Record<string, number>;
   /** Stops where the notes were opened before passing. Counted once per stop. */
   peeked: string[];
+  /** Ticked checklist item ids per stop, so a reload keeps your place. */
+  checks: Record<string, string[]>;
+  /** Chosen person per stop, for stops that ask you to pick someone. */
+  picks: Record<string, string>;
   notes: { id: string; stopId: string; text: string; at: string }[];
   /** ids of trail notes (bundled or own) the user marked as helpful */
   helped: string[];
@@ -24,6 +28,8 @@ export const emptyProgress = (): Progress => ({
   attempts: {},
   wrong: {},
   peeked: [],
+  checks: {},
+  picks: {},
   notes: [],
   helped: [],
   finishedAt: null,

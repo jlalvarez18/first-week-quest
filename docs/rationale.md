@@ -23,6 +23,16 @@ welcome line instead of a placeholder.
 This is a fictional slice of Anthropic. Every person, channel, and rule is invented, and
 the landing page says so. Nothing in it is a claim about how anything really works there.
 
+## Why most stops are not questions
+
+A first week is mostly setup: VPN, Xcode, the Apple team invite, getting the app to build,
+saying hi, sending a DM. Grading that with an LLM would be theatre. So stops have kinds.
+Setup and action stops are checklists with two buttons: "Setup complete" and "Having an
+issue". The issue button is the interesting one: it asks which step, shows exactly where to
+ask and what to include, counts as a stuck signal for that stop, and opens the notes from
+people who hit the same thing. Only four stops are practice, where judgment matters and a
+coach helps: the lingo, who owns what, getting heard on a call, and a 2am page.
+
 ## Why Duolingo
 
 Duolingo solved "make a boring solo task feel like a game you come back to." I borrowed

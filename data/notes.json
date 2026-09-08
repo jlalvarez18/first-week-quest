@@ -1,33 +1,259 @@
 [
-  { "id": "n1", "stopId": "find-your-people", "by": "kai", "tag": "buddy", "daysAgo": 7, "helped": 7, "text": "I posted a billing review in #claude-web by mistake on day one. Nobody minded. They just pointed me to #subscriptions." },
-  { "id": "n2", "stopId": "find-your-people", "by": "tomas", "daysAgo": 21, "helped": 4, "text": "Subscriptions also owns refunds and App Store receipts. Same channel, same people. Saves you a second question." },
-  { "id": "n3", "stopId": "find-your-people", "by": "priya", "tag": "owner", "daysAgo": 60, "helped": 12, "text": "Hi, it's me, the team you're looking for. Say hi when you get here. 👋" },
-
-  { "id": "n4", "stopId": "get-your-gear", "by": "dev", "tag": "owner", "daysAgo": 45, "helped": 15, "text": "The asset tag sticker is on the bottom of the laptop. Yes, you have to flip it over. Everyone does." },
-  { "id": "n5", "stopId": "get-your-gear", "by": "lena", "daysAgo": 30, "helped": 9, "text": "I asked IT for the Apple Developer invite and waited a day. It's Marcus. Always Marcus. Just DM him." },
-  { "id": "n6", "stopId": "get-your-gear", "by": "kai", "tag": "buddy", "daysAgo": 6, "helped": 3, "text": "IT replied to me in 4 minutes. They are fast if you give them the three things." },
-
-  { "id": "n7", "stopId": "learn-the-lingo", "by": "lena", "daysAgo": 40, "helped": 11, "text": "I nodded along in standup for two weeks before I asked what 'the train' was. Don't be me. Ask." },
-  { "id": "n8", "stopId": "learn-the-lingo", "by": "jun", "daysAgo": 25, "helped": 5, "text": "The train leaves Tuesday at noon Pacific. That is 8pm for Lena. Plan your Tuesdays around it." },
-  { "id": "n9", "stopId": "learn-the-lingo", "by": "amara", "daysAgo": 90, "helped": 9, "text": "We added the glossary because of new hire feedback. Keep telling us which words are confusing." },
-
-  { "id": "n10", "stopId": "ship-something-tiny", "by": "marcus", "tag": "owner", "daysAgo": 50, "helped": 14, "text": "Your first PR should be boring. Mine fixed one word in Settings. The point is learning the flow, not impressing anyone." },
-  { "id": "n11", "stopId": "ship-something-tiny", "by": "lena", "daysAgo": 18, "helped": 8, "text": "Screenshot before and after, even for one word. Jun will ask for it anyway." },
-  { "id": "n12", "stopId": "ship-something-tiny", "by": "kai", "tag": "buddy", "daysAgo": 5, "helped": 2, "text": "Post the PR link in your team channel. Someone always picks it up before lunch." },
-
-  { "id": "n13", "stopId": "get-heard", "by": "sofia", "tag": "owner", "daysAgo": 120, "helped": 21, "text": "This norm exists because of me. I got talked over for a month from Mexico City. Now nobody has to." },
-  { "id": "n14", "stopId": "get-heard", "by": "lena", "daysAgo": 33, "helped": 10, "text": "Type 'hand' early. Marcus reads the thread in order, so the first hand goes first. London lag is real." },
-  { "id": "n15", "stopId": "get-heard", "by": "kai", "tag": "buddy", "daysAgo": 4, "helped": 3, "text": "I used it on my second day and the host said 'Kai, go ahead' and I nearly cried. It works." },
-
-  { "id": "n16", "stopId": "book-a-coffee", "by": "amara", "tag": "owner", "daysAgo": 80, "helped": 17, "text": "People say yes. Truly. The scariest DM you send this week will be the best 20 minutes of it." },
-  { "id": "n17", "stopId": "book-a-coffee", "by": "jun", "daysAgo": 22, "helped": 6, "text": "If you're on iOS, book me first. I'll show you the design system before you ship your first screen." },
-  { "id": "n18", "stopId": "book-a-coffee", "by": "kai", "tag": "buddy", "daysAgo": 3, "helped": 5, "text": "Pick me if you want. I still have questions too. We can be confused together." },
-
-  { "id": "n19", "stopId": "beacon-goes-off", "by": "nadia", "tag": "owner", "daysAgo": 70, "helped": 19, "text": "Asking for help at minute 31 is following the rule. Waiting until minute 90 is the only way to do this wrong." },
-  { "id": "n20", "stopId": "beacon-goes-off", "by": "marcus", "daysAgo": 28, "helped": 7, "text": "You will shadow Lena for a month first. Nobody gets paged alone in week one. Breathe." },
-  { "id": "n21", "stopId": "beacon-goes-off", "by": "lena", "daysAgo": 15, "helped": 10, "text": "The runbook link is in the page itself. Do not go looking for it in the wiki at 2am like I did." },
-  { "id": "n22", "stopId": "beacon-goes-off", "by": "kai", "tag": "buddy", "daysAgo": 2, "helped": 4, "text": "This stop scared me most. Read the on call page twice, then it is fine." },
-
-  { "id": "n23", "stopId": "pay-it-forward", "by": "priya", "daysAgo": 400, "helped": 30, "text": "Your note goes on the map for the next person. Mine from 2023 is still on stop 1. That is the whole point." },
-  { "id": "n24", "stopId": "pay-it-forward", "by": "kai", "tag": "buddy", "daysAgo": 1, "helped": 6, "text": "Made it! See you on the other side. Ping me any time, seriously." }
+  {
+    "id": "n1",
+    "stopId": "who-owns-what",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 7,
+    "helped": 7,
+    "text": "I posted a billing review in #claude-web by mistake on day one. Nobody minded. They just pointed me to #subscriptions."
+  },
+  {
+    "id": "n2",
+    "stopId": "who-owns-what",
+    "by": "tomas",
+    "daysAgo": 21,
+    "helped": 4,
+    "text": "Subscriptions also owns refunds and App Store receipts. Same channel, same people. Saves you a second question."
+  },
+  {
+    "id": "n3",
+    "stopId": "who-owns-what",
+    "by": "priya",
+    "tag": "owner",
+    "daysAgo": 60,
+    "helped": 12,
+    "text": "Hi, it's me, the team you're looking for. Say hi when you get here. 👋"
+  },
+  {
+    "id": "n4",
+    "stopId": "get-your-gear",
+    "by": "dev",
+    "tag": "owner",
+    "daysAgo": 45,
+    "helped": 15,
+    "text": "The asset tag sticker is on the bottom of the laptop. Yes, you have to flip it over. Everyone does."
+  },
+  {
+    "id": "n5",
+    "stopId": "get-your-gear",
+    "by": "lena",
+    "daysAgo": 30,
+    "helped": 9,
+    "text": "I asked IT for the Apple Developer invite and waited a day. It's Marcus. Always Marcus. Just DM him."
+  },
+  {
+    "id": "n6",
+    "stopId": "get-your-gear",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 6,
+    "helped": 3,
+    "text": "IT replied to me in 4 minutes. They are fast if you give them the three things."
+  },
+  {
+    "id": "n7",
+    "stopId": "learn-the-lingo",
+    "by": "lena",
+    "daysAgo": 40,
+    "helped": 11,
+    "text": "I nodded along in standup for two weeks before I asked what 'the train' was. Don't be me. Ask."
+  },
+  {
+    "id": "n8",
+    "stopId": "learn-the-lingo",
+    "by": "jun",
+    "daysAgo": 25,
+    "helped": 5,
+    "text": "The train leaves Tuesday at noon Pacific. That is 8pm for Lena. Plan your Tuesdays around it."
+  },
+  {
+    "id": "n9",
+    "stopId": "learn-the-lingo",
+    "by": "amara",
+    "daysAgo": 90,
+    "helped": 9,
+    "text": "We added the glossary because of new hire feedback. Keep telling us which words are confusing."
+  },
+  {
+    "id": "n10",
+    "stopId": "ship-something-tiny",
+    "by": "marcus",
+    "tag": "owner",
+    "daysAgo": 50,
+    "helped": 14,
+    "text": "Your first PR should be boring. Mine fixed one word in Settings. The point is learning the flow, not impressing anyone."
+  },
+  {
+    "id": "n11",
+    "stopId": "ship-something-tiny",
+    "by": "lena",
+    "daysAgo": 18,
+    "helped": 8,
+    "text": "Screenshot before and after, even for one word. Jun will ask for it anyway."
+  },
+  {
+    "id": "n12",
+    "stopId": "ship-something-tiny",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 5,
+    "helped": 2,
+    "text": "Post the PR link in your team channel. Someone always picks it up before lunch."
+  },
+  {
+    "id": "n13",
+    "stopId": "get-heard",
+    "by": "sofia",
+    "tag": "owner",
+    "daysAgo": 120,
+    "helped": 21,
+    "text": "This norm exists because of me. I got talked over for a month from Mexico City. Now nobody has to."
+  },
+  {
+    "id": "n14",
+    "stopId": "get-heard",
+    "by": "lena",
+    "daysAgo": 33,
+    "helped": 10,
+    "text": "Type 'hand' early. Marcus reads the thread in order, so the first hand goes first. London lag is real."
+  },
+  {
+    "id": "n15",
+    "stopId": "get-heard",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 4,
+    "helped": 3,
+    "text": "I used it on my second day and the host said 'Kai, go ahead' and I nearly cried. It works."
+  },
+  {
+    "id": "n16",
+    "stopId": "book-a-coffee",
+    "by": "amara",
+    "tag": "owner",
+    "daysAgo": 80,
+    "helped": 17,
+    "text": "People say yes. Truly. The scariest DM you send this week will be the best 20 minutes of it."
+  },
+  {
+    "id": "n17",
+    "stopId": "book-a-coffee",
+    "by": "jun",
+    "daysAgo": 22,
+    "helped": 6,
+    "text": "If you're on iOS, book me first. I'll show you the design system before you ship your first screen."
+  },
+  {
+    "id": "n18",
+    "stopId": "book-a-coffee",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 3,
+    "helped": 5,
+    "text": "Pick me if you want. I still have questions too. We can be confused together."
+  },
+  {
+    "id": "n19",
+    "stopId": "beacon-goes-off",
+    "by": "nadia",
+    "tag": "owner",
+    "daysAgo": 70,
+    "helped": 19,
+    "text": "Asking for help at minute 31 is following the rule. Waiting until minute 90 is the only way to do this wrong."
+  },
+  {
+    "id": "n20",
+    "stopId": "beacon-goes-off",
+    "by": "marcus",
+    "daysAgo": 28,
+    "helped": 7,
+    "text": "You will shadow Lena for a month first. Nobody gets paged alone in week one. Breathe."
+  },
+  {
+    "id": "n21",
+    "stopId": "beacon-goes-off",
+    "by": "lena",
+    "daysAgo": 15,
+    "helped": 10,
+    "text": "The runbook link is in the page itself. Do not go looking for it in the wiki at 2am like I did."
+  },
+  {
+    "id": "n22",
+    "stopId": "beacon-goes-off",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 2,
+    "helped": 4,
+    "text": "This stop scared me most. Read the on call page twice, then it is fine."
+  },
+  {
+    "id": "n23",
+    "stopId": "pay-it-forward",
+    "by": "priya",
+    "daysAgo": 400,
+    "helped": 30,
+    "text": "Your note goes on the map for the next person. Mine from 2023 is still on stop 1. That is the whole point."
+  },
+  {
+    "id": "n24",
+    "stopId": "pay-it-forward",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 1,
+    "helped": 6,
+    "text": "Made it! See you on the other side. Ping me any time, seriously."
+  },
+  {
+    "id": "n25",
+    "stopId": "find-your-people",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 7,
+    "helped": 9,
+    "text": "I typed and deleted my hello four times. Just post it. Marcus replies with a coffee emoji every single time."
+  },
+  {
+    "id": "n26",
+    "stopId": "find-your-people",
+    "by": "lena",
+    "daysAgo": 30,
+    "helped": 6,
+    "text": "Say where you are and what hours you keep. Half the team is remote, it helps everyone."
+  },
+  {
+    "id": "n27",
+    "stopId": "find-your-people",
+    "by": "marcus",
+    "tag": "owner",
+    "daysAgo": 60,
+    "helped": 11,
+    "text": "There is no wrong way to say hi. Welcome to the team."
+  },
+  {
+    "id": "n28",
+    "stopId": "build-the-app",
+    "by": "lena",
+    "tag": "owner",
+    "daysAgo": 20,
+    "helped": 18,
+    "text": "Open the workspace, not the project. I lost a whole afternoon to that on day two. You will not."
+  },
+  {
+    "id": "n29",
+    "stopId": "build-the-app",
+    "by": "kai",
+    "tag": "buddy",
+    "daysAgo": 6,
+    "helped": 5,
+    "text": "Bootstrap failed for me once and worked the second time. Run it twice before you worry."
+  },
+  {
+    "id": "n30",
+    "stopId": "build-the-app",
+    "by": "nadia",
+    "daysAgo": 45,
+    "helped": 7,
+    "text": "Two tests are flaky on a fresh machine. Not you. Re-run once, then ask."
+  }
 ]

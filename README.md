@@ -6,12 +6,16 @@ Duolingo-style path you play with your team.
 - **You play a new iOS engineer joining the Claude iOS team** at a fictional slice of Anthropic.
   A demo sign-in asks your name; a fake SSO screen "finds" your team and buddy. Every person,
   channel, and rule is invented.
-- **8 stops**, each a real week-one task for that role: who owns App Store refunds, getting
-  Xcode to sign, the release train, your first PR, getting heard on a call, a 2am page.
-- **Learn, then try.** Every stop shows three fact cards first, then a scenario to apply them to.
-  It is practice, not a quiz. The full wiki page is one tap away but never required.
-- **Claude coaches** your attempt against a per-stop rubric. On a miss it points at the one fact
-  card to re-read (the card pulses). Wrong answers cost nothing. The answer is revealed only after two misses.
+- **10 stops**, four kinds. **Setup** and **action** stops are checklists (get your gear, build
+  the app, say hi, open your first PR, book a coffee) with "Setup complete" and "Having an
+  issue" buttons. **Practice** stops teach three facts and coach a scenario with Claude (lingo,
+  who owns what, getting heard, a 2am page). One **reflect** stop leaves a note for the next hire.
+- **Learn, then try.** Practice stops show three fact cards first, then a scenario to apply them
+  to. The full wiki page is one tap away but never required.
+- **Claude coaches** practice attempts against a per-stop rubric. On a miss it points at the one
+  fact card to re-read (the card pulses). Wrong answers cost nothing. The answer is revealed only after two misses.
+- **"Having an issue"** on a checklist shows where to ask and what to include, counts as a stuck
+  signal, and opens the notes from people who hit the same thing.
 - **Multiplayer feel**: every stop carries a note from a teammate who was new once.
   Finish a stop and the team cheers. Most of them are remote.
 - **Team board**: where new hires get stuck, counted per stop (never per person),

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import { stopById } from "@/lib/data";
+import { isPractice, stopById } from "@/lib/data";
 import { GradeSchema, buildPrompt, fallbackGrade, type Grade } from "@/lib/grade";
 
 export const runtime = "nodejs";
@@ -19,6 +19,7 @@ export async function POST(req: Request) {
   const answer = (body?.answer ?? "").toString().slice(0, 2000);
   const attempt = Math.max(0, Number(body?.attempt ?? 0) | 0);
   if (!stop) return NextResponse.json({ error: "unknown stop" }, { status: 400 });
+  if (!isPractice(stop)) return NextResponse.json({ error: "this stop is not graded" }, { status: 400 });
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json(fallbackGrade(stop, answer, attempt));

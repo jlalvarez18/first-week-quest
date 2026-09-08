@@ -5,25 +5,42 @@ import notes from "@/data/notes.json";
 import persona from "@/data/persona.json";
 
 export type Doc = { id: string; title: string; body: string };
-export type Stop = {
+type StopBase = {
   id: string;
   order: number;
   title: string;
   emoji: string;
   xp: number;
   docId: string;
-  /** One line from Clay on why this stop matters. */
+  /** One line from Clay on why this stop matters, addressed to the new hire. */
   why: string;
-  /** Exactly three facts from the wiki page. They are everything the task needs. */
+};
+export type ChecklistItem = { id: string; label: string; /** Where to ask and what to include when this item is stuck. */ help: string };
+/** Learn three facts, apply them to a scenario, get coached by Claude. */
+export type PracticeStop = StopBase & {
+  kind: "practice";
   facts: string[];
   scenario: string;
-  /** The ask, phrased as something to do, not recall. */
   task: string;
   rubric: string;
   keywords: string[][];
   hints: string[];
   reveal: string;
 };
+/** Install, get access, or do a real-world thing. Tick items, then "Setup complete"; "Having an issue" shows help. */
+export type ChecklistStop = StopBase & {
+  kind: "setup" | "action";
+  checklist: ChecklistItem[];
+  completeLabel: string;
+  people?: string[];
+  /** Require choosing one of `people` before completing (coffee chat). */
+  pickOne?: boolean;
+};
+/** One text box, no grading. */
+export type ReflectStop = StopBase & { kind: "reflect"; prompt: string };
+export type Stop = PracticeStop | ChecklistStop | ReflectStop;
+export const isPractice = (s: Stop): s is PracticeStop => s.kind === "practice";
+export const isChecklist = (s: Stop): s is ChecklistStop => s.kind === "setup" || s.kind === "action";
 export type Person = {
   id: string;
   name: string;
@@ -60,10 +77,12 @@ export const notesForStop = (stopId: string) => NOTES.filter((n) => n.stopId ===
 
 /** Bundled "last cohort" wrong-answer counts per stop. Per stop only, never per person. */
 export const STUCK_BASELINE: Record<string, number> = {
-  "find-your-people": 3,
-  "get-your-gear": 5,
+  "find-your-people": 1,
+  "get-your-gear": 6,
+  "build-the-app": 12,
   "learn-the-lingo": 9,
   "ship-something-tiny": 4,
+  "who-owns-what": 3,
   "get-heard": 2,
   "book-a-coffee": 1,
   "beacon-goes-off": 11,

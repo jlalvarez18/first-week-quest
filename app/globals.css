@@ -101,6 +101,10 @@ body {
 }
 .confetti-burst { top: 0; animation: confetti-burst ease-in 1 both; }
 
+/* Checklist tick. */
+@keyframes check-pop { 0% { transform: scale(0.7); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+.check-pop { animation: check-pop 260ms var(--ease-out-expo); }
+
 /* "Helped me" acknowledgement. */
 @keyframes helped-pop {
   0% { transform: scale(1); }
@@ -149,7 +153,7 @@ body {
   .confetti-burst { display: none; }
   .tick { animation: none; border-top-color: #bae6fd; }
   .tick-done { animation: none; }
-  .helped-pop { animation: none; }
+  .helped-pop, .check-pop { animation: none; }
   .bouncy, .cheer, .confetti { animation: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 0.01ms; }
 }
