@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { flushSync } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import Mascot from "./Mascot";
 import NotesSidebar from "./NotesSidebar";
 import { docById, notesForStop, type Stop } from "@/lib/data";
@@ -48,7 +48,10 @@ export default function Lesson({
     if (next && !canPost) onPeek(stop);
     const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!doc.startViewTransition || reduce) return setNotesOpen(next);
+    // Below lg the notes are a bottom sheet with its own slide. A view transition there would
+    // snapshot the lesson into a layer that paints above the sheet, so skip it.
+    const wide = window.matchMedia("(min-width: 1024px)").matches;
+    if (!doc.startViewTransition || reduce || !wide) return setNotesOpen(next);
     doc.startViewTransition(() => flushSync(() => setNotesOpen(next)));
   }
 
@@ -175,14 +178,16 @@ export default function Lesson({
       </div>
     )}
 
-    {/* Mobile: bottom sheet */}
-    {notesOpen && (
-      <div className="sheet-backdrop fixed inset-0 z-50 flex items-end bg-slate-900/40 lg:hidden" onClick={() => setNotesOpen(false)}>
-        <div className="sheet-in max-h-[85vh] w-full" onClick={(e) => e.stopPropagation()}>
-          <NotesSidebar {...sidebarProps} onClose={() => setNotesOpen(false)} />
-        </div>
-      </div>
-    )}
+    {/* Mobile: bottom sheet. Portaled to <body> so no lesson layer can composite above it. */}
+    {notesOpen &&
+      createPortal(
+        <div className="sheet-backdrop fixed inset-0 z-50 flex items-end bg-slate-900/40 lg:hidden" onClick={() => setNotesOpen(false)}>
+          <div className="sheet-in max-h-[85vh] w-full" onClick={(e) => e.stopPropagation()}>
+            <NotesSidebar {...sidebarProps} onClose={() => setNotesOpen(false)} />
+          </div>
+        </div>,
+        document.body,
+      )}
 
       {/* Bottom result bar, Duolingo style */}
       <div
