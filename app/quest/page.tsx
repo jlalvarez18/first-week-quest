@@ -21,6 +21,9 @@ export default function QuestPage() {
   const [open, setOpen] = useState<Stop | null>(null);
   const [cheers, setCheers] = useState<Cheer[]>([]);
   const cheerId = useRef(0);
+  /** The trail staggers in only on first arrival. Once a lesson has been opened, coming back uses the morph instead. */
+  const [pathShown, setPathShown] = useState(false);
+  const animatePath = !open && !pathShown;
 
   useEffect(() => {
     const n = getName();
@@ -43,7 +46,10 @@ export default function QuestPage() {
   }, []);
 
   /** Hero morph: the stop node on the path becomes the lesson header. Falls back to an instant swap. */
-  const transitionTo = useCallback((stop: Stop | null) => withViewTransition(() => setOpen(stop)), []);
+  const transitionTo = useCallback((stop: Stop | null) => {
+    if (stop) setPathShown(true);
+    withViewTransition(() => setOpen(stop));
+  }, []);
 
   const pushCheer = useCallback((delay: number, exclude: string[]) => {
     setTimeout(() => {
@@ -144,13 +150,16 @@ export default function QuestPage() {
         <Finish progress={progress} name={name} onReset={reset} />
       ) : (
         <>
-          <div className="mx-auto mb-2 max-w-md rounded-2xl border-2 border-slate-200 bg-white p-4 text-center text-sm text-slate-600">
+          <div
+            className={`mx-auto mb-2 max-w-md rounded-2xl border-2 border-slate-200 bg-white p-4 text-center text-sm text-slate-600 ${animatePath ? "enter" : ""}`}
+            style={animatePath ? ({ "--i": -1 } as React.CSSProperties) : undefined}
+          >
             <span className="font-bold text-slate-800">
               Welcome to the {PERSONA.team} team, {firstName(name)}.
             </span>{" "}
             Eight stops. Marcus and Lena are cheering you on. Wrong answers cost nothing but earn a hint.
           </div>
-          <Path stops={STOPS} completed={progress.completed} onOpen={transitionTo} />
+          <Path stops={STOPS} completed={progress.completed} onOpen={transitionTo} animateIn={animatePath} />
           <div className="mt-6 text-center">
             <button type="button" onClick={reset} className="text-xs font-bold text-slate-400 hover:text-slate-600">
               Reset progress

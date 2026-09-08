@@ -8,10 +8,13 @@ export default function Path({
   stops,
   completed,
   onOpen,
+  animateIn = false,
 }: {
   stops: Stop[];
   completed: string[];
   onOpen: (stop: Stop) => void;
+  /** Stagger the stops in. Only on first arrival; returning from a lesson uses the morph instead. */
+  animateIn?: boolean;
 }) {
   const activeIdx = stops.findIndex((s) => !completed.includes(s.id));
   return (
@@ -20,7 +23,11 @@ export default function Path({
         const state: State = completed.includes(stop.id) ? "done" : i === activeIdx ? "active" : "locked";
         const x = OFFSETS[i % OFFSETS.length];
         return (
-          <div key={stop.id} className="relative flex h-40 w-full items-center justify-center">
+          <div
+            key={stop.id}
+            className={`relative flex h-40 w-full items-center justify-center ${animateIn ? "enter" : ""}`}
+            style={animateIn ? ({ "--i": i } as React.CSSProperties) : undefined}
+          >
             <div className="relative flex flex-col items-center" style={{ transform: `translateX(${x}px)` }}>
               {state === "active" && (
                 <div className="bouncy absolute -top-10 z-10 rounded-lg border-2 border-amber-300 bg-white px-3 py-1 text-xs font-extrabold tracking-wide text-amber-600 shadow">
