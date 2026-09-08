@@ -22,11 +22,14 @@ language app. It is the wrong message for someone's first week at a new job.
 
 ## What is non-obvious
 
-1. **AI as hint-giver, not answer-giver.** Claude grades against a rubric and the wiki
-   page, and returns a hint that points at where to look. The answer is revealed only
-   after two misses, at half XP. This is closer to how a good buddy behaves.
-2. **The rubric is visible.** A "How it grades" toggle shows the exact rubric Bean uses.
-   If the grader is wrong, the new hire can see why and argue with it. Retries are free.
+1. **Learn, then try.** The first version asked a question and hid the wiki behind a
+   "peek" button. It felt like a test of things you should already know. That is the
+   opposite of onboarding. Now every stop shows three fact cards first, then a scenario
+   to apply them to. Being wrong means "apply it differently," never "you didn't know."
+2. **AI as coach, not examiner.** Claude grades whether the facts were applied, names
+   what went well first, then points at the one card to re-read. That card pulses. The
+   answer is revealed only after two misses, at half XP. An earlier "How it grades"
+   toggle showed the rubric up front; it was removed because the rubric was the answer.
 3. **Stuck counts are per stop, never per person.** The team board shows which stops
    collect the most wrong answers. That is a doc-quality signal, not a performance signal.
    The UI says so out loud. HR teams will care about this line.

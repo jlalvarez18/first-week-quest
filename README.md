@@ -4,8 +4,10 @@ Onboarding is a list of links you read alone. First Week Quest turns week one in
 Duolingo-style path you play with your team.
 
 - **8 stops**, each a real week-one task at a fictional company (Orbital Coffee Co.).
-- **Claude grades** your answer against a per-stop rubric and the relevant wiki page.
-  Wrong answers cost nothing and earn a hint. The answer is only revealed after two misses.
+- **Learn, then try.** Every stop shows three fact cards first, then a scenario to apply them to.
+  It is practice, not a quiz. The full wiki page is one tap away but never required.
+- **Claude coaches** your attempt against a per-stop rubric. On a miss it points at the one fact
+  card to re-read (the card pulses). Wrong answers cost nothing. The answer is revealed only after two misses.
 - **Multiplayer feel**: every stop carries a note from a teammate who was new once.
   Finish a stop and the team cheers. Most of them are remote.
 - **Team board**: where new hires get stuck, counted per stop (never per person),

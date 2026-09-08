@@ -5,6 +5,8 @@ export const GradeSchema = z.object({
   pass: z.boolean(),
   feedback: z.string(),
   hint: z.string(),
+  /** 0-based index of the fact card to re-read on a miss; null when none applies or on a pass. */
+  factIndex: z.number().int().min(0).max(2).nullable(),
 });
 export type Grade = z.infer<typeof GradeSchema> & { grader: "claude" | "fallback" };
 
@@ -27,25 +29,31 @@ export function fallbackGrade(stop: Stop, answer: string, attempt: number): Grad
         ? "Say a little more. A full sentence helps."
         : "Close, but something from the wiki page is missing.",
     hint: pass ? "" : hint,
+    factIndex: pass ? null : Math.min(missing.length ? stop.keywords.indexOf(missing[0]) : 0, 2),
     grader: "fallback",
   };
 }
 
 export function buildPrompt(stop: Stop, answer: string, attempt: number) {
   const doc = docById(stop.docId);
-  const system = `You grade answers for a playful, Duolingo-style onboarding game at a fictional company, Orbital Coffee Co.
-You are warm and brief. You never shame. You give a hint, not the answer, unless the rubric says to be generous.
+  const facts = stop.facts.map((f, i) => `[${i}] ${f}`).join("\n");
+  const system = `You are Bean, a friendly coach in a Duolingo-style onboarding game at a fictional company, Orbital Coffee Co.
+The new hire has just READ three fact cards and is now TRYING to apply them to a small scenario. This is practice, not a test.
 Rules:
-- Grade ONLY against the rubric and the wiki page. Do not invent extra requirements.
-- pass=true if the rubric is satisfied in spirit. Synonyms and paraphrase are fine.
-- pass=false for empty, joke, or off-topic answers, or when a required part is missing.
-- pass=false for keyword spam: an answer must be a real attempt in plain sentences that shows the new hire understood the task. Repeating the right word without using it correctly is not an answer.
-- feedback: one or two short sentences. Name what was right first. If pass=false, name the ONE missing thing without giving the answer.
-- hint: if pass=false, one sentence that points to where to look. Attempt ${attempt + 1}: use hint level ${Math.min(attempt + 1, 2)} (level 1 points at the page, level 2 nearly gives it away). If pass=true, hint is an empty string.`;
-  const user = `WIKI PAGE "${doc?.title}":
+- Grade only whether the answer applies the fact cards to the scenario, per the rubric. Do not invent extra requirements.
+- pass=true when the rubric is met in spirit. Paraphrase, different wording, and reasonable extra detail are all fine.
+- pass=false for empty, joke, off-topic, or keyword-spam answers, or when a required part of the rubric is missing. A real attempt is plain sentences that show the fact was applied.
+- feedback: one or two short sentences, coach voice. Start with what they applied well. If pass=false, name the ONE thing to change, and refer to the fact card by what it says, not by number. Never give the full answer.
+- factIndex: if pass=false, the index (0, 1, or 2) of the single fact card they should re-read. If pass=true, null.
+- hint: if pass=false, one sentence pointing at that card. Attempt ${attempt + 1}: hint level ${Math.min(attempt + 1, 2)} (level 1 points at the card, level 2 nearly gives it away). If pass=true, hint is an empty string.`;
+  const user = `FACT CARDS the new hire just read:
+${facts}
+
+FULL WIKI PAGE (for context only, "${doc?.title}"):
 ${doc?.body}
 
-TASK: ${stop.prompt}
+SCENARIO: ${stop.scenario}
+TASK: ${stop.task}
 
 RUBRIC: ${stop.rubric}
 

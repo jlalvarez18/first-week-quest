@@ -11,7 +11,13 @@ export type Stop = {
   emoji: string;
   xp: number;
   docId: string;
-  prompt: string;
+  /** One line from Bean on why this stop matters. */
+  why: string;
+  /** Exactly three facts from the wiki page. They are everything the task needs. */
+  facts: string[];
+  scenario: string;
+  /** The ask, phrased as something to do, not recall. */
+  task: string;
   rubric: string;
   keywords: string[][];
   hints: string[];

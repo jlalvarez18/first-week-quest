@@ -51,6 +51,14 @@ body {
 /* Lesson content: same rise as notes, staggered by --i, starting once the hero morph is under way. */
 .enter { animation: note-in 460ms var(--ease-out-expo) both; animation-delay: calc(140ms + var(--i, 0) * 70ms); }
 
+/* A fact card the coach points at: two amber beats, then it stays highlighted. */
+@keyframes fact-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+  25%, 75% { box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.45); }
+  50% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+}
+.fact-pulse { animation: fact-pulse 1.2s ease-out 1; }
+
 /* Result bar: slides up from below the fold when a grade lands. */
 @keyframes result-in {
   from { transform: translateY(24px); opacity: 0; }
@@ -94,7 +102,7 @@ body {
 ::view-transition-new(*) { animation-duration: 460ms; animation-timing-function: var(--ease-out-expo); }
 
 @media (prefers-reduced-motion: reduce) {
-  .note-in, .result-in, .sidebar-in, .sheet-in, .enter { animation: none; }
+  .note-in, .result-in, .sidebar-in, .sheet-in, .enter, .fact-pulse { animation: none; }
   .helped-pop { animation: none; }
   .bouncy, .cheer, .confetti { animation: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 0.01ms; }

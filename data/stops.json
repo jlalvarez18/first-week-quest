@@ -6,7 +6,14 @@
     "emoji": "🧭",
     "xp": 10,
     "docId": "teams",
-    "prompt": "A customer says they were charged twice. Which team owns billing, and which Slack channel do you post in to ask?",
+    "why": "You will not know who owns what for a while. Nobody expects you to. You just need to know where to look.",
+    "facts": [
+      "Ledger team owns billing, invoices, and refunds. Priya Nair leads it.",
+      "Every team has a Slack channel with its own name, like #ledger.",
+      "Not sure who owns something? Ask in #where-does-this-live. Nobody minds."
+    ],
+    "scenario": "A customer emails support: they were charged twice for one order.",
+    "task": "Write the short message you would post to get this looked at. Say which channel you post it in.",
     "rubric": "A passing answer names the Ledger team (or Priya Nair) as the owner of billing AND names the #ledger channel. Either the team name or the lead's name is enough for the first part.",
     "keywords": [
       [
@@ -32,7 +39,14 @@
     "emoji": "💻",
     "xp": 10,
     "docId": "tools",
-    "prompt": "Your laptop will not connect to the VPN. Write the message you would post to get help. Where do you post it, and what three things must it include?",
+    "why": "IT problems eat whole mornings when the first message is vague. One good message gets you unblocked fast.",
+    "facts": [
+      "All laptop, VPN, and access problems go in #help-it. Nova team watches it 9am to 6pm Pacific.",
+      "A good message has three things: your asset tag (a sticker under the laptop, starts with ORB-), what you tried, and the exact error text.",
+      "If it is blocking you, start the message with the word BLOCKED. Nova opens the ticket for you."
+    ],
+    "scenario": "It is your second morning. The VPN app says \"Authentication failed (code 412)\" and you cannot reach anything.",
+    "task": "Write the message you would post. Include where you post it and the three things Nova needs.",
     "rubric": "A passing answer posts in #help-it AND includes at least two of: the laptop asset tag (ORB-...), what they tried, and the exact error text. Bonus if they mention BLOCKED for urgent issues, but that is not required.",
     "keywords": [
       [
@@ -61,7 +75,14 @@
     "emoji": "🗣️",
     "xp": 15,
     "docId": "glossary",
-    "prompt": "A teammate says: 'Bean count is up but we might miss the roast window.' Explain in plain words what they mean.",
+    "why": "Orbital has its own words. Nodding along is easy. Asking is better. Knowing the words is best.",
+    "facts": [
+      "Bean count is the number of orders placed today. We watch it every morning.",
+      "Roast window is 6am to 10am Pacific. Orders placed before 6am must ship in that window or miss the truck.",
+      "Grind is the roasting scheduler service, and also the team that owns it. Beacon is the paging system."
+    ],
+    "scenario": "In standup, Lena says: \"Bean count is up, but Grind is lagging and we might miss the roast window.\"",
+    "task": "Explain in plain words what Lena means, as if to a friend who does not work here.",
     "rubric": "A passing answer explains that bean count means the number of orders today (so orders are up) AND that the roast window is the 6am to 10am shipping deadline (so orders might not ship on time / miss the truck).",
     "keywords": [
       [
@@ -90,8 +111,15 @@
     "emoji": "🚀",
     "xp": 20,
     "docId": "how-we-ship",
-    "prompt": "You found a typo in the README. List the steps to get your fix merged, the Orbital way.",
-    "rubric": "A passing answer includes at least four of these: make a branch, keep the PR small, write a why-description, ask exactly one reviewer, CI must be green, squash merge (reviewer merges). Order does not need to be exact.",
+    "why": "Your first change should be boring on purpose. The point is to learn the path from branch to merge while nothing is at stake.",
+    "facts": [
+      "Branch from main, named your-name/short-description. Keep the PR small, under 200 lines.",
+      "Open the PR with a one-paragraph description that says why. Ask exactly one reviewer and post the link in your team channel.",
+      "CI must be green, no exceptions. The reviewer squash merges, not the author."
+    ],
+    "scenario": "You spotted a typo in the README. \"Recieve\" should be \"receive\".",
+    "task": "List the steps you would take to get that fix merged, in order, the Orbital way.",
+    "rubric": "A passing answer is an ordered list that includes at least four of: branch from main, keep it small, write a why-description, ask exactly one reviewer, CI green, reviewer squash merges. Order should be roughly right (branch before PR before merge).",
     "keywords": [
       [
         "branch"
@@ -120,7 +148,14 @@
     "emoji": "✋",
     "xp": 20,
     "docId": "meetings",
-    "prompt": "You are remote, on a call, and you have a point to make. People keep talking over each other. What does the Orbital norm say to do, and why does it exist?",
+    "why": "Calls are hard for remote people. Lag, noise, and loud rooms. Orbital has a rule so quiet voices get in.",
+    "facts": [
+      "Want to speak and cannot find a gap? Type \"hand\" in the meeting's Slack thread.",
+      "The host reads the thread queue in order before taking new speakers. First hand goes first.",
+      "Cameras are optional. Decisions get written in the thread within the hour. If it is not written, it did not happen."
+    ],
+    "scenario": "You are on a planning call from home. Three people are talking over each other and you have a point that changes the plan.",
+    "task": "Say what you would do to get your point in, and why Orbital does it that way.",
     "rubric": "A passing answer says to type 'hand' (or raise a hand) in the meeting's Slack thread, and that the host reads the thread queue in order. It should mention the why: so remote people with lag or noise get equal air time. Mentioning cameras optional is a bonus, not required.",
     "keywords": [
       [
@@ -150,7 +185,14 @@
     "emoji": "☕",
     "xp": 15,
     "docId": "coffee-chats",
-    "prompt": "You are on the Grind team. Pick one person from a different team to have a coffee chat with. Say who, and one thing you want to ask them.",
+    "why": "The people you meet in week one are the ones you will ask for help in week ten. Meeting them is part of the job.",
+    "facts": [
+      "Book at least one coffee chat this week with someone outside your own team. 20 minutes, no agenda.",
+      "Use #coffee-roulette or just DM them. People say yes.",
+      "Teams outside Grind: Ledger (Priya, Tomás), Compass (Sofia, Jun, Kai), Nova (Dev, Nadia), People (Amara)."
+    ],
+    "scenario": "You are on the Grind team. It is Wednesday, no meetings, and your calendar is empty.",
+    "task": "Pick one person from another team and write the DM you would send to ask for a coffee chat. Include one thing you want to ask them.",
     "rubric": "A passing answer names a real person from people.json who is NOT on the Grind team (so not Marcus Oyelaran or Lena Fischer), and includes a question or reason. Valid picks: Priya Nair, Sofia Reyes, Dev Patel, Amara Okafor, Tomás Silva, Jun Park, Nadia Haddad, Kai Nakamura.",
     "keywords": [
       [
@@ -187,8 +229,15 @@
     "emoji": "🚨",
     "xp": 25,
     "docId": "on-call",
-    "prompt": "It is 2am. Beacon pages you with a SEV2: orders are delayed. What is the first thing you do, by when, and what do you do if it is not fixed in 30 minutes?",
-    "rubric": "A passing answer says: acknowledge the page within 10 minutes, open the runbook, and escalate to the on call lead if not fixed or diagnosed in 30 minutes. Mentioning that new hires shadow and are never paged alone is a nice bonus.",
+    "why": "Being paged is scary the first time. The rules exist so you never have to figure it out alone at 2am.",
+    "facts": [
+      "When Beacon pages you: acknowledge within 10 minutes, or it escalates on its own.",
+      "Open the runbook linked in the page. If it is not fixed or understood in 30 minutes, escalate to the on call lead.",
+      "Never sit alone with a SEV1 or SEV2. Asking for help is the rule. New hires shadow for a month and are never paged alone."
+    ],
+    "scenario": "It is 2:07am. Your phone buzzes: SEV2, orders are delayed. You are shadowing Nadia this week.",
+    "task": "Write what you do in the first minute, what you do next, and what you do at minute 30 if it is still broken.",
+    "rubric": "A passing answer covers: acknowledge the page within 10 minutes, open the runbook, and escalate to the on call lead (or loop in Nadia) if not fixed or understood at 30 minutes. Mentioning they are shadowing and not alone is a bonus.",
     "keywords": [
       [
         "ack",
@@ -217,7 +266,14 @@
     "emoji": "💌",
     "xp": 15,
     "docId": "welcome",
-    "prompt": "Last stop. Write a one or two sentence note for the next new hire. Which stop was hardest for you, and what would you tell them?",
+    "why": "Every note on this map was left by someone who was new once. Now it is your turn.",
+    "facts": [
+      "Your note goes on the map for the next new hire. Priya's from 2023 is still on stop 1.",
+      "The most helpful notes name a stop and say one honest thing about it.",
+      "Short is fine. Kind is required."
+    ],
+    "scenario": "Someone starts next Monday. They will open this same quest.",
+    "task": "Write them a one or two sentence note. Name the stop that was hardest for you and what you would tell them.",
     "rubric": "A passing answer is a sincere note of at least 8 words that names or clearly refers to one of the stops. Be generous. This stop is about kindness, not correctness.",
     "keywords": [
       [

@@ -1,11 +1,12 @@
 "use client";
 import { useState } from "react";
-import { createPortal, flushSync } from "react-dom";
+import { createPortal } from "react-dom";
 import Mascot from "./Mascot";
 import NotesSidebar from "./NotesSidebar";
 import { docById, notesForStop, type Stop } from "@/lib/data";
 import type { Grade } from "@/lib/grade";
 import type { Progress } from "@/lib/progress";
+import { withViewTransition } from "@/lib/transition";
 
 export type LessonResult = { stop: Stop; xp: number; wrongCount: number; answer: string; revealed: boolean };
 
@@ -35,7 +36,6 @@ export default function Lesson({
   const [attempt, setAttempt] = useState(0);
   const [busy, setBusy] = useState(false);
   const [showDoc, setShowDoc] = useState(false);
-  const [showRubric, setShowRubric] = useState(false);
   const [revealed, setRevealed] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
   const doc = docById(stop.docId);
@@ -43,16 +43,10 @@ export default function Lesson({
   const noteCount = notesForStop(stop.id).length + progress.notes.filter((n) => n.stopId === stop.id).length;
   const sidebarProps = { stopId: stop.id, canPost, progress, onPost: (t: string) => onPostNote(stop.id, t), onHelp };
 
-  /** Reveal or hide the notes column. The column change is a layout shift, so let the browser morph it. */
+  /** Reveal or hide the notes column. On wide screens the column change is a layout shift the browser morphs. */
   function toggleNotes(next: boolean) {
     if (next && !canPost) onPeek(stop);
-    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Below lg the notes are a bottom sheet with its own slide. A view transition there would
-    // snapshot the lesson into a layer that paints above the sheet, so skip it.
-    const wide = window.matchMedia("(min-width: 1024px)").matches;
-    if (!doc.startViewTransition || reduce || !wide) return setNotesOpen(next);
-    doc.startViewTransition(() => flushSync(() => setNotesOpen(next)));
+    withViewTransition(() => setNotesOpen(next), { wideOnly: true });
   }
 
   async function check() {
@@ -66,12 +60,15 @@ export default function Lesson({
       });
       const g = (await res.json()) as Grade;
       setGrade(g);
+      if (!g.pass && g.factIndex != null) {
+        document.getElementById(`fact-${stop.id}-${g.factIndex}`)?.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
       if (!g.pass) {
         setAttempt((a) => a + 1);
         onWrong(stop);
       }
     } catch {
-      setGrade({ pass: false, feedback: "Bean tripped over a cable. Try again.", hint: "", grader: "fallback" });
+      setGrade({ pass: false, feedback: "Bean tripped over a cable. Try again.", hint: "", factIndex: null, grader: "fallback" });
     } finally {
       setBusy(false);
     }
@@ -79,7 +76,7 @@ export default function Lesson({
 
   function reveal() {
     setRevealed(true);
-    setGrade({ pass: true, feedback: `Here it is: ${stop.reveal}`, hint: "", grader: "fallback" });
+    setGrade({ pass: true, feedback: `Here it is: ${stop.reveal}`, hint: "", factIndex: null, grader: "fallback" });
   }
 
   function proceed() {
@@ -115,37 +112,59 @@ export default function Lesson({
         </h1>
       </div>
 
-      {/* Bean + question. Content enters in order after the hero morph; header is the morph itself. */}
+      {/* LEARN: Bean's why, then the three fact cards. The task needs nothing else. */}
       <div className="enter flex items-start gap-3" style={{ "--i": 0 } as React.CSSProperties}>
         <Mascot mood={mood} size={64} />
-        <div className="flex flex-1 flex-col">
-          <div className="rounded-2xl rounded-tl-sm border-2 border-slate-200 bg-white p-4 text-lg font-semibold text-slate-800">
-            {stop.prompt}
-          </div>
+        <div className="flex-1 rounded-2xl rounded-tl-sm border-2 border-slate-200 bg-white p-4 text-base font-semibold text-slate-800">
+          {stop.why}
         </div>
       </div>
 
-      <div className="enter flex flex-wrap gap-2 text-sm font-bold" style={{ "--i": 1 } as React.CSSProperties}>
-        <button type="button" onClick={() => setShowDoc((v) => !v)} className="rounded-full border-2 border-slate-200 bg-white px-3 py-1 text-slate-600 hover:bg-slate-50">
-          📖 {showDoc ? "Hide" : "Peek at"} the wiki page
+      <section className="enter" style={{ "--i": 1 } as React.CSSProperties} aria-label="What you need to know">
+        <div className="mb-2 text-xs font-extrabold uppercase tracking-wider text-slate-400">Learn · what you need to know</div>
+        <ol className="flex flex-col gap-2">
+          {stop.facts.map((fact, i) => {
+            const hot = !!grade && !grade.pass && grade.factIndex === i;
+            return (
+              <li
+                key={i}
+                id={`fact-${stop.id}-${i}`}
+                className={[
+                  "flex gap-3 rounded-2xl border-2 bg-white p-3.5 text-[15px] leading-snug text-slate-700 transition-colors duration-300",
+                  hot ? "fact-pulse border-amber-400 bg-amber-50" : "border-slate-200",
+                ].join(" ")}
+              >
+                <span
+                  className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-extrabold ${
+                    hot ? "bg-amber-400 text-amber-950" : "bg-sky-100 text-sky-700"
+                  }`}
+                >
+                  {i + 1}
+                </span>
+                <span>{fact}</span>
+              </li>
+            );
+          })}
+        </ol>
+        <button type="button" onClick={() => setShowDoc((v) => !v)} className="mt-2 text-sm font-bold text-sky-600 hover:underline">
+          {showDoc ? "Hide the full page" : "Read the full page →"}
         </button>
-        <button type="button" onClick={() => setShowRubric((v) => !v)} className="rounded-full border-2 border-slate-200 bg-white px-3 py-1 text-slate-600 hover:bg-slate-50">
-          🧐 {showRubric ? "Hide" : "How"} it grades
-        </button>
-      </div>
-      {showDoc && doc && (
-        <div className="whitespace-pre-line rounded-2xl border-2 border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-          <div className="mb-1 font-bold">{doc.title}</div>
-          {doc.body}
+        {showDoc && doc && (
+          <div className="mt-2 whitespace-pre-line rounded-2xl border-2 border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+            <div className="mb-1 font-bold">{doc.title}</div>
+            {doc.body}
+          </div>
+        )}
+      </section>
+
+      {/* TRY IT: scenario, then the ask. */}
+      <section className="enter flex flex-col gap-2" style={{ "--i": 2 } as React.CSSProperties} aria-label="Try it">
+        <div className="text-xs font-extrabold uppercase tracking-wider text-slate-400">Try it</div>
+        <div className="rounded-2xl border-2 border-sky-200 bg-sky-50 p-4">
+          <div className="text-sm font-semibold text-sky-900">{stop.scenario}</div>
+          <div className="mt-1.5 text-lg font-extrabold text-slate-800">{stop.task}</div>
         </div>
-      )}
-      {showRubric && (
-        <div className="rounded-2xl border-2 border-violet-100 bg-violet-50 p-4 text-sm text-violet-950">
-          <div className="mb-1 font-bold">Rubric Bean uses</div>
-          {stop.rubric}
-          <div className="mt-2 text-xs text-violet-700">Claude grades against this rubric and the wiki page only. Nothing else. Retries are free.</div>
-        </div>
-      )}
+      </section>
 
       <textarea
         value={answer}
@@ -153,12 +172,12 @@ export default function Lesson({
         disabled={!!grade?.pass}
         placeholder="Type your answer…"
         rows={4}
-        style={{ "--i": 2 } as React.CSSProperties}
+        style={{ "--i": 3 } as React.CSSProperties}
         className="enter w-full rounded-2xl border-2 border-slate-200 bg-white p-4 text-base text-slate-800 outline-none focus:border-sky-400 disabled:bg-slate-50"
       />
 
       {/* One row under the field: help on the left, action on the right. */}
-      <div className="enter flex items-center justify-between gap-3" style={{ "--i": 3 } as React.CSSProperties}>
+      <div className="enter flex items-center justify-between gap-3" style={{ "--i": 4 } as React.CSSProperties}>
         {!notesOpen ? (
           <button
             type="button"

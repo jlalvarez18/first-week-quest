@@ -31,8 +31,8 @@ export default function Home() {
       </p>
 
       <div className="mt-14 grid w-full gap-4 text-left sm:grid-cols-3">
-        <Card emoji="🎮" title="Learn by doing">
-          Each stop is a real week-one task. Claude grades your answer against the wiki and gives a hint, never the answer first.
+        <Card emoji="🎮" title="Learn, then try">
+          Each stop teaches three facts, then hands you a real week-one scenario. Claude coaches your attempt and points you back to the card you need.
         </Card>
         <Card emoji="🫶" title="Never alone">
           Every stop carries a note from a teammate who was new once. Finish a stop and the team cheers. Remote folks included.

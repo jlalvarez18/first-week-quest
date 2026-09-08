@@ -1,6 +1,5 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { flushSync } from "react-dom";
 import Link from "next/link";
 import Path from "@/components/Path";
 import Lesson, { type LessonResult } from "@/components/Lesson";
@@ -9,6 +8,7 @@ import StreakBar from "@/components/StreakBar";
 import CheerToast, { type Cheer } from "@/components/CheerToast";
 import Mascot from "@/components/Mascot";
 import { COMPANY, PEOPLE, STOPS, type Stop } from "@/lib/data";
+import { withViewTransition } from "@/lib/transition";
 import { bumpStreak, emptyProgress, loadProgress, resetProgress, saveProgress, type Progress } from "@/lib/progress";
 
 export default function QuestPage() {
@@ -33,12 +33,7 @@ export default function QuestPage() {
   }, []);
 
   /** Hero morph: the stop node on the path becomes the lesson header. Falls back to an instant swap. */
-  const transitionTo = useCallback((stop: Stop | null) => {
-    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!doc.startViewTransition || reduce) return setOpen(stop);
-    doc.startViewTransition(() => flushSync(() => setOpen(stop)));
-  }, []);
+  const transitionTo = useCallback((stop: Stop | null) => withViewTransition(() => setOpen(stop)), []);
 
   const pushCheer = useCallback((delay: number, exclude: string[]) => {
     setTimeout(() => {
