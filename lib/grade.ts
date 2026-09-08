@@ -39,6 +39,7 @@ Rules:
 - Grade ONLY against the rubric and the wiki page. Do not invent extra requirements.
 - pass=true if the rubric is satisfied in spirit. Synonyms and paraphrase are fine.
 - pass=false for empty, joke, or off-topic answers, or when a required part is missing.
+- pass=false for keyword spam: an answer must be a real attempt in plain sentences that shows the new hire understood the task. Repeating the right word without using it correctly is not an answer.
 - feedback: one or two short sentences. Name what was right first. If pass=false, name the ONE missing thing without giving the answer.
 - hint: if pass=false, one sentence that points to where to look. Attempt ${attempt + 1}: use hint level ${Math.min(attempt + 1, 2)} (level 1 points at the page, level 2 nearly gives it away). If pass=true, hint is an empty string.`;
   const user = `WIKI PAGE "${doc?.title}":
