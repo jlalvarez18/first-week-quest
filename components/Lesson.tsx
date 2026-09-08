@@ -86,9 +86,19 @@ export default function Lesson({
         </div>
       </div>
 
-      <h1 className="text-3xl font-extrabold text-slate-800">
-        {stop.emoji} {stop.title}
-      </h1>
+      <div className="flex items-center gap-4">
+        <span
+          style={{ viewTransitionName: `stop-node-${stop.id}` }}
+          className={`flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-3xl ${
+            alreadyDone ? "bg-emerald-500 shadow-[0_5px_0_#059669]" : "bg-amber-400 shadow-[0_5px_0_#d97706]"
+          }`}
+        >
+          {stop.emoji}
+        </span>
+        <h1 style={{ viewTransitionName: `stop-title-${stop.id}` }} className="text-3xl font-extrabold text-slate-800">
+          {stop.title}
+        </h1>
+      </div>
 
       {/* Bean + teammate note */}
       <div className="flex items-start gap-3">
@@ -115,10 +125,10 @@ export default function Lesson({
         </div>
       )}
       {showRubric && (
-        <div className="rounded-2xl border-2 border-violet-100 bg-violet-50 p-4 text-sm text-slate-700">
+        <div className="rounded-2xl border-2 border-violet-100 bg-violet-50 p-4 text-sm text-violet-950">
           <div className="mb-1 font-bold">Rubric Bean uses</div>
           {stop.rubric}
-          <div className="mt-2 text-xs text-slate-500">Claude grades against this rubric and the wiki page only. Nothing else. Retries are free.</div>
+          <div className="mt-2 text-xs text-violet-700">Claude grades against this rubric and the wiki page only. Nothing else. Retries are free.</div>
         </div>
       )}
 
@@ -156,7 +166,8 @@ export default function Lesson({
       {/* Bottom result bar, Duolingo style */}
       <div
         className={[
-          "fixed inset-x-0 bottom-0 border-t-2 p-4 transition-colors",
+          "fixed inset-x-0 bottom-0 border-t-2 p-4 transition-colors duration-300",
+          grade && "result-in",
           grade ? (grade.pass ? "border-emerald-200 bg-emerald-50" : "border-amber-200 bg-amber-50") : "border-slate-200 bg-white",
         ].join(" ")}
       >

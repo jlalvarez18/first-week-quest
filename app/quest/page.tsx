@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import Link from "next/link";
 import Path from "@/components/Path";
 import Lesson, { type LessonResult } from "@/components/Lesson";
@@ -29,6 +30,14 @@ export default function QuestPage() {
       saveProgress(next);
       return next;
     });
+  }, []);
+
+  /** Hero morph: the stop node on the path becomes the lesson header. Falls back to an instant swap. */
+  const transitionTo = useCallback((stop: Stop | null) => {
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!doc.startViewTransition || reduce) return setOpen(stop);
+    doc.startViewTransition(() => flushSync(() => setOpen(stop)));
   }, []);
 
   const pushCheer = useCallback((delay: number, exclude: string[]) => {
@@ -61,7 +70,7 @@ export default function QuestPage() {
         finishedAt: finished && !p.finishedAt ? new Date().toISOString() : p.finishedAt,
       };
     });
-    setOpen(null);
+    transitionTo(null);
     if (!wasDone) {
       const a = PEOPLE[Math.floor(Math.random() * PEOPLE.length)].id;
       pushCheer(500, []);
@@ -108,7 +117,7 @@ export default function QuestPage() {
           key={open.id}
           stop={open}
           alreadyDone={progress.completed.includes(open.id)}
-          onBack={() => setOpen(null)}
+          onBack={() => transitionTo(null)}
           onComplete={onComplete}
           onWrong={onWrong}
           progress={progress}
@@ -123,7 +132,7 @@ export default function QuestPage() {
             <span className="font-bold text-slate-800">Week 1 at {COMPANY.name}.</span> Eight stops. Answer in your own words.
             Wrong answers cost nothing but earn a hint.
           </div>
-          <Path stops={STOPS} completed={progress.completed} onOpen={setOpen} />
+          <Path stops={STOPS} completed={progress.completed} onOpen={transitionTo} />
           <div className="mt-6 text-center">
             <button type="button" onClick={reset} className="text-xs font-bold text-slate-400 hover:text-slate-600">
               Reset progress

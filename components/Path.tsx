@@ -33,6 +33,7 @@ export default function Path({
                 disabled={state === "locked"}
                 onClick={() => onOpen(stop)}
                 aria-label={`${stop.title} (${state})`}
+                style={state !== "locked" ? { viewTransitionName: `stop-node-${stop.id}` } : undefined}
                 className={[
                   "node relative flex h-20 w-20 items-center justify-center rounded-full text-3xl transition",
                   state === "done" && "bg-emerald-500 text-white shadow-[0_6px_0_#059669] hover:translate-y-0.5 hover:shadow-[0_4px_0_#059669]",
@@ -45,7 +46,9 @@ export default function Path({
                 {state === "done" ? "✓" : state === "locked" ? "🔒" : stop.emoji}
               </button>
               <div className={`mt-2 text-center text-sm font-bold ${state === "locked" ? "text-slate-400" : "text-slate-700"}`}>
-                {stop.title}
+                <span style={state !== "locked" ? { viewTransitionName: `stop-title-${stop.id}` } : undefined} className="inline-block">
+                  {stop.title}
+                </span>
                 <div className="text-xs font-semibold text-slate-400">+{stop.xp} XP</div>
               </div>
             </div>

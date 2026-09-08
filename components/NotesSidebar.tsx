@@ -64,16 +64,20 @@ export default function NotesSidebar({
         </span>
       </div>
       {stuck > 0 && (
-        <div className="border-b-2 border-orange-200 bg-orange-50 px-4 py-2 text-xs font-bold text-orange-800">
+        <div className="note-in border-b-2 border-orange-200 bg-orange-50 px-4 py-2 text-xs font-bold text-orange-800">
           🪤 {stuck} {stuck === 1 ? "person" : "people"} got stuck here. You are not alone.
         </div>
       )}
-      <ul className="flex-1 overflow-y-auto py-1">
-        {rows.map((r) => {
+      <ul key={stopId} className="flex-1 overflow-y-auto py-1">
+        {rows.map((r, i) => {
           const p = r.by ? personById(r.by) : undefined;
           const helpedByMe = progress.helped.includes(r.id);
           return (
-            <li key={r.id} className={`flex gap-2.5 px-4 py-2.5 ${r.tag === "buddy" ? "bg-yellow-50" : ""}`}>
+            <li
+              key={r.id}
+              style={{ animationDelay: `${Math.min(i * 60, 300)}ms` }}
+              className={`note-in flex gap-2.5 px-4 py-2.5 ${r.tag === "buddy" ? "bg-yellow-50" : ""}`}
+            >
               {p ? (
                 <Avatar person={p} size={30} />
               ) : (
@@ -97,8 +101,8 @@ export default function NotesSidebar({
                   disabled={r.mine}
                   onClick={() => onHelp(r.id)}
                   className={[
-                    "mt-1.5 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-extrabold transition",
-                    helpedByMe ? "border-emerald-300 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50",
+                    "mt-1.5 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-extrabold transition-colors duration-150",
+                    helpedByMe ? "helped-pop border-emerald-300 bg-emerald-50 text-emerald-700" : "border-slate-200 bg-white text-slate-500 hover:bg-slate-50",
                     r.mine && "cursor-default opacity-60",
                   ]
                     .filter(Boolean)
