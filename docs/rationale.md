@@ -77,11 +77,18 @@ language app. It is the wrong message for someone's first week at a new job.
 
 ## With more time
 
+- **An admin section run by an agent.** Today the stops live in a JSON file. The next
+  step is an admin page where the People team edits stops by talking to Claude: "add a
+  setup stop for the new crash reporting tool, put it after Build the app," or "the VPN
+  step is the most-stuck item this month, rewrite its help text from these three Slack
+  threads." The agent drafts the stop (kind, checklist, help, facts, rubric), shows a diff,
+  and the admin approves. The stuck data feeds back in: the agent can propose which stop
+  to fix next. This is the piece that makes the trail a living system instead of a doc.
 - Real-time cheers and presence (websockets or a small Postgres + polling).
 - Generate stops from a real wiki with Claude, with a human review step.
-- Buddy suggestions based on who cheers whom.
-- Voice notes at stops. Manager view with cohort trends.
-- An eval set for the grader: 3 right and 3 wrong answers per stop, run on every prompt change.
+- Buddy suggestions based on who cheers whom. Voice notes at stops.
+- An eval set for the grader: 3 right and 3 wrong answers per practice stop, run on every
+  prompt change.
 
 ## Use of AI
 
