@@ -83,10 +83,17 @@ would turn this from a nice demo into a thing that actually runs.
 After that, real-time presence, pulling stops out of a real wiki with a review step, and
 an eval set for the grader so I can change the prompt without guessing.
 
-**Time and how I used Claude.** About N hours. I built it in Claude Code. My job was the
-decisions. The theme, the Duolingo thing, no hearts, per-stop not per-person, the
-fallback, the persona, the stop kinds. Claude wrote most of the data and the components
-and the prompts. I tested everything in the browser and pulled it back when it drifted.
-The transcript's attached, you can see all of it.
+**Time and how I used Claude.** About 8 hours, so the full budget. Roughly half was the
+idea and the content, a quarter was the grader and the stop kinds, and a quarter was the
+experience. I spent real time on that last part on purpose. The stop circle morphs into
+the lesson header. The trail and the fact cards stagger in. The notes slide in when you
+say you're stuck. Confetti when you get one right. None of that is required, but this is
+a product for a first week, and feel is a lot of what makes someone come back on day two.
+
+I built it in Claude Code. My job was the decisions. The theme, the Duolingo thing, no
+hearts, per-stop not per-person, the fallback, the persona, the stop kinds, and which
+moments deserved motion. Claude wrote most of the data and the components and the
+prompts. I tested everything in the browser and pulled it back when it drifted. The
+transcript's attached, you can see all of it.
 
 That's it. Thanks for watching.

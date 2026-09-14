@@ -1,7 +1,7 @@
 # First Week Quest — design rationale
 
 **Theme:** 1, Exploration & Understanding (with a Theme 4 bonus: stuck data as a doc-quality eval).
-**Time spent:** ~2 hours. <!-- adjust before submitting -->
+**Time spent:** about 8 hours. Roughly half on the idea and content, a quarter on the grader and stop kinds, a quarter on the experience: the hero morph, staggered entrances, the notes reveal, the celebration.
 
 ## Why this
 
