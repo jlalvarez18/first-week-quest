@@ -1,99 +1,92 @@
-# Video script (~5 min, ~720 words)
+# Video script (~5 min)
 
-Read it as written or loosely. Cues in [brackets] say what to have on screen.
-Pace: about 140 words a minute. Don't rush section 3, it is the one they grade.
+Talk to camera. No screen recording needed. The assignment asks for a ~5 minute
+self-recorded video covering: why this theme and approach, what's interesting or
+non-obvious, key decisions and tradeoffs, how you'd extend it, and how long you spent.
+Showing the app is optional. Don't read this word for word, just hit the beats.
 
 ---
 
-[Sign-in page on screen. Don't click yet.]
+Hey, I'm Juan. So this is First Week Quest. Let me walk you through why I built it and
+what I was thinking.
 
-Hi, I'm Juan. This is First Week Quest. It's my take on Theme 1, exploration and
-understanding, with a bit of Theme 4, because the stuck data doubles as an eval.
+**Why this one.** The role is People Products. Hiring, onboarding, teamwork, that whole
+space. And when I looked at that list, onboarding was the one that bugged me the most.
+Because it's kind of the loneliest part of a job. You get a pile of links, you read them
+by yourself, you sit in meetings nodding along, and you don't really know who to ask
+about anything. And if you're remote, it's worse. So the question I kept coming back to
+was, what if week one was something you did with your team instead of a doc you read
+alone?
 
-**Why this.** The role I'm interviewing for is People Products. Hiring, onboarding,
-teamwork. Onboarding was the piece that felt most broken to me, and most lonely. A new
-hire gets a list of links, reads them alone, nods along in meetings, and doesn't know
-who to ask. Remote hires feel that hardest. I wanted week one to be something you do
-with your team, not a doc you read by yourself.
+The shape I stole is Duolingo. A path, one thing per screen, XP, a streak, a little
+mascot. The one thing I deliberately didn't take is hearts. Losing lives is fine when
+you're learning Spanish. It's a terrible thing to do to someone on their first week.
 
-The shape is borrowed from Duolingo. A path. One thing per screen. XP, a streak, a
-mascot. I left out hearts on purpose. Losing a life is fine in a language app. It's the
-wrong message on someone's first week.
+It's Theme 1, exploration and understanding. There's a bit of Theme 4 in there too, and
+I'll get to why.
 
-[Type a name, Login, let the SSO screen play, Let's go. Trail appears.]
+**What's interesting about it.** Let me give you the four things I'd actually want you
+to notice.
 
-You play a new iOS engineer joining a fictional Claude iOS team. The sign-in is fake.
-The people, the channels, the rules are all invented, and the page says so.
+One. My first version was basically a quiz. Question, type an answer, Claude grades it.
+And it felt like a test on stuff you couldn't possibly know yet. So I threw that out.
+Real onboarding is mostly setup. VPN, Xcode, getting the app to build. So most stops
+are checklists now, with two buttons. Setup complete, and having an issue. The having
+an issue one is the part I like. You pick the step you're stuck on, and it tells you
+exactly where to ask and what to include, and it opens notes from people who got stuck
+on the same thing.
 
-**What's non-obvious.** Four things.
+Two. Being stuck is a signal, not a score. Every issue and every wrong answer gets
+counted per stop, never per person. So the People team gets a chart that says, hey,
+everyone gets stuck on the VPN step, go fix that doc. That's the Theme 4 bit. It's
+basically a doc-quality eval that fills itself in.
 
-[Open stop 2, Get your gear.]
+Three. Where I do use Claude, it's as a coach, not a grader. Only four stops. You get
+three fact cards, then a scenario, and you try to apply them. Get it wrong, and it
+tells you what you did right first, then points at the one card to go re-read. It
+doesn't hand you the answer until you've missed twice.
 
-First, most of a real first week isn't questions. It's setup. VPN, Xcode, the Apple team
-invite, getting the app to build. Grading that with an LLM would be theatre. So stops
-have kinds. Setup and action stops are checklists with two buttons: Setup complete, and
-Having an issue.
+Four. Notes pile up. Every stop has notes from people who were new once, with where they
+are and whether they're remote. So the onboarding gets better on its own. Nobody has to
+own the doc.
 
-[Click Having an issue, pick VPN. Point at the help text and the notes column.]
+**Decisions and tradeoffs.** Okay, the honest part.
 
-Having an issue is the interesting one. Pick the step, and it shows exactly where to ask
-and what to include. It counts as a stuck signal for that stop. And it opens notes from
-people who hit the same thing.
+No database, no auth. The whole company is a JSON file. I did that so you could open a
+link and just play, zero setup. The tradeoff is there's no real multiplayer. The cheers
+are scripted.
 
-[Team board. Point at the tall bars.]
+The sign-in is fake, but it puts your name on every screen, and I think that matters
+more than it sounds. Signing out wipes your progress so nobody inherits someone else's
+checkmarks.
 
-Second, being stuck is a signal, never a score. Wrong answers and issues are counted per
-stop, never per person. A tall bar means fix the doc, not the new hire. That's a live
-doc-quality eval for the People team.
+The grader has a fallback. If there's no API key, or the call fails, a dumb keyword
+grader kicks in. I didn't want the demo dying on you on review day. It tells you which
+one graded you.
 
-[Stop 6, Who owns what. Read the three cards fast. Type the wrong answer. Card pulses.]
+And the thing I'm most proud of is actually something I deleted. Early on I had a
+button called How it grades. It showed you the rubric. And at some point I looked at it
+and went, wait, the rubric is literally the answer. So I cut it, moved the facts up
+front, and made the task about applying them instead of remembering them. That's the
+moment it stopped feeling like a test.
 
-Third, AI as coach, not examiner. Only four stops use Claude. Each one shows three fact
-cards first, then a scenario to apply them to. Get it wrong, and Claude names what you
-did well, then points at the one card to re-read. That card pulses. It never gives the
-answer until you've missed twice.
+Small one. The grading prompt changed twice because of real misses. Keyword spam got a
+pass once. And an em dash came back mangled. Both fixed with a sentence in the prompt.
 
-[Leave a note. Post it.]
+**With more time.** The thing I really wanted to build and didn't is an admin side, run
+by an agent. So the People team could just say, add a setup stop for the new crash
+reporting tool, put it after build the app. And Claude drafts the whole stop, the
+checklist, the help text, the rubric, shows a diff, and someone approves it. And because
+you've got the stuck data, the agent can tell you which stop to fix next. That's what
+would turn this from a nice demo into a thing that actually runs.
 
-Fourth, notes accumulate. Every stop carries notes from people who were new once, tagged
-with where they are and whether they're remote. Onboarding gets better without anyone
-owning a doc.
+After that, real-time presence, pulling stops out of a real wiki with a review step, and
+an eval set for the grader so I can change the prompt without guessing.
 
-**Decisions and tradeoffs.** [Stay on the app, or cut to camera.]
+**Time and how I used Claude.** About N hours. I built it in Claude Code. My job was the
+decisions. The theme, the Duolingo thing, no hearts, per-stop not per-person, the
+fallback, the persona, the stop kinds. Claude wrote most of the data and the components
+and the prompts. I tested everything in the browser and pulled it back when it drifted.
+The transcript's attached, you can see all of it.
 
-No database, no auth. The company is bundled JSON. A reviewer needs zero setup. The cost
-is no real multiplayer. Cheers and the watch-a-team demo are scripted.
-
-Sign-in is fake but it personalizes every screen. Sign out wipes progress, so a new name
-never inherits someone else's checkmarks.
-
-The grader has a fallback. No key, or the API fails, and a keyword grader runs. The demo
-never dead-ends on review day. Each result says which grader ran.
-
-The one I'm proudest of is a thing I removed. Early on there was a How it grades button
-that showed the rubric. I noticed the rubric was the answer. So I cut it, and put the
-facts up front instead. The task became application, not recall. That's also when the
-whole thing stopped feeling like a quiz.
-
-And the grading prompt changed twice from real misses. Keyword spam passed once.
-An em dash got mangled in transit once. Both are fixed by a line in the prompt.
-
-**With more time.** [Sign-in page.]
-
-The first thing I'd build is an admin section run by an agent. The People team edits
-stops by talking to Claude. "Add a setup stop for the new crash tool, after Build the
-app." The agent drafts the stop, kind, checklist, help text, rubric, shows a diff, and an
-admin approves. The stuck data feeds back in, so the agent can say which stop to fix
-next. That turns the trail into a living system.
-
-After that: real-time presence, generating stops from a real wiki with review, and an
-eval set for the grader. Three right and three wrong answers per stop, run on every
-prompt change.
-
-**Time and AI.** I spent about N hours. I built it with Claude Code. I set the theme,
-the Duolingo constraint, no hearts, per-stop not per-person, the fallback grader, the
-persona, and the stop kinds. Claude drafted the data, the components, and the prompts. I
-tested every flow in the browser and cut scope when it drifted. The transcript is
-attached.
-
-Thanks for watching.
+That's it. Thanks for watching.
