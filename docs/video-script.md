@@ -7,7 +7,7 @@ Showing the app is optional. Don't read this word for word, just hit the beats.
 
 ---
 
-Hey, I'm Juan. So this is First Week Quest. Let me walk you through why I built it and
+Hey, I'm Juan. For my project I created First Week Quest. Let me walk you through why I built it and
 what I was thinking.
 
 **Why this one.** So, I onboarded remotely at my current job. My whole team is on the
@@ -56,9 +56,11 @@ own the doc.
 
 The biggest one. I use Claude in fewer places, not more. Four stops out of ten. In an AI
 take-home that's a risk, there's less to show off. But grading "did you install Xcode"
-with a model is theatre, and a new hire can tell. So where I do use it, I tried to use it
-really well. Coach voice, pointing at the card, structured output, a fallback. I'd make
-that call again.
+with a model is theatre, and a new hire can tell. So where I do use it, I tried to make
+it count. It talks like a coach, not a grader. When you miss, it tells you which of the
+three cards to go back to. It answers in a fixed shape the app can trust, pass or fail,
+feedback, hint, card number. And if the API is down or there's no key, a simple keyword
+grader takes over so nothing breaks. Fewer places, done properly. I'd make that call again.
 
 No database, no auth. The whole company is a JSON file. I did that so you could open a
 link and just play, zero setup. The tradeoff is there's no real multiplayer. The cheers
