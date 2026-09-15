@@ -56,9 +56,11 @@ Each one: what I chose, why, and what it cost.
   "peek" button. It felt like a test of things you could not know yet. Now the facts are
   on screen and the task is to apply them. Cost: stops got easier. That is correct for
   onboarding.
-- **Removed "How it grades".** It showed the rubric up front. The rubric was the answer.
-  I cut it once I saw that. Cost: less visible transparency about grading. Mitigation: the
-  fact cards are the rules, shown first, and every miss names which card to re-read.
+- **Removed "How it grades".** Claude added it in the first draft: a toggle that showed
+  the rubric, for transparency. I asked what the user story was, read what it showed, and
+  the rubric was literally the answer. That question is what changed the direction from
+  quiz to onboarding. Cost: less visible transparency about grading. Mitigation: the fact
+  cards are the rules, shown first, and every miss names which card to re-read.
 - **One persona, fictional Anthropic.** A generic company made every stop feel arbitrary.
   Now you are an iOS engineer joining the Claude iOS team and every stop has a why.
   Cost: it is less general. Every person, channel, and rule is invented and the page says

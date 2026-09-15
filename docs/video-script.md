@@ -79,11 +79,14 @@ The grader has a fallback. If there's no API key, or the call fails, a dumb keyw
 grader kicks in. I didn't want the demo dying on you on review day. It tells you which
 one graded you.
 
-And the thing I'm most proud of is actually something I deleted. Early on I had a
-button called How it grades. It showed you the rubric. And at some point I looked at it
-and went, wait, the rubric is literally the answer. So I cut it, moved the facts up
-front, and made the task about applying them instead of remembering them. That's the
-moment it stopped feeling like a test.
+And the thing I'm most proud of is actually something I deleted. In the first draft,
+Claude added a button called How it grades. It showed you the rubric. Sounds
+reasonable, transparency, right? I asked what the user story was, and when I actually
+read what it showed, the rubric was literally the answer to the question. That's when
+it clicked that the whole thing felt like a test on stuff you couldn't know yet. So I
+cut the button, changed direction, moved the facts up front, and made the task about
+applying them instead of remembering them. That's the moment it stopped feeling like a
+quiz and started feeling like onboarding.
 
 **With more time.** The thing I really wanted to build and didn't is an admin side, run
 by an agent. So the People team could just say, add a setup stop for the new crash
