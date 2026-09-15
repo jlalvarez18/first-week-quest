@@ -75,10 +75,6 @@ The sign-in is fake, but it puts your name on every screen, and I think that mat
 more than it sounds. Signing out wipes your progress so nobody inherits someone else's
 checkmarks.
 
-The grader has a fallback. If there's no API key, or the call fails, a dumb keyword
-grader kicks in. I didn't want the demo dying on you on review day. It tells you which
-one graded you.
-
 And the thing I'm most proud of is actually something I deleted. In the first draft,
 Claude added a button called How it grades. It showed you the rubric. Sounds
 reasonable, transparency, right? I asked what the user story was, and when I actually
