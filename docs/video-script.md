@@ -10,22 +10,22 @@ Showing the app is optional. Don't read this word for word, just hit the beats.
 Hey, I'm Juan. For my project I created First Week Quest. Let me walk you through why I built it and
 what I was thinking.
 
-**Why this one.** So, I onboarded remotely at my current job. My whole team is on the
+**Why this one.** Well, the role is in People Products. Hiring, onboarding, teamwork. And onboarding is the loneliest one on that list, and if you're remote it's worse. So the question I kept coming back to was, what if week one was something you did with your team instead of a doc you read alone?
+
+So, I onboarded remotely at my current job. My whole team is on the
 West Coast and I'm not. And honestly, it was not pleasant. Most of that first week was
 waiting for people to wake up, reading a wiki by myself, and not knowing who I was even
 allowed to ask. That week is the thing I built for.
 
-The role is People Products. Hiring, onboarding, teamwork. And onboarding is the
-loneliest one on that list, and if you're remote it's worse. So the question I kept
-coming back to was, what if week one was something you did with your team instead of a
-doc you read alone?
+
 
 The shape I stole is Duolingo. A path, one thing per screen, XP, a streak, a little
 mascot. The one thing I deliberately didn't take is hearts. Losing lives is fine when
 you're learning Spanish. It's a terrible thing to do to someone on their first week.
 
-It's Theme 1, exploration and understanding. There's a bit of Theme 4 in there too, and
-I'll get to why.
+This falls under Theme 1, exploration and understanding. It also touches Theme 4,
+evaluation and data quality, because the app collects its own data on where people get
+stuck. I'll show you what I mean in a second.
 
 **What's interesting about it.** Let me give you the four things I'd actually want you
 to notice.
@@ -100,7 +100,6 @@ a product for a first week, and feel is a lot of what makes someone come back on
 I built it in Claude Code. My job was the decisions. The theme, the Duolingo thing, no
 hearts, per-stop not per-person, the fallback, the persona, the stop kinds, and which
 moments deserved motion. Claude wrote most of the data and the components and the
-prompts. I tested everything in the browser and pulled it back when it drifted. The
-transcript's attached, you can see all of it.
+prompts. I tested everything in the browser and pulled it back when it drifted.
 
-That's it. Thanks for watching.
+Thank you so much for this opportunity. Looking forward to meeting ya'll.
