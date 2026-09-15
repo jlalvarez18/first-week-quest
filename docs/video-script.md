@@ -10,13 +10,15 @@ Showing the app is optional. Don't read this word for word, just hit the beats.
 Hey, I'm Juan. So this is First Week Quest. Let me walk you through why I built it and
 what I was thinking.
 
-**Why this one.** The role is People Products. Hiring, onboarding, teamwork, that whole
-space. And when I looked at that list, onboarding was the one that bugged me the most.
-Because it's kind of the loneliest part of a job. You get a pile of links, you read them
-by yourself, you sit in meetings nodding along, and you don't really know who to ask
-about anything. And if you're remote, it's worse. So the question I kept coming back to
-was, what if week one was something you did with your team instead of a doc you read
-alone?
+**Why this one.** So, I onboarded remotely at my current job. My whole team is on the
+West Coast and I'm not. And honestly, it was not pleasant. Most of that first week was
+waiting for people to wake up, reading a wiki by myself, and not knowing who I was even
+allowed to ask. That week is the thing I built for.
+
+The role is People Products. Hiring, onboarding, teamwork. And onboarding is the
+loneliest one on that list, and if you're remote it's worse. So the question I kept
+coming back to was, what if week one was something you did with your team instead of a
+doc you read alone?
 
 The shape I stole is Duolingo. A path, one thing per screen, XP, a streak, a little
 mascot. The one thing I deliberately didn't take is hearts. Losing lives is fine when
@@ -52,6 +54,12 @@ own the doc.
 
 **Decisions and tradeoffs.** Okay, the honest part.
 
+The biggest one. I use Claude in fewer places, not more. Four stops out of ten. In an AI
+take-home that's a risk, there's less to show off. But grading "did you install Xcode"
+with a model is theatre, and a new hire can tell. So where I do use it, I tried to use it
+really well. Coach voice, pointing at the card, structured output, a fallback. I'd make
+that call again.
+
 No database, no auth. The whole company is a JSON file. I did that so you could open a
 link and just play, zero setup. The tradeoff is there's no real multiplayer. The cheers
 are scripted.
@@ -69,9 +77,6 @@ button called How it grades. It showed you the rubric. And at some point I looke
 and went, wait, the rubric is literally the answer. So I cut it, moved the facts up
 front, and made the task about applying them instead of remembering them. That's the
 moment it stopped feeling like a test.
-
-Small one. The grading prompt changed twice because of real misses. Keyword spam got a
-pass once. And an em dash came back mangled. Both fixed with a sentence in the prompt.
 
 **With more time.** The thing I really wanted to build and didn't is an admin side, run
 by an agent. So the People team could just say, add a setup stop for the new crash
