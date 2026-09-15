@@ -30,7 +30,7 @@ stuck. I'll show you what I mean in a second.
 **What's interesting about it.** Let me give you the four things I'd actually want you
 to notice.
 
-One. My first version was basically a quiz. Question, type an answer, Claude grades it.
+1. My first version was basically a quiz. Question, type an answer, Claude grades it.
 And it felt like a test on stuff you couldn't possibly know yet. So I threw that out.
 Real onboarding is mostly setup. VPN, Xcode, getting the app to build. So most stops
 are checklists now, with two buttons. Setup complete, and having an issue. The having
@@ -38,19 +38,24 @@ an issue one is the part I like. You pick the step you're stuck on, and it tells
 exactly where to ask and what to include, and it opens notes from people who got stuck
 on the same thing.
 
-Two. Being stuck is a signal, not a score. Every issue and every wrong answer gets
+1. Being stuck is a signal, not a score. Every issue and every wrong answer gets
 counted per stop, never per person. So the People team gets a chart that says, hey,
 everyone gets stuck on the VPN step, go fix that doc. That's the Theme 4 bit. It's
 basically a doc-quality eval that fills itself in.
 
-Three. Where I do use Claude, it's as a coach, not a grader. Only four stops. You get
+1. Where I do use Claude, it's as a coach, not a grader. Only four stops. You get
 three fact cards, then a scenario, and you try to apply them. Get it wrong, and it
 tells you what you did right first, then points at the one card to go re-read. It
 doesn't hand you the answer until you've missed twice.
 
-Four. Notes pile up. Every stop has notes from people who were new once, with where they
-are and whether they're remote. So the onboarding gets better on its own. Nobody has to
-own the doc.
+1. The notes. On every stop there's a button that says, are you stuck? Tap it and a
+panel slides in with short notes from teammates who did that same stop when they were
+new. Things like, the asset tag sticker is on the bottom of the laptop, yes you have to
+flip it over. Each note shows who wrote it, where they are, and whether they're remote,
+so a new hire in London sees that Lena in London got stuck here too. You can tap
+"helped me" on a note, and the ones that help the most float to the top. And once you
+finish a stop, you can leave your own note for whoever comes next. So the onboarding
+gets better on its own, one note at a time. Nobody has to own the doc.
 
 **Decisions and tradeoffs.** Okay, the honest part.
 
