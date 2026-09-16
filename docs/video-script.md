@@ -39,7 +39,7 @@ on the same thing.
 
 1. Being stuck is a signal, not a score. There's a team board, a separate page anyone
 can open. It shows who's on which stop this week, so a manager or a buddy can see at a
-glance that Ravi's been sitting on build the app for two days. Under that is a chart of
+glance that a user has been sitting on build the app for two days. Under that is a chart of
 where people get stuck. Every issue and every wrong answer gets counted per stop, never
 per person. So the People team gets a bar that says, hey, everyone gets stuck on the VPN
 step, go fix that doc. And it's honest about it, the page literally says a tall bar means
