@@ -49,11 +49,8 @@ data/*.json      company wiki, stops, people    lib/progress.ts (localStorage, X
 docs/rationale.md  design rationale             docs/plans/  the plan this was built from
 ```
 
-## Transcripts
+## Transcript
 
-The Claude Code sessions used to build this, exported as HTML and served from this repo:
-
-- [Part 1](https://jlalvarez18.github.io/first-week-quest/transcripts/part-1/): brainstorm, plan, and the first build (path, grading, notes, motion).
-- [Part 2](https://jlalvarez18.github.io/first-week-quest/transcripts/part-2/): guided stops, the persona and sign-in, stop kinds, docs and video prep.
-
-Source files live in `docs/transcripts/`.
+The full Claude Code session used to build this, exported as HTML and served from this repo:
+**[jlalvarez18.github.io/first-week-quest](https://jlalvarez18.github.io/first-week-quest/)**
+(60 prompts, from the first brainstorm through docs and video prep). Source in `docs/transcripts/`.
