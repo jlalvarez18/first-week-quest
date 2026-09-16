@@ -48,3 +48,12 @@ app/api/grade    Claude grading endpoint        lib/grade.ts (prompt + fallback 
 data/*.json      company wiki, stops, people    lib/progress.ts (localStorage, XP, streak)
 docs/rationale.md  design rationale             docs/plans/  the plan this was built from
 ```
+
+## Transcripts
+
+The Claude Code sessions used to build this, exported as HTML and served from this repo:
+
+- [Part 1](https://jlalvarez18.github.io/first-week-quest/transcripts/part-1/): brainstorm, plan, and the first build (path, grading, notes, motion).
+- [Part 2](https://jlalvarez18.github.io/first-week-quest/transcripts/part-2/): guided stops, the persona and sign-in, stop kinds, docs and video prep.
+
+Source files live in `docs/transcripts/`.

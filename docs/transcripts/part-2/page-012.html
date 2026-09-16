@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code transcript - page 12</title>
+    <style>
+:root { --bg-color: #f5f5f5; --card-bg: #ffffff; --user-bg: #e3f2fd; --user-border: #1976d2; --assistant-bg: #f5f5f5; --assistant-border: #9e9e9e; --thinking-bg: #fff8e1; --thinking-border: #ffc107; --thinking-text: #666; --tool-bg: #f3e5f5; --tool-border: #9c27b0; --tool-result-bg: #e8f5e9; --tool-error-bg: #ffebee; --text-color: #212121; --text-muted: #757575; --code-bg: #263238; --code-text: #aed581; }
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg-color); color: var(--text-color); margin: 0; padding: 16px; line-height: 1.6; }
+.container { max-width: 800px; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin-bottom: 24px; padding-bottom: 8px; border-bottom: 2px solid var(--user-border); }
+.header-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 2px solid var(--user-border); padding-bottom: 8px; margin-bottom: 24px; }
+.header-row h1 { border-bottom: none; padding-bottom: 0; margin-bottom: 0; flex: 1; min-width: 200px; }
+.message { margin-bottom: 16px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.message.user { background: var(--user-bg); border-left: 4px solid var(--user-border); }
+.message.assistant { background: var(--card-bg); border-left: 4px solid var(--assistant-border); }
+.message.tool-reply { background: #fff8e1; border-left: 4px solid #ff9800; }
+.tool-reply .role-label { color: #e65100; }
+.tool-reply .tool-result { background: transparent; padding: 0; margin: 0; }
+.tool-reply .tool-result .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #fff8e1); }
+.message-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(0,0,0,0.03); font-size: 0.85rem; }
+.role-label { font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.user .role-label { color: var(--user-border); }
+time { color: var(--text-muted); font-size: 0.8rem; }
+.timestamp-link { color: inherit; text-decoration: none; }
+.timestamp-link:hover { text-decoration: underline; }
+.message:target { animation: highlight 2s ease-out; }
+@keyframes highlight { 0% { background-color: rgba(25, 118, 210, 0.2); } 100% { background-color: transparent; } }
+.message-content { padding: 16px; }
+.message-content p { margin: 0 0 12px 0; }
+.message-content p:last-child { margin-bottom: 0; }
+.thinking { background: var(--thinking-bg); border: 1px solid var(--thinking-border); border-radius: 8px; padding: 12px; margin: 12px 0; font-size: 0.9rem; color: var(--thinking-text); }
+.thinking-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #f57c00; margin-bottom: 8px; }
+.thinking p { margin: 8px 0; }
+.assistant-text { margin: 8px 0; }
+.tool-use { background: var(--tool-bg); border: 1px solid var(--tool-border); border-radius: 8px; padding: 12px; margin: 12px 0; }
+.tool-header { font-weight: 600; color: var(--tool-border); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.tool-icon { font-size: 1.1rem; }
+.tool-description { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+.tool-result { background: var(--tool-result-bg); border-radius: 8px; padding: 12px; margin: 12px 0; }
+.tool-result.tool-error { background: var(--tool-error-bg); }
+.file-tool { border-radius: 8px; padding: 12px; margin: 12px 0; }
+.write-tool { background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%); border: 1px solid #4caf50; }
+.edit-tool { background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%); border: 1px solid #ff9800; }
+.file-tool-header { font-weight: 600; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+.write-header { color: #2e7d32; }
+.edit-header { color: #e65100; }
+.file-tool-icon { font-size: 1rem; }
+.file-tool-path { font-family: monospace; background: rgba(0,0,0,0.08); padding: 2px 8px; border-radius: 4px; }
+.file-tool-fullpath { font-family: monospace; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; word-break: break-all; }
+.file-content { margin: 0; }
+.edit-section { display: flex; margin: 4px 0; border-radius: 4px; overflow: hidden; }
+.edit-label { padding: 8px 12px; font-weight: bold; font-family: monospace; display: flex; align-items: flex-start; }
+.edit-old { background: #fce4ec; }
+.edit-old .edit-label { color: #b71c1c; background: #f8bbd9; }
+.edit-old .edit-content { color: #880e4f; }
+.edit-new { background: #e8f5e9; }
+.edit-new .edit-label { color: #1b5e20; background: #a5d6a7; }
+.edit-new .edit-content { color: #1b5e20; }
+.edit-content { margin: 0; flex: 1; background: transparent; font-size: 0.85rem; }
+.edit-replace-all { font-size: 0.75rem; font-weight: normal; color: var(--text-muted); }
+.write-tool .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #e6f4ea); }
+.edit-tool .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #fff0e5); }
+.todo-list { background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); border: 1px solid #81c784; border-radius: 8px; padding: 12px; margin: 12px 0; }
+.todo-header { font-weight: 600; color: #2e7d32; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+.todo-items { list-style: none; margin: 0; padding: 0; }
+.todo-item { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.9rem; }
+.todo-item:last-child { border-bottom: none; }
+.todo-icon { flex-shrink: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 50%; }
+.todo-completed .todo-icon { color: #2e7d32; background: rgba(46, 125, 50, 0.15); }
+.todo-completed .todo-content { color: #558b2f; text-decoration: line-through; }
+.todo-in-progress .todo-icon { color: #f57c00; background: rgba(245, 124, 0, 0.15); }
+.todo-in-progress .todo-content { color: #e65100; font-weight: 500; }
+.todo-pending .todo-icon { color: #757575; background: rgba(0,0,0,0.05); }
+.todo-pending .todo-content { color: #616161; }
+pre { background: var(--code-bg); color: var(--code-text); padding: 12px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; line-height: 1.5; margin: 8px 0; white-space: pre-wrap; word-wrap: break-word; }
+pre.json { color: #e0e0e0; }
+code { background: rgba(0,0,0,0.08); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+pre code { background: none; padding: 0; }
+.user-content { margin: 0; }
+.truncatable { position: relative; }
+.truncatable.truncated .truncatable-content { max-height: 200px; overflow: hidden; }
+.truncatable.truncated::after { content: ''; position: absolute; bottom: 32px; left: 0; right: 0; height: 60px; background: linear-gradient(to bottom, transparent, var(--card-bg)); pointer-events: none; }
+.message.user .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--user-bg)); }
+.message.tool-reply .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, #fff8e1); }
+.tool-use .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--tool-bg)); }
+.tool-result .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--tool-result-bg)); }
+.expand-btn { display: none; width: 100%; padding: 8px 16px; margin-top: 4px; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; cursor: pointer; font-size: 0.85rem; color: var(--text-muted); }
+.expand-btn:hover { background: rgba(0,0,0,0.1); }
+.truncatable.truncated .expand-btn, .truncatable.expanded .expand-btn { display: block; }
+.pagination { display: flex; justify-content: center; gap: 8px; margin: 24px 0; flex-wrap: wrap; }
+.pagination a, .pagination span { padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 0.85rem; }
+.pagination a { background: var(--card-bg); color: var(--user-border); border: 1px solid var(--user-border); }
+.pagination a:hover { background: var(--user-bg); }
+.pagination .current { background: var(--user-border); color: white; }
+.pagination .disabled { color: var(--text-muted); border: 1px solid #ddd; }
+.pagination .index-link { background: var(--user-border); color: white; }
+details.continuation { margin-bottom: 16px; }
+details.continuation summary { cursor: pointer; padding: 12px 16px; background: var(--user-bg); border-left: 4px solid var(--user-border); border-radius: 12px; font-weight: 500; color: var(--text-muted); }
+details.continuation summary:hover { background: rgba(25, 118, 210, 0.15); }
+details.continuation[open] summary { border-radius: 12px 12px 0 0; margin-bottom: 0; }
+.index-item { margin-bottom: 16px; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); background: var(--user-bg); border-left: 4px solid var(--user-border); }
+.index-item a { display: block; text-decoration: none; color: inherit; }
+.index-item a:hover { background: rgba(25, 118, 210, 0.1); }
+.index-item-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(0,0,0,0.03); font-size: 0.85rem; }
+.index-item-number { font-weight: 600; color: var(--user-border); }
+.index-item-content { padding: 16px; }
+.index-item-stats { padding: 8px 16px 12px 32px; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid rgba(0,0,0,0.06); }
+.index-item-commit { margin-top: 6px; padding: 4px 8px; background: #fff3e0; border-radius: 4px; font-size: 0.85rem; color: #e65100; }
+.index-item-commit code { background: rgba(0,0,0,0.08); padding: 1px 4px; border-radius: 3px; font-size: 0.8rem; margin-right: 6px; }
+.commit-card { margin: 8px 0; padding: 10px 14px; background: #fff3e0; border-left: 4px solid #ff9800; border-radius: 6px; }
+.commit-card a { text-decoration: none; color: #5d4037; display: block; }
+.commit-card a:hover { color: #e65100; }
+.commit-card-hash { font-family: monospace; color: #e65100; font-weight: 600; margin-right: 8px; }
+.index-commit { margin-bottom: 12px; padding: 10px 16px; background: #fff3e0; border-left: 4px solid #ff9800; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+.index-commit a { display: block; text-decoration: none; color: inherit; }
+.index-commit a:hover { background: rgba(255, 152, 0, 0.1); margin: -10px -16px; padding: 10px 16px; border-radius: 8px; }
+.index-commit-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; margin-bottom: 4px; }
+.index-commit-hash { font-family: monospace; color: #e65100; font-weight: 600; }
+.index-commit-msg { color: #5d4037; }
+.index-item-long-text { margin-top: 8px; padding: 12px; background: var(--card-bg); border-radius: 8px; border-left: 3px solid var(--assistant-border); }
+.index-item-long-text .truncatable.truncated::after { background: linear-gradient(to bottom, transparent, var(--card-bg)); }
+.index-item-long-text-content { color: var(--text-color); }
+#search-box { display: none; align-items: center; gap: 8px; }
+#search-box input { padding: 6px 12px; border: 1px solid var(--assistant-border); border-radius: 6px; font-size: 16px; width: 180px; }
+#search-box button, #modal-search-btn, #modal-close-btn { background: var(--user-border); color: white; border: none; border-radius: 6px; padding: 6px 10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+#search-box button:hover, #modal-search-btn:hover { background: #1565c0; }
+#modal-close-btn { background: var(--text-muted); margin-left: 8px; }
+#modal-close-btn:hover { background: #616161; }
+#search-modal[open] { border: none; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.2); padding: 0; width: 90vw; max-width: 900px; height: 80vh; max-height: 80vh; display: flex; flex-direction: column; }
+#search-modal::backdrop { background: rgba(0,0,0,0.5); }
+.search-modal-header { display: flex; align-items: center; gap: 8px; padding: 16px; border-bottom: 1px solid var(--assistant-border); background: var(--bg-color); border-radius: 12px 12px 0 0; }
+.search-modal-header input { flex: 1; padding: 8px 12px; border: 1px solid var(--assistant-border); border-radius: 6px; font-size: 16px; }
+#search-status { padding: 8px 16px; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid rgba(0,0,0,0.06); }
+#search-results { flex: 1; overflow-y: auto; padding: 16px; }
+.search-result { margin-bottom: 16px; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.search-result a { display: block; text-decoration: none; color: inherit; }
+.search-result a:hover { background: rgba(25, 118, 210, 0.05); }
+.search-result-page { padding: 6px 12px; background: rgba(0,0,0,0.03); font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid rgba(0,0,0,0.06); }
+.search-result-content { padding: 12px; }
+.search-result mark { background: #fff59d; padding: 1px 2px; border-radius: 2px; }
+@media (max-width: 600px) { body { padding: 8px; } .message, .index-item { border-radius: 8px; } .message-content, .index-item-content { padding: 12px; } pre { font-size: 0.8rem; padding: 8px; } #search-box input { width: 120px; } #search-modal[open] { width: 95vw; height: 90vh; } }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">Claude Code transcript</a> - page 12/12</h1>
+        
+
+<div class="pagination">
+<a href="index.html" class="index-link">Index</a>
+<a href="page-011.html">&larr; Prev</a>
+<a href="page-001.html">1</a>
+<a href="page-002.html">2</a>
+<a href="page-003.html">3</a>
+<a href="page-004.html">4</a>
+<a href="page-005.html">5</a>
+<a href="page-006.html">6</a>
+<a href="page-007.html">7</a>
+<a href="page-008.html">8</a>
+<a href="page-009.html">9</a>
+<a href="page-010.html">10</a>
+<a href="page-011.html">11</a>
+<span class="current">12</span>
+<span class="disabled">Next &rarr;</span>
+</div>
+
+        
+<div class="message user" id="msg-2026-09-16T18-11-01-844Z"><div class="message-header"><span class="role-label">User</span><a href="#msg-2026-09-16T18-11-01-844Z" class="timestamp-link"><time datetime="2026-09-16T18:11:01.844Z" data-timestamp="2026-09-16T18:11:01.844Z">2026-09-16T18:11:01.844Z</time></a></div><div class="message-content">
+<div class="user-content"><p>who is Ravi? just say user</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T18-11-05-103Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T18-11-05-103Z" class="timestamp-link"><time datetime="2026-09-16T18:11:05.103Z" data-timestamp="2026-09-16T18:11:05.103Z">2026-09-16T18:11:05.103Z</time></a></div><div class="message-content"><div class="file-tool edit-tool" data-tool-id="toolu_019fp1kgWeZPzbHaVzAPJKQF">
+<div class="file-tool-header edit-header"><span class="file-tool-icon">✏️</span> Edit <span class="file-tool-path">video-script.md</span></div>
+<div class="file-tool-fullpath">/Users/juan/Repos/claude-hackathon/docs/video-script.md</div>
+<div class="truncatable"><div class="truncatable-content">
+<div class="edit-section edit-old"><div class="edit-label">−</div><pre class="edit-content">glance that Ravi&#39;s been sitting on build the app for two days.</pre></div>
+<div class="edit-section edit-new"><div class="edit-label">+</div><pre class="edit-content">glance that a user has been sitting on build the app for two days.</pre></div>
+</div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T18-11-05-145Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T18-11-05-145Z" class="timestamp-link"><time datetime="2026-09-16T18:11:05.145Z" data-timestamp="2026-09-16T18:11:05.145Z">2026-09-16T18:11:05.145Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>The file /Users/juan/Repos/claude-hackathon/docs/video-script.md has been updated successfully. (file state is current in your context — no need to Read it back)</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T18-11-08-297Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T18-11-08-297Z" class="timestamp-link"><time datetime="2026-09-16T18:11:08.297Z" data-timestamp="2026-09-16T18:11:08.297Z">2026-09-16T18:11:08.297Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_01ST1F9NGkqq17h51UAbo5a5">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Commit and push script edit</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">git add -A &amp;&amp; git commit -q -m &#34;Docs: say &#39;a user&#39;, not a demo name, in the script
+
+Co-Authored-By: Claude Fable 5.1 &lt;noreply@anthropic.com&gt;&#34; &amp;&amp; git push -q &amp;&amp; echo pushed</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T18-11-11-808Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T18-11-11-808Z" class="timestamp-link"><time datetime="2026-09-16T18:11:11.808Z" data-timestamp="2026-09-16T18:11:11.808Z">2026-09-16T18:11:11.808Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>pushed</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T18-11-13-769Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T18-11-13-769Z" class="timestamp-link"><time datetime="2026-09-16T18:11:13.769Z" data-timestamp="2026-09-16T18:11:13.769Z">2026-09-16T18:11:13.769Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>Fixed and pushed. Ravi was one of the fake new hires on the team board demo. The line now says "a user has been sitting on build the app for two days."</p></div></div></div>
+<div class="message user" id="msg-2026-09-16T19-34-41-741Z"><div class="message-header"><span class="role-label">User</span><a href="#msg-2026-09-16T19-34-41-741Z" class="timestamp-link"><time datetime="2026-09-16T19:34:41.741Z" data-timestamp="2026-09-16T19:34:41.741Z">2026-09-16T19:34:41.741Z</time></a></div><div class="message-content">
+<div class="user-content"><p>read through the whole script once more. just finished recording and it was 7 minutes.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T19-34-51-286Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T19-34-51-286Z" class="timestamp-link"><time datetime="2026-09-16T19:34:51.286Z" data-timestamp="2026-09-16T19:34:51.286Z">2026-09-16T19:34:51.286Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_01QWtY6eGT8YfxYJq2Sm8zc7">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Word count and full read of the script body</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">sed -n 10,200p docs/video-script.md | wc -w; cat -n docs/video-script.md | sed -n 10,120p</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T19-34-51-412Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T19-34-51-412Z" class="timestamp-link"><time datetime="2026-09-16T19:34:51.412Z" data-timestamp="2026-09-16T19:34:51.412Z">2026-09-16T19:34:51.412Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>    1314
+    10	Hey, I&#x27;m Juan. For my project I created First Week Quest. Let me walk you through why I built it and
+    11	what I was thinking.
+    12	
+    13	**Why this one.** Well, the role is in People Products. Hiring, onboarding, teamwork. And onboarding is the loneliest one on that list, and if you&#x27;re remote it&#x27;s worse. So the question I kept coming back to was, what if week one was something you did with your team instead of a doc you read alone?
+    14	
+    15	So, I onboarded remotely at my current job. My whole team is on the
+    16	West Coast and I&#x27;m not. And honestly, it was not pleasant. Most of that first week was
+    17	waiting for people to wake up, reading a wiki by myself, and not knowing who I was even
+    18	allowed to ask. That week is the thing I built for.
+    19	
+    20	The shape I stole is Duolingo. A path of ten stops, one thing per screen, XP, a
+    21	streak, a little mascot. Each stop is one real week-one task, like get your VPN working
+    22	or open your first pull request. The one thing I deliberately didn&#x27;t take is hearts. Losing lives is fine when
+    23	you&#x27;re learning Spanish. It&#x27;s a terrible thing to do to someone on their first week.
+    24	
+    25	This falls under Theme 1, exploration and understanding. It also touches Theme 4,
+    26	evaluation and data quality, because the app collects its own data on where people get
+    27	stuck. I&#x27;ll show you what I mean in a second.
+    28	
+    29	**What&#x27;s interesting about it.** Let me give you the four things I&#x27;d actually want you
+    30	to notice.
+    31	
+    32	1. My first version was basically a quiz. Question, type an answer, Claude grades it.
+    33	And it felt like a test on stuff you couldn&#x27;t possibly know yet. So I threw that out.
+    34	Real onboarding is mostly setup. VPN, Xcode, getting the app to build. So most stops
+    35	are checklists now, with two buttons. Setup complete, and having an issue. The having
+    36	an issue one is the part I like. You pick the step you&#x27;re stuck on, and it tells you
+    37	exactly where to ask and what to include, and it opens notes from people who got stuck
+    38	on the same thing.
+    39	
+    40	1. Being stuck is a signal, not a score. There&#x27;s a team board, a separate page anyone
+    41	can open. It shows who&#x27;s on which stop this week, so a manager or a buddy can see at a
+    42	glance that a user has been sitting on build the app for two days. Under that is a chart of
+    43	where people get stuck. Every issue and every wrong answer gets counted per stop, never
+    44	per person. So the People team gets a bar that says, hey, everyone gets stuck on the VPN
+    45	step, go fix that doc. And it&#x27;s honest about it, the page literally says a tall bar means
+    46	fix the doc, not the new hire. That&#x27;s the Theme 4 bit. It&#x27;s basically a doc-quality eval
+    47	that fills itself in.
+    48	
+    49	1. Where I do use Claude, it&#x27;s as a coach, not a grader. Only four stops. You get
+    50	three fact cards, then a scenario, and you try to apply them. Get it wrong, and it
+    51	tells you what you did right first, then points at the one card to go re-read. It
+    52	doesn&#x27;t hand you the answer until you&#x27;ve missed twice.
+    53	
+    54	1. The notes. On every stop there&#x27;s a button that says, are you stuck? Tap it and a
+    55	panel slides in with short notes from teammates who did that same stop when they were
+    56	new. Things like, the asset tag sticker is on the bottom of the laptop, yes you have to
+    57	flip it over. Each note shows who wrote it, where they are, and whether they&#x27;re remote,
+    58	so a new hire in London sees that Lena in London got stuck here too. You can tap
+    59	&quot;helped me&quot; on a note, and the ones that help the most float to the top. And once you
+    60	finish a stop, you can leave your own note for whoever comes next. So the onboarding
+    61	gets better on its own, one note at a time. Nobody has to own the doc.
+    62	
+    63	**Decisions and tradeoffs.** Okay, the honest part.
+    64	
+    65	The biggest one. I use Claude in fewer places, not more. Four stops out of ten. In an AI
+    66	take-home that&#x27;s a risk, there&#x27;s less to show off. But grading &quot;did you install Xcode&quot;
+    67	with a model is theatre, and a new hire can tell. So where I do use it, I tried to make
+    68	it count. It talks like a coach, not a grader. When you miss, it tells you which of the
+    69	three cards to go back to. It answers in a fixed shape the app can trust, pass or fail,
+    70	feedback, hint, card number. And if the API is down or there&#x27;s no key, a simple keyword
+    71	grader takes over so nothing breaks. Fewer places, done properly. I&#x27;d make that call again.
+    72	
+    73	No database, no auth. The whole company is a JSON file. I did that so you could open a
+    74	link and just play, zero setup. The tradeoff is there&#x27;s no real multiplayer. When you finish a stop, teammates pop up
+    75	and cheer you on, and those cheers are scripted, not live.
+    76	
+    77	The sign-in is fake, but it puts your name on every screen, and I think that matters
+    78	more than it sounds. Signing out wipes your progress so nobody inherits someone else&#x27;s
+    79	checkmarks.
+    80	
+    81	And the thing I&#x27;m most proud of is actually something I deleted. In the first draft,
+    82	Claude added a button called How it grades. It showed you the rubric. Sounds
+    83	reasonable, transparency, right? I asked what the user story was, and when I actually
+    84	read what it showed, the rubric was literally the answer to the question. That&#x27;s when
+    85	it clicked that the whole thing felt like a test on stuff you couldn&#x27;t know yet. So I
+    86	cut the button, changed direction, moved the facts up front, and made the task about
+    87	applying them instead of remembering them. That&#x27;s the moment it stopped feeling like a
+    88	quiz and started feeling like onboarding.
+    89	
+    90	**With more time.** The thing I really wanted to build and didn&#x27;t is an admin side, run
+    91	by an agent. So the People team could just say, add a setup stop for the new crash
+    92	reporting tool, put it after build the app. And Claude drafts the whole stop, the
+    93	checklist, the help text, the rubric, shows a diff, and someone approves it. And because
+    94	you&#x27;ve got the stuck data, the agent can tell you which stop to fix next. That&#x27;s what
+    95	would turn this from a nice demo into a thing that actually runs.
+    96	
+    97	After that, seeing who else is on the trail right now, pulling stops out of a real wiki
+    98	with a review step, and a test set for the grader so I can change the prompt without
+    99	guessing.
+   100	
+   101	**Time and how I used Claude.** About 8 hours, so the full budget. Roughly half was the
+   102	idea and the content, a quarter was the grader and the stop kinds, and a quarter was the
+   103	experience. I spent real time on that last part on purpose. When you tap a stop on the
+   104	trail, that circle glides up and becomes the header of the page you land on. The trail
+   105	and the fact cards slide in one after another. The notes slide in when you
+   106	say you&#x27;re stuck. Confetti when you get one right. None of that is required, but this is
+   107	a product for a first week, and feel is a lot of what makes someone come back on day two.
+   108	
+   109	I built it in Claude Code. My job was the decisions, Claude wrote most of the code, and I
+   110	tested every flow and pulled it back when it drifted.
+   111	
+   112	Thank you so much for this opportunity. Looking forward to meeting ya&#x27;ll.</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T19-34-59-619Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T19-34-59-619Z" class="timestamp-link"><time datetime="2026-09-16T19:34:59.619Z" data-timestamp="2026-09-16T19:34:59.619Z">2026-09-16T19:34:59.619Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>The script is running about 1300 words, roughly 7 minutes at typical pace, but I need it closer to 900-950 words for a 5 minute target. I'm identifying cuts: trimming the intro, condensing the theme paragraph to one sentence, and removing the repeated "having an issue" description from point 1 since it overlaps with point 4.</p>
+<p>For the remaining sections, I'm trimming point 2's stop-assignment and honesty sentences down to their core, cutting the example and "helped me" line from point 4, compressing the tradeoffs discussion of fixed shape/fallback into one sentence, keeping the no-database and sign-in points brief, tightening the rubric story, and condensing the "with more time" and timing sections into shorter lines. Now I'm writing the tightened version aiming for around 950 words.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T19-34-59-625Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T19-34-59-625Z" class="timestamp-link"><time datetime="2026-09-16T19:34:59.625Z" data-timestamp="2026-09-16T19:34:59.625Z">2026-09-16T19:34:59.625Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>It is 1,300 words. At your pace that is 7 minutes. Five minutes needs about 900. I cut 400 words by removing repeats and trimming examples, not by dropping any of the five sections.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T19-35-18-234Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T19-35-18-234Z" class="timestamp-link"><time datetime="2026-09-16T19:35:18.234Z" data-timestamp="2026-09-16T19:35:18.234Z">2026-09-16T19:35:18.234Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_01Nuj7vxwxCyGqaHpU9yM1Zh">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Tighten script to ~900 words and push</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">cat &gt; docs/video-script.md &lt;&lt;&#39;EOF&#39;
+# Video script (~5 min)
+
+Talk to camera. No screen recording needed. The assignment asks for a ~5 minute
+self-recorded video covering: why this theme and approach, what&#39;s interesting or
+non-obvious, key decisions and tradeoffs, how you&#39;d extend it, and how long you spent.
+Showing the app is optional. Don&#39;t read this word for word, just hit the beats.
+
+---
+
+Hey, I&#39;m Juan. This is First Week Quest. Here&#39;s why I built it and what I was thinking.
+
+**Why this one.** The role is in People Products. Hiring, onboarding, teamwork. And
+onboarding is the loneliest one on that list, and if you&#39;re remote it&#39;s worse. So the
+question I kept coming back to was, what if week one was something you did with your
+team instead of a doc you read alone?
+
+I onboarded remotely at my current job. My whole team is on the West Coast and I&#39;m not.
+It was not pleasant. Most of that first week was waiting for people to wake up, reading
+a wiki by myself, and not knowing who I was even allowed to ask. That week is the thing
+I built for.
+
+The shape I stole is Duolingo. A path of ten stops, XP, a streak, a little mascot. Each
+stop is one real week-one task, like get your VPN working or open your first pull
+request. The one thing I didn&#39;t take is hearts. Losing lives is fine when you&#39;re learning
+Spanish. It&#39;s a terrible thing to do to someone on their first week.
+
+It&#39;s Theme 1, exploration and understanding, with a bit of Theme 4, because the app
+collects its own data on where people get stuck.
+
+**What&#39;s interesting.** Four things.
+
+One. My first version was a quiz. Question, type an answer, Claude grades it. It felt
+like a test on stuff you couldn&#39;t possibly know yet. So I threw that out. Real onboarding
+is mostly setup. VPN, Xcode, getting the app to build. So most stops are checklists now,
+with two buttons: setup complete, and having an issue. Pick the step you&#39;re stuck on, and
+it tells you exactly where to ask and what to include.
+
+Two. Being stuck is a signal, not a score. There&#39;s a team board. It shows who&#39;s on which
+stop this week, and under that, a chart of where people get stuck. Every issue and every
+wrong answer is counted per stop, never per person. So the People team gets a bar that
+says, everyone gets stuck on the VPN step, go fix that doc. That&#39;s the Theme 4 bit. It&#39;s
+a doc-quality eval that fills itself in.
+
+Three. Where I do use Claude, it&#39;s as a coach, not a grader. Only four stops. You get
+three fact cards, then a scenario, and you try to apply them. Get it wrong, and it tells
+you what you did right first, then points at the one card to re-read. It doesn&#39;t hand
+you the answer until you&#39;ve missed twice.
+
+Four. The notes. Every stop has a button that says, are you stuck? Tap it and a panel
+slides in with short notes from teammates who did that stop when they were new. Each one
+shows who wrote it, where they are, and whether they&#39;re remote. And once you finish a
+stop, you can leave your own for whoever comes next. So onboarding gets better on its
+own. Nobody has to own the doc.
+
+**Decisions and tradeoffs.** The honest part.
+
+The biggest one. I use Claude in fewer places, not more. Four stops out of ten. In an AI
+take-home that&#39;s a risk. But grading &#34;did you install Xcode&#34; with a model is theatre, and
+a new hire can tell. So where I do use it, I tried to make it count. Coach voice, it
+points at the card you missed, it answers in a fixed shape the app can trust, and if the
+API is down a simple fallback takes over. Fewer places, done properly.
+
+No database, no auth. The whole company is a JSON file, so you can open a link and just
+play. The tradeoff is there&#39;s no real multiplayer. The teammates who cheer you on are
+scripted, not live.
+
+The sign-in is fake, but it puts your name on every screen, and that matters more than
+it sounds.
+
+And the thing I&#39;m most proud of is something I deleted. In the first draft, Claude added
+a button called How it grades. It showed you the rubric. Sounds reasonable, right?
+Transparency. But I asked what the user story was, and when I read what it showed, the
+rubric was literally the answer. That&#39;s when it clicked that the whole thing felt like a
+test. So I cut it, changed direction, moved the facts up front, and made the task about
+applying them instead of remembering them. That&#39;s the moment it stopped being a quiz and
+started being onboarding.
+
+**With more time.** The thing I really wanted to build is an admin side run by an agent.
+The People team could just say, add a setup stop for the new crash reporting tool after
+build the app. Claude drafts the whole stop, the checklist, the help text, the rubric,
+shows a diff, and someone approves it. And with the stuck data, the agent can tell you
+which stop to fix next. That&#39;s what turns this from a demo into a thing that runs.
+
+After that, seeing who else is on the trail live, and a test set for the grader.
+
+**Time.** About 8 hours, the full budget. Half on the idea and content, a quarter on the
+grader and the stop kinds, a quarter on the experience. That last part was on purpose.
+Tap a stop and it glides up into the header. Cards slide in one after another. Confetti
+when you get one right. None of it is required, but this is a product for a first week,
+and feel is a lot of what makes someone come back on day two.
+
+I built it in Claude Code. My job was the decisions, Claude wrote most of the code, and I
+tested every flow and pulled it back when it drifted.
+
+Thank you so much for this opportunity. Looking forward to meeting you all.
+EOF
+sed -n 10,200p docs/video-script.md | wc -w; git add -A &amp;&amp; git commit -q -m &#34;Docs: tighten the script to ~5 minutes
+
+Co-Authored-By: Claude Fable 5.1 &lt;noreply@anthropic.com&gt;&#34; &amp;&amp; git push -q &amp;&amp; echo pushed</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T19-35-25-113Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T19-35-25-113Z" class="timestamp-link"><time datetime="2026-09-16T19:35:25.113Z" data-timestamp="2026-09-16T19:35:25.113Z">2026-09-16T19:35:25.113Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>     980
+pushed</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T19-35-32-098Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T19-35-32-098Z" class="timestamp-link"><time datetime="2026-09-16T19:35:32.098Z" data-timestamp="2026-09-16T19:35:32.098Z">2026-09-16T19:35:32.098Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>Tightened and pushed. It went from 1,300 words to 980. At the pace of your 7 minute take, that lands around 5 minutes 15 seconds.</p>
+<p><strong>What I cut</strong>
+- Repeats. "Having an issue" was explained twice. The fallback was explained twice. Now once each.
+- Examples that did not earn their time. The asset tag note. The "helped me" sentence. The "user sitting on build the app" line. The "page literally says" line.
+- The theme paragraph is one sentence now.
+- The "after that" list is one line.
+- The motion description is three short sentences.</p>
+<p><strong>What I kept whole</strong>
+Your story. The four points. The fewer AI stops call. The rubric story. The admin agent. All five sections the PDF asks for.</p>
+<p><strong>If the next take is still over</strong>
+Cut point four, the notes. It is the least tied to the "why." That saves 30 seconds.</p>
+<p><strong>Between takes</strong>
+Do not fix flubs. A 5:20 with a stumble beats a perfect 6:30. Give the rubric story the most room.</p></div></div></div>
+<div class="message user" id="msg-2026-09-16T20-09-31-809Z"><div class="message-header"><span class="role-label">User</span><a href="#msg-2026-09-16T20-09-31-809Z" class="timestamp-link"><time datetime="2026-09-16T20:09:31.809Z" data-timestamp="2026-09-16T20:09:31.809Z">2026-09-16T20:09:31.809Z</time></a></div><div class="message-content">
+<div class="user-content"><p>is the latest pushed up to github and vercel?</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-09-42-738Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-09-42-738Z" class="timestamp-link"><time datetime="2026-09-16T20:09:42.738Z" data-timestamp="2026-09-16T20:09:42.738Z">2026-09-16T20:09:42.738Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_01QwbRmQTFj4wdeHYGpSA4Qg">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Check GitHub sync and Vercel link state</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">git status --short | head -5; echo &#34;--- local vs origin:&#34;; git fetch -q origin &amp;&amp; git log --oneline -1 &amp;&amp; git log --oneline -1 origin/main &amp;&amp; git rev-list --count origin/main..main; echo &#34;--- vercel link:&#34;; ls .vercel 2&gt;/dev/null &amp;&amp; cat .vercel/project.json 2&gt;/dev/null; command -v vercel || echo &#34;vercel CLI not installed&#34;</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-09-44-903Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-09-44-903Z" class="timestamp-link"><time datetime="2026-09-16T20:09:44.903Z" data-timestamp="2026-09-16T20:09:44.903Z">2026-09-16T20:09:44.903Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>--- local vs origin:
+c567350 Docs: tighten the script to ~5 minutes
+c567350 Docs: tighten the script to ~5 minutes
+0
+--- vercel link:
+vercel CLI not installed</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-09-53-530Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-09-53-530Z" class="timestamp-link"><time datetime="2026-09-16T20:09:53.530Z" data-timestamp="2026-09-16T20:09:53.530Z">2026-09-16T20:09:53.530Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>GitHub looks synced, but I can't confirm Vercel's deploy status since the CLI isn't installed here and the MCP plugin needs auth. If they used Vercel's GitHub integration it should auto-deploy on push, but if deployed via CLI elsewhere it might lag — I should suggest checking the Vercel dashboard or connecting the plugin, keeping it brief.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-09-53-542Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-09-53-542Z" class="timestamp-link"><time datetime="2026-09-16T20:09:53.542Z" data-timestamp="2026-09-16T20:09:53.542Z">2026-09-16T20:09:53.542Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p><strong>GitHub: yes.</strong> Working tree is clean. Local and origin are both at the same commit. Zero unpushed.</p>
+<p><strong>Vercel: I cannot tell.</strong> Nothing on this machine is linked to a Vercel project. The CLI is not installed. The Vercel plugin in this session is not authorized, so I cannot query it.</p>
+<p>Two ways this could be.
+1. You connected the GitHub repo in the Vercel dashboard. Then every push deploys by itself and you are current.
+2. You deployed from the CLI on another machine or earlier. Then the live site is whatever you last deployed.</p>
+<p><strong>How to check in 30 seconds</strong>
+Open your Vercel dashboard, open the project, and look at the latest deployment. It should show commit c567350 and the message "Docs: tighten the script to ~5 minutes." If it shows an older commit, redeploy.</p>
+<p><strong>If you want me to handle Vercel from here</strong>
+Install the CLI and log in. Then I can link, deploy, and check the key.</p>
+<pre><code class="language-bash">npm i -g vercel &amp;&amp; vercel login
+</code></pre>
+<p>Only the docs changed since the last app change, so the live app is the same either way. The last code commit was the stop kinds work.</p></div></div></div>
+<div class="message user" id="msg-2026-09-16T20-20-37-787Z"><div class="message-header"><span class="role-label">User</span><a href="#msg-2026-09-16T20-20-37-787Z" class="timestamp-link"><time datetime="2026-09-16T20:20:37.787Z" data-timestamp="2026-09-16T20:20:37.787Z">2026-09-16T20:20:37.787Z</time></a></div><div class="message-content">
+<div class="user-content"><p><bash-input>npm i -g vercel &amp;&amp; vercel login</bash-input><bash-stdout>npm warn deprecated stream-to-promise@2.2.0: Deprecated. Use node:stream/promises and node:stream/consumers instead.
+npm warn deprecated tar@7.5.7: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me</p>
+<p>added 297 packages in 10s</p>
+<p>38 packages are looking for funding
+  run <code>npm fund</code> for details
+Vercel CLI 59.19.1 (Node.js 22.14.0)
+&gt;
+  Visit https://vercel.com/oauth/device?user_code=CMDV-SRFH</p>
+<p>Congratulations! You are now signed in.</p>
+<p>To deploy something, run <code>vercel</code>.</p>
+<p>💡 To deploy every commit automatically,
+  connect a Git Repository (vercel.link/git (https://vercel.link/git)).</p>
+<p>claude-hackathon main 33s</bash-stdout><bash-stderr></bash-stderr></p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-20-40-878Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-20-40-878Z" class="timestamp-link"><time datetime="2026-09-16T20:20:40.878Z" data-timestamp="2026-09-16T20:20:40.878Z">2026-09-16T20:20:40.878Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>You are logged in. Let me see what Vercel already has.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-20-42-263Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-20-42-263Z" class="timestamp-link"><time datetime="2026-09-16T20:20:42.263Z" data-timestamp="2026-09-16T20:20:42.263Z">2026-09-16T20:20:42.263Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_018e3mbGqvTqQY4gfk7T6YnJ">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">List Vercel account and projects</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">vercel whoami 2&gt;&amp;1 | tail -1; echo &#34;--- projects:&#34;; vercel project ls 2&gt;&amp;1 | tail -15</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-20-46-528Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-20-46-528Z" class="timestamp-link"><time datetime="2026-09-16T20:20:46.528Z" data-timestamp="2026-09-16T20:20:46.528Z">2026-09-16T20:20:46.528Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>jlalvarez18-7056
+--- projects:
+
+Vercel CLI 59.19.1 (Node.js 22.14.0)
+Fetching projects in alvarez-productions
+&gt; Projects found under alvarez-productions  [694ms]
+
+  Project Name       Latest Production URL                 Updated   Node Version   
+  first-week-quest   https://first-week-quest.vercel.app   45m       24.x           
+
+&gt; Update available for Vercel Plugin for Claude Code (v0.49.0 -&gt; v0.49.2).</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-20-50-900Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-20-50-900Z" class="timestamp-link"><time datetime="2026-09-16T20:20:50.900Z" data-timestamp="2026-09-16T20:20:50.900Z">2026-09-16T20:20:50.900Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>I found the first-week-quest project, updated 45 minutes ago, so I want to check its deployments to see which commit is live, confirm whether git is connected, and verify the environment variables are present. I'll link the local directory to it for inspection, then curl the live site's grade endpoint to confirm the grader is set to claude.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-20-50-901Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-20-50-901Z" class="timestamp-link"><time datetime="2026-09-16T20:20:50.901Z" data-timestamp="2026-09-16T20:20:50.901Z">2026-09-16T20:20:50.901Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>A project exists and deployed 45 minutes ago. I link this folder to it and check which commit is live, whether the key is set, and whether the live grader uses Claude.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-20-52-019Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-20-52-019Z" class="timestamp-link"><time datetime="2026-09-16T20:20:52.019Z" data-timestamp="2026-09-16T20:20:52.019Z">2026-09-16T20:20:52.019Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_0135tQbTht2yaUEST4gt4UqQ">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Link and inspect deployments and env</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">vercel link --yes --project first-week-quest 2&gt;&amp;1 | tail -2; echo &#34;--- deployments:&#34;; vercel ls 2&gt;&amp;1 | tail -8; echo &#34;--- env:&#34;; vercel env ls 2&gt;&amp;1 | tail -6</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-20-55-215Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-20-55-215Z" class="timestamp-link"><time datetime="2026-09-16T20:20:55.215Z" data-timestamp="2026-09-16T20:20:55.215Z">2026-09-16T20:20:55.215Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_01BhhmCUa4ZYUpEVRFAvDxVm">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Probe the live site&#39;s grader and landing page</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">echo &#34;--- live grader:&#34;; curl -s -X POST https://first-week-quest.vercel.app/api/grade -H &#39;content-type: application/json&#39; -d &#39;{&#34;stopId&#34;:&#34;learn-the-lingo&#34;,&#34;answer&#34;:&#34;Last night’s test build is crashing more than we allow, so if we do not find it today the Tuesday App Store release goes out without the fix.&#34;,&#34;attempt&#34;:0}&#39; | head -c 400; echo; echo &#34;--- live home:&#34;; curl -s https://first-week-quest.vercel.app/ | grep -o &#34;Let&amp;#x27;s sign in\|Let&#39;s sign in\|Play as a new hire&#34; | head -1</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-20-55-647Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-20-55-647Z" class="timestamp-link"><time datetime="2026-09-16T20:20:55.647Z" data-timestamp="2026-09-16T20:20:55.647Z">2026-09-16T20:20:55.647Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>✓ Updated         .env.local file
+--- deployments:
+https://first-week-quest-dyx4cz09u-alvarez-productions.vercel.app
+https://first-week-quest-5q6qohhs6-alvarez-productions.vercel.app
+https://first-week-quest-68fgkppmq-alvarez-productions.vercel.app
+https://first-week-quest-ht0zbm6no-alvarez-productions.vercel.app
+https://first-week-quest-ls4mnk9lp-alvarez-productions.vercel.app
+https://first-week-quest-8mtthajrp-alvarez-productions.vercel.app
+https://first-week-quest-fawatyct1-alvarez-productions.vercel.app
+https://first-week-quest-n456f9l6t-alvarez-productions.vercel.app
+--- env:
+- Add an Environment Variable:
+  vercel env add
+- Remove an Environment Variable:
+  vercel env rm
+- Pull Development Environment Variables into .env.local:
+  vercel env pull</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-21-02-327Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-21-02-327Z" class="timestamp-link"><time datetime="2026-09-16T20:21:02.327Z" data-timestamp="2026-09-16T20:21:02.327Z">2026-09-16T20:21:02.327Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>--- live grader:
+{&quot;pass&quot;:true,&quot;feedback&quot;:&quot;Nice, you tied the nightly test build&#x27;s crash dip to the 99.5% line and to Tuesday&#x27;s App Store train in one clean sentence. That is exactly how you would explain it to a friend.&quot;,&quot;hint&quot;:&quot;&quot;,&quot;factIndex&quot;:null,&quot;grader&quot;:&quot;claude&quot;}
+--- live home:
+Let&amp;#x27;s sign in</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-21-09-094Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-21-09-094Z" class="timestamp-link"><time datetime="2026-09-16T20:21:09.094Z" data-timestamp="2026-09-16T20:21:09.094Z">2026-09-16T20:21:09.094Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>That "vercel link" step concerns me—it printed "Updated .env.local file," which suggests it may have overwritten the user's local env file with pulled values. I should verify the key is still present without printing it, and re-check the full env ls output since the earlier tail truncated it.</p>
+<p>Beyond that, I want to check whether the live deployment actually matches the latest code commit (c950eb2 was the last real code change, with only docs commits after) by inspecting the newest deployment's metadata for its GitHub commit SHA.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-21-09-099Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-21-09-099Z" class="timestamp-link"><time datetime="2026-09-16T20:21:09.099Z" data-timestamp="2026-09-16T20:21:09.099Z">2026-09-16T20:21:09.099Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>The live site runs the new sign-in and grades with Claude. Two things to confirm. Which commit is live, and whether linking touched your local key file. Checking both.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-21-11-802Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-21-11-802Z" class="timestamp-link"><time datetime="2026-09-16T20:21:11.802Z" data-timestamp="2026-09-16T20:21:11.802Z">2026-09-16T20:21:11.802Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_014HUvyMmh8S3vaqiKi98C9P">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Check local key, Vercel env, and live commit</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">echo &#34;--- local key present:&#34;; grep -c &#34;^ANTHROPIC_API_KEY=.&#34; .env.local; echo &#34;--- env list:&#34;; vercel env ls 2&gt;&amp;1 | grep -iE &#34;ANTHROPIC|name|Production&#34; | head -5; echo &#34;--- latest deployment:&#34;; vercel inspect https://first-week-quest-dyx4cz09u-alvarez-productions.vercel.app 2&gt;&amp;1 | grep -iE &#34;status|target|commit|sha|branch|created&#34; | head -8; echo &#34;--- last code commit:&#34;; git log --oneline -1 -- app components lib data</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-21-15-217Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-21-15-217Z" class="timestamp-link"><time datetime="2026-09-16T20:21:15.217Z" data-timestamp="2026-09-16T20:21:15.217Z">2026-09-16T20:21:15.217Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>--- local key present:
+1
+--- env list:
+&gt; Environment Variables found for alvarez-productions/first-week-quest [126ms]
+ name                       value     type      environments                created    
+ ANTHROPIC_API_KEY          Hidden    Secret    Production, Preview         5d ago     
+--- latest deployment:
+    target	production
+    status	● Ready
+    created	Tue Sep 15 2026 16:50:18 GMT-0500 (Central Daylight Time) [23h ago]
+--- last code commit:
+c950eb2 Stop kinds: setup and action checklists, practice, reflect; trail is 10 stops</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-21-28-720Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-21-28-720Z" class="timestamp-link"><time datetime="2026-09-16T20:21:28.720Z" data-timestamp="2026-09-16T20:21:28.720Z">2026-09-16T20:21:28.720Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>I'm noting that the deployment lacks a git commit sha, suggesting it was pushed via CLI roughly 23 hours ago, after the last code commit — meaning the live app should reflect the latest code changes.</p>
+<p>So GitHub is set up, and Vercel is deployed with the production key confirmed working, but since it's not connected to git, future pushes won't auto-deploy; I should offer to connect git integration or trigger a redeploy now.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-21-28-729Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-21-28-729Z" class="timestamp-link"><time datetime="2026-09-16T20:21:28.729Z" data-timestamp="2026-09-16T20:21:28.729Z">2026-09-16T20:21:28.729Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p><strong>Yes to both.</strong></p>
+<p><strong>GitHub</strong>
+In sync. Nothing unpushed.</p>
+<p><strong>Vercel</strong>
+- Live at <a href="https://first-week-quest.vercel.app">first-week-quest.vercel.app</a>.
+- The production deploy is from yesterday afternoon. Every code change was committed before that, so the live app is current. Only docs changed since.
+- The API key is set for Production and Preview.
+- I tested the live grader. It answered with "graded by claude."
+- The live landing page is the new sign-in.</p>
+<p><strong>Two things to know</strong>
+- It is not connected to the GitHub repo. It was deployed from the CLI. So a future push does not deploy by itself. If you change code again, run this:</p>
+<pre><code class="language-bash">vercel --prod
+</code></pre>
+<ul>
+<li>Linking the project here refreshed your local <code>.env.local</code> from Vercel. Your key is still in it. That file stays out of git.</li>
+</ul>
+<p><strong>What you do now</strong>
+Nothing for deploy. Finish the video, export the transcript, send the email.</p></div></div></div>
+<div class="message user" id="msg-2026-09-16T20-25-25-851Z"><div class="message-header"><span class="role-label">User</span><a href="#msg-2026-09-16T20-25-25-851Z" class="timestamp-link"><time datetime="2026-09-16T20:25:25.851Z" data-timestamp="2026-09-16T20:25:25.851Z">2026-09-16T20:25:25.851Z</time></a></div><div class="message-content">
+<div class="user-content"><p>i installed this tool. how do i use it to export this sessions conversation?</p>
+<p>https://github.com/simonw/claude-code-transcripts?tab=readme-ov-file</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-25-29-587Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-25-29-587Z" class="timestamp-link"><time datetime="2026-09-16T20:25:29.587Z" data-timestamp="2026-09-16T20:25:29.587Z">2026-09-16T20:25:29.587Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>I should check the tool's usage by fetching the README, then locate this session's JSONL transcript file under the Claude projects directory to confirm which file corresponds to this session.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-25-29-588Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-25-29-588Z" class="timestamp-link"><time datetime="2026-09-16T20:25:29.588Z" data-timestamp="2026-09-16T20:25:29.588Z">2026-09-16T20:25:29.588Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>Let me read the tool's README and find this session's file on disk.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-25-30-631Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-25-30-631Z" class="timestamp-link"><time datetime="2026-09-16T20:25:30.631Z" data-timestamp="2026-09-16T20:25:30.631Z">2026-09-16T20:25:30.631Z</time></a></div><div class="message-content">
+<div class="tool-use" data-tool-id="toolu_01YFGhYt81pAAb4KdjPbJog7"><div class="tool-header"><span class="tool-icon">⚙</span> WebFetch</div><div class="truncatable"><div class="truncatable-content"><pre class="json">{
+  &#34;url&#34;: &#34;https://github.com/simonw/claude-code-transcripts&#34;,
+  &#34;prompt&#34;: &#34;Give the exact CLI commands and options: how to install, how to convert a local Claude Code session JSONL file to HTML, how to pick a session (local vs web), and where output goes. Quote command examples verbatim.&#34;
+}</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-25-32-516Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-25-32-516Z" class="timestamp-link"><time datetime="2026-09-16T20:25:32.516Z" data-timestamp="2026-09-16T20:25:32.516Z">2026-09-16T20:25:32.516Z</time></a></div><div class="message-content">
+<div class="tool-use bash-tool" data-tool-id="toolu_01NhPKnsVKFcLjhwYSRwjZBu">
+<div class="tool-header"><span class="tool-icon">$</span> Bash</div>
+<div class="tool-description">Find the tool and this project&#39;s session files</div><div class="truncatable"><div class="truncatable-content"><pre class="bash-command">command -v claude-code-transcripts || command -v uvx; ls -lt ~/.claude/projects/-Users-juan-Repos-claude-hackathon/*.jsonl 2&gt;/dev/null | head -5; echo &#34;--- sizes:&#34;; du -h ~/.claude/projects/-Users-juan-Repos-claude-hackathon/*.jsonl 2&gt;/dev/null | sort -h | tail -3</pre></div><button class="expand-btn">Show more</button></div>
+</div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-25-37-460Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-25-37-460Z" class="timestamp-link"><time datetime="2026-09-16T20:25:37.460Z" data-timestamp="2026-09-16T20:25:37.460Z">2026-09-16T20:25:37.460Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre># Claude Code Transcripts: Installation &amp; Usage
+
+## Installation
+
+Install via `uv`:
+```
+uv tool install claude-code-transcripts
+```
+
+Or run without installing:
+```
+uvx claude-code-transcripts --help
+```
+
+## Converting a Local JSONL File to HTML
+
+```
+claude-code-transcripts json session.jsonl --open
+```
+
+Or specify an output directory:
+```
+claude-code-transcripts json session.jsonl -o output-directory/
+```
+
+## Selecting a Session (Interactive)
+
+**Local sessions** (stored in `~/.claude/projects`):
+```
+claude-code-transcripts
+```
+Or explicitly:
+```
+claude-code-transcripts local
+```
+
+**Web sessions** (via Claude API):
+```
+claude-code-transcripts web
+```
+
+Control how many sessions display:
+```
+claude-code-transcripts local --limit 20
+```
+
+## Output Locations
+
+- **Default behavior**: Generates HTML in a temporary directory and opens it in your default browser
+- **With `-o` flag**: Writes to your specified directory
+- **With `-a` flag**: Creates auto-named subdirectory based on session ID
+- **Generated files**: `index.html` plus paginated `page-001.html`, `page-002.html`, etc.
+
+## Key Output Options
+
+```
+-o, --output DIRECTORY          # Specify output directory
+-a, --output-auto              # Auto-name subdirectory by session ID
+--open                         # Open in browser
+--gist                         # Upload to GitHub Gist
+--json                         # Include original session file
+```</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message tool-reply" id="msg-2026-09-16T20-25-38-810Z"><div class="message-header"><span class="role-label">Tool reply</span><a href="#msg-2026-09-16T20-25-38-810Z" class="timestamp-link"><time datetime="2026-09-16T20:25:38.810Z" data-timestamp="2026-09-16T20:25:38.810Z">2026-09-16T20:25:38.810Z</time></a></div><div class="message-content"><div class="tool-result"><div class="truncatable"><div class="truncatable-content"><pre>/Users/juan/.local/bin/claude-code-transcripts
+-rw-------@ 1 juan  staff  7028760 Sep 16 15:25 /Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/93bb163b-5576-4f5e-abe1-cdba31712ffb.jsonl
+-rw-------@ 1 juan  staff  6106457 Sep 13 15:37 /Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/b67f1234-71d0-4804-96c3-0644fab5ae47.jsonl
+-rw-------@ 1 juan  staff  1362412 Sep 10 20:14 /Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/c3fa7163-179f-4a20-8c28-9769c43efb32.jsonl
+-rw-------@ 1 juan  staff  5970965 Sep 10 09:01 /Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/d5919cde-548c-4900-8139-63f2c593e9c1.jsonl
+--- sizes:
+5.7M	/Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/d5919cde-548c-4900-8139-63f2c593e9c1.jsonl
+5.8M	/Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/b67f1234-71d0-4804-96c3-0644fab5ae47.jsonl
+7.6M	/Users/juan/.claude/projects/-Users-juan-Repos-claude-hackathon/93bb163b-5576-4f5e-abe1-cdba31712ffb.jsonl</pre></div><button class="expand-btn">Show more</button></div></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-25-54-370Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-25-54-370Z" class="timestamp-link"><time datetime="2026-09-16T20:25:54.370Z" data-timestamp="2026-09-16T20:25:54.370Z">2026-09-16T20:25:54.370Z</time></a></div><div class="message-content">
+<div class="thinking"><div class="thinking-label">Thinking</div><p>I'm noticing this conversation spans multiple session IDs — b67f1234 and 93bb163b both seem to be this same resumed conversation, while c3fa7163 and d5919cde could be other sessions within this same project directory.</p>
+<p>The simplest path is to point them to the interactive session-picker tool, then export the relevant sessions to a transcripts folder rather than committing large HTML files directly into the repo — maybe suggest docs/transcripts or an external location since the exported files could be heavy and I want to double-check nothing sensitive like API keys ended up in the tool outputs.</p></div></div></div>
+<div class="message assistant" id="msg-2026-09-16T20-25-54-382Z"><div class="message-header"><span class="role-label">Assistant</span><a href="#msg-2026-09-16T20-25-54-382Z" class="timestamp-link"><time datetime="2026-09-16T20:25:54.382Z" data-timestamp="2026-09-16T20:25:54.382Z">2026-09-16T20:25:54.382Z</time></a></div><div class="message-content">
+<div class="assistant-text"><p>The tool is installed. This conversation is spread across two session files, because the app resumed it once. Both are in this project's folder. Here is how to export.</p>
+<p><strong>Easiest: pick from a list</strong></p>
+<pre><code class="language-bash">claude-code-transcripts local --limit 10
+</code></pre>
+<p>It shows your recent sessions. Pick the ones for this repo. It builds HTML and opens it in your browser.</p>
+<p><strong>Exact: export the two files for this conversation</strong></p>
+<pre><code class="language-bash">claude-code-transcripts json ~/.claude/projects/-Users-juan-Repos-claude-hackathon/b67f1234-71d0-4804-96c3-0644fab5ae47.jsonl -o ~/Desktop/transcripts/part-1 --json
+</code></pre>
+<pre><code class="language-bash">claude-code-transcripts json ~/.claude/projects/-Users-juan-Repos-claude-hackathon/93bb163b-5576-4f5e-abe1-cdba31712ffb.jsonl -o ~/Desktop/transcripts/part-2 --json
+</code></pre>
+<p>Part 1 is the build, from brainstorm through the first milestones. Part 2 is this session, from the persona work through today. The <code>--json</code> flag also copies the raw file next to the HTML, which is nice for a reviewer.</p>
+<p><strong>Two more files in that folder</strong>
+There are two older sessions from September 10 in the same project folder. If you did work in them, export those too. The interactive list will show their first message so you can tell.</p>
+<p><strong>To share</strong>
+Either zip the Desktop folder and attach it to the email, or use the gist flag to get a link:</p>
+<pre><code class="language-bash">claude-code-transcripts json ~/.claude/projects/-Users-juan-Repos-claude-hackathon/93bb163b-5576-4f5e-abe1-cdba31712ffb.jsonl --gist
+</code></pre>
+<p><strong>One check before sending</strong>
+Open the HTML once and search for "sk-ant". I never printed your key, but it takes ten seconds to be sure.</p></div></div></div>
+        
+
+<div class="pagination">
+<a href="index.html" class="index-link">Index</a>
+<a href="page-011.html">&larr; Prev</a>
+<a href="page-001.html">1</a>
+<a href="page-002.html">2</a>
+<a href="page-003.html">3</a>
+<a href="page-004.html">4</a>
+<a href="page-005.html">5</a>
+<a href="page-006.html">6</a>
+<a href="page-007.html">7</a>
+<a href="page-008.html">8</a>
+<a href="page-009.html">9</a>
+<a href="page-010.html">10</a>
+<a href="page-011.html">11</a>
+<span class="current">12</span>
+<span class="disabled">Next &rarr;</span>
+</div>
+
+    </div>
+    <script>
+document.querySelectorAll('time[data-timestamp]').forEach(function(el) {
+    const timestamp = el.getAttribute('data-timestamp');
+    const date = new Date(timestamp);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+    const timeStr = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
+    if (isToday) { el.textContent = timeStr; }
+    else { el.textContent = date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) + ' ' + timeStr; }
+});
+document.querySelectorAll('pre.json').forEach(function(el) {
+    let text = el.textContent;
+    text = text.replace(/"([^"]+)":/g, '<span style="color: #ce93d8">"$1"</span>:');
+    text = text.replace(/: "([^"]*)"/g, ': <span style="color: #81d4fa">"$1"</span>');
+    text = text.replace(/: (\d+)/g, ': <span style="color: #ffcc80">$1</span>');
+    text = text.replace(/: (true|false|null)/g, ': <span style="color: #f48fb1">$1</span>');
+    el.innerHTML = text;
+});
+document.querySelectorAll('.truncatable').forEach(function(wrapper) {
+    const content = wrapper.querySelector('.truncatable-content');
+    const btn = wrapper.querySelector('.expand-btn');
+    if (content.scrollHeight > 250) {
+        wrapper.classList.add('truncated');
+        btn.addEventListener('click', function() {
+            if (wrapper.classList.contains('truncated')) { wrapper.classList.remove('truncated'); wrapper.classList.add('expanded'); btn.textContent = 'Show less'; }
+            else { wrapper.classList.remove('expanded'); wrapper.classList.add('truncated'); btn.textContent = 'Show more'; }
+        });
+    }
+});
+</script>
+</body>
+</html>
