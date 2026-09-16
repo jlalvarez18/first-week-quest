@@ -102,9 +102,7 @@ and the fact cards slide in one after another. The notes slide in when you
 say you're stuck. Confetti when you get one right. None of that is required, but this is
 a product for a first week, and feel is a lot of what makes someone come back on day two.
 
-I built it in Claude Code. My job was the decisions. The theme, the Duolingo thing, no
-hearts, per-stop not per-person, the fallback, the persona, the stop kinds, and which
-moments deserved motion. Claude wrote most of the data and the components and the
-prompts. I tested everything in the browser and pulled it back when it drifted.
+I built it in Claude Code. My job was the decisions, Claude wrote most of the code, and I
+tested every flow and pulled it back when it drifted.
 
 Thank you so much for this opportunity. Looking forward to meeting ya'll.
