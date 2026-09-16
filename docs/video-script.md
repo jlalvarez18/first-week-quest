@@ -17,10 +17,9 @@ West Coast and I'm not. And honestly, it was not pleasant. Most of that first we
 waiting for people to wake up, reading a wiki by myself, and not knowing who I was even
 allowed to ask. That week is the thing I built for.
 
-
-
-The shape I stole is Duolingo. A path, one thing per screen, XP, a streak, a little
-mascot. The one thing I deliberately didn't take is hearts. Losing lives is fine when
+The shape I stole is Duolingo. A path of ten stops, one thing per screen, XP, a
+streak, a little mascot. Each stop is one real week-one task, like get your VPN working
+or open your first pull request. The one thing I deliberately didn't take is hearts. Losing lives is fine when
 you're learning Spanish. It's a terrible thing to do to someone on their first week.
 
 This falls under Theme 1, exploration and understanding. It also touches Theme 4,
@@ -68,8 +67,8 @@ feedback, hint, card number. And if the API is down or there's no key, a simple 
 grader takes over so nothing breaks. Fewer places, done properly. I'd make that call again.
 
 No database, no auth. The whole company is a JSON file. I did that so you could open a
-link and just play, zero setup. The tradeoff is there's no real multiplayer. The cheers
-are scripted.
+link and just play, zero setup. The tradeoff is there's no real multiplayer. When you finish a stop, teammates pop up
+and cheer you on, and those cheers are scripted, not live.
 
 The sign-in is fake, but it puts your name on every screen, and I think that matters
 more than it sounds. Signing out wipes your progress so nobody inherits someone else's
@@ -91,13 +90,15 @@ checklist, the help text, the rubric, shows a diff, and someone approves it. And
 you've got the stuck data, the agent can tell you which stop to fix next. That's what
 would turn this from a nice demo into a thing that actually runs.
 
-After that, real-time presence, pulling stops out of a real wiki with a review step, and
-an eval set for the grader so I can change the prompt without guessing.
+After that, seeing who else is on the trail right now, pulling stops out of a real wiki
+with a review step, and a test set for the grader so I can change the prompt without
+guessing.
 
 **Time and how I used Claude.** About 8 hours, so the full budget. Roughly half was the
 idea and the content, a quarter was the grader and the stop kinds, and a quarter was the
-experience. I spent real time on that last part on purpose. The stop circle morphs into
-the lesson header. The trail and the fact cards stagger in. The notes slide in when you
+experience. I spent real time on that last part on purpose. When you tap a stop on the
+trail, that circle glides up and becomes the header of the page you land on. The trail
+and the fact cards slide in one after another. The notes slide in when you
 say you're stuck. Confetti when you get one right. None of that is required, but this is
 a product for a first week, and feel is a lot of what makes someone come back on day two.
 
