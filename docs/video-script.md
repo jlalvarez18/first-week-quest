@@ -37,10 +37,14 @@ an issue one is the part I like. You pick the step you're stuck on, and it tells
 exactly where to ask and what to include, and it opens notes from people who got stuck
 on the same thing.
 
-1. Being stuck is a signal, not a score. Every issue and every wrong answer gets
-counted per stop, never per person. So the People team gets a chart that says, hey,
-everyone gets stuck on the VPN step, go fix that doc. That's the Theme 4 bit. It's
-basically a doc-quality eval that fills itself in.
+1. Being stuck is a signal, not a score. There's a team board, a separate page anyone
+can open. It shows who's on which stop this week, so a manager or a buddy can see at a
+glance that Ravi's been sitting on build the app for two days. Under that is a chart of
+where people get stuck. Every issue and every wrong answer gets counted per stop, never
+per person. So the People team gets a bar that says, hey, everyone gets stuck on the VPN
+step, go fix that doc. And it's honest about it, the page literally says a tall bar means
+fix the doc, not the new hire. That's the Theme 4 bit. It's basically a doc-quality eval
+that fills itself in.
 
 1. Where I do use Claude, it's as a coach, not a grader. Only four stops. You get
 three fact cards, then a scenario, and you try to apply them. Get it wrong, and it
